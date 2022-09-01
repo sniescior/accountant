@@ -11,9 +11,44 @@
 </head>
 <body>
     <%- include('partials/_navbar.ejs') %>
-    index.ejs Works
+    
+    <div class="wrapper">
+        <div class="main-banner">
+            <h2 class="main-title">
+                Powerfully Simple
+                <br>
+                <span>Business</span> Banking
+            </h2>
+            <h4 class="secondary-title">
+                Built for small business owners, entrepreneurs
+                <br>
+                and freelancers. No hidden fees, no hassle
+            </h4>
+            <form action="">
+                <input type="email" placeholder="Your business email">
+                <button>Get started</button>
+            </form>
 
-    <i class="bi bi-chevron-compact-down"></i>
+            <div class="apps-wrapper">
+                <div class="app-card">
+                    <i class="bi bi-apple"></i>
+                    <div class="text">
+                        <p>Download on the</p>
+                        <h3>App Store</h3>
+                    </div>
+                </div>
+                <div class="app-card">
+                    <i class="bi bi-google-play"></i>
+                    <div class="text">
+                        <p>Get it on</p>
+                        <h3>Google Play</h3>
+                    </div>
+                </div>
+            </div>
+
+            <img src="/public/images/banner.png" alt="">
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="/public/js/navbar.js"></script>
