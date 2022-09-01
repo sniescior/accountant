@@ -1,6 +1,7 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 body {
   background-color: #EFEEF6;
+  min-height: 100vh;
 }
 body .bt-primary {
   background-color: #383b61;
@@ -66,13 +67,13 @@ body nav .left ul li {
   transition: 0.2s ease-in-out;
   border-radius: 10px;
 }
-body nav .left ul li i, body nav .left ul li a {
+body nav .left ul li .nav-link i, body nav .left ul li .nav-link a {
   transition: 0.2s ease-in-out;
 }
 body nav .left ul li:hover {
   background-color: rgba(255, 255, 255, 0.316);
 }
-body nav .left ul li:hover i, body nav .left ul li:hover a {
+body nav .left ul li:hover i, body nav .left ul li:hover .nav-link {
   transition: 0.2s ease-in-out;
   color: rgba(33, 41, 151, 0.8549019608);
 }
@@ -81,41 +82,41 @@ body nav .left ul li .extended-list {
   top: 10px;
   left: -10px;
   background-color: #fff;
-  padding: 12px;
   min-width: 200px;
   display: flex;
   flex-direction: column;
   opacity: 0;
+  padding: 12px;
   z-index: -1000;
   transition: 0.3s ease-in-out;
-  border-radius: 0 9px 9px 9px;
+  border-radius: 9px;
   box-shadow: 0px 0px 7px 1px rgba(56, 59, 97, 0.1450980392);
+  gap: 8px;
 }
-body nav .left ul li .extended-list .extended-list-item {
-  z-index: -10000;
-  padding: initial;
+body nav .left ul li .extended-list span {
+  box-sizing: border-box;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(56, 59, 97, 0.1450980392);
+  margin: auto;
+}
+body nav .left ul li .extended-list li {
+  width: 100%;
+  padding: 1px 12px;
+  border-radius: 4px;
+  transition: 0.2s ease-in-out;
+}
+body nav .left ul li .extended-list li:hover {
+  color: rgba(33, 41, 151, 0.8549019608);
 }
 body nav .left ul li.extended {
   background-color: rgba(255, 255, 255, 0.64);
 }
-body nav .left ul li.extended i, body nav .left ul li.extended a {
+body nav .left ul li.extended .nav-link i, body nav .left ul li.extended .nav-link a {
   color: rgba(33, 41, 151, 0.8549019608);
 }
 body nav .left ul li.extended .extended-list {
-  position: absolute;
-  left: -10px;
-  background-color: #fff;
-  padding: 12px;
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
-  transition: 0.3s ease-in-out;
-  border-radius: 9px;
-  box-shadow: 0px 0px 7px 1px rgba(56, 59, 97, 0.1450980392);
   opacity: 1;
   z-index: 1;
   top: 50px;
-}
-body nav .left ul li:hover {
-  color: rgba(33, 41, 151, 0.8549019608);
 }/*# sourceMappingURL=main.css.map */
