@@ -16,6 +16,16 @@ body .bt-primary {
   border-radius: 6px;
   transition: 0.2s ease-in-out;
   font-weight: 600;
+  border: none;
+}
+body .bt-primary.outline {
+  background-color: transparent;
+  border: 1px solid #383b61;
+  color: #383b61;
+}
+body .bt-primary.outline:hover {
+  background-color: rgba(255, 255, 255, 0.641);
+  color: #383b61;
 }
 body .bt-primary:hover {
   background-color: rgba(33, 41, 151, 0.8549019608);
@@ -26,6 +36,11 @@ body .bt-secondary {
   text-decoration: none;
   font-weight: 600;
   transition: 0.2s ease-in-out;
+  border: none;
+  background-color: transparent;
+}
+body .bt-secondary.bold {
+  font-weight: 800;
 }
 body .bt-secondary:hover {
   color: rgba(33, 41, 151, 0.8549019608);
@@ -110,8 +125,13 @@ body nav .left ul li .extended-list li {
   border-radius: 4px;
   transition: 0.2s ease-in-out;
 }
-body nav .left ul li .extended-list li:hover {
+body nav .left ul li .extended-list li:hover a {
   color: rgba(33, 41, 151, 0.8549019608);
+}
+body nav .left ul li .extended-list li a {
+  text-decoration: none;
+  color: #383b61;
+  transition: 0.2s ease-in-out;
 }
 body nav .left ul li.extended {
   background-color: rgba(255, 255, 255, 0.64);

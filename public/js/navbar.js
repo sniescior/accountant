@@ -27,19 +27,6 @@ function removeActiveElements() {
     });
 }
 
-// function toggleExtendedList(name) {
-//     const extendedListElement = document.getElementById(name)
-
-//     if(extendedListElement.classList.contains('active')) {
-//         extendedListElement.classList.remove('active')
-//         return
-//     }
-
-//     removeActiveElements()
-    
-//     extendedListElement.classList.add('active')
-// }
-
 function toggleExtendedList(element) {
     if(element.classList.contains('extended')) {
         element.classList.remove('extended')

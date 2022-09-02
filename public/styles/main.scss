@@ -27,6 +27,18 @@ body {
         border-radius: 6px;
         transition: .2s ease-in-out;
         font-weight: 600;
+        border: none;
+
+        &.outline {
+            background-color: transparent;
+            border: 1px solid $primary_color;
+            color: $primary_color;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.641);
+                color: $primary_color;
+            }
+        }
 
         &:hover {
             background-color: $primary_color_hover;
@@ -39,6 +51,12 @@ body {
         text-decoration: none;
         font-weight: 600;
         transition: .2s ease-in-out;
+        border: none;
+        background-color: transparent;
+
+        &.bold {
+            font-weight: 800;
+        }
 
         &:hover {
             color: $primary_color_hover;
@@ -139,7 +157,15 @@ body {
                             transition: .2s ease-in-out;
 
                             &:hover {
-                                color: $primary_color_hover;
+                                a {
+                                    color: $primary_color_hover;
+                                }
+                            }
+
+                            a {
+                                text-decoration: none;
+                                color: $primary_color;
+                                transition: .2s ease-in-out;
                             }
                         }
                     }

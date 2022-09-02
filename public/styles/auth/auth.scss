@@ -1,0 +1,161 @@
+$bg_primary_color: #EFEEF6;
+$bg_secondary_color: #d0b8ccc4;
+
+$primary_color: #383b61;
+$primary_color_shadow: #383b619d;
+$primary_color_hover: #212997da;
+
+$secondary_color: #2340C3;
+$secondary_color_shadow: #383b6125;
+
+body {
+    color: $primary_color;
+    width: 100vw;
+    height: 100vh;
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        margin: auto;
+        flex-direction: initial;
+        width: 100%;
+        height: 100%;
+        justify-content: space-between;
+        box-sizing: content-box;
+
+        .left {
+            height: 100%;
+            display: flex;
+            width: 50%;
+
+            .form-wrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 100%;
+                max-width: 540px;
+                margin: 0 auto;
+
+                h2 {
+                    font-size: 2.3em;
+                    font-weight: 600;
+                }
+
+                h5 {
+                    font-size: 1.2em;
+                    color: $primary_color_shadow;
+                    margin-bottom: 50px;
+                }
+                
+                #signup-form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    margin-bottom: 12px;
+
+                    .remember {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 100%;
+                        padding: 0 4px;
+
+                        .form-ctrl {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 6px;
+
+                            label {
+                                color: $primary_color;
+                                font-weight: 600;
+                                cursor: pointer;
+                            }
+                        }
+
+                        p {
+                            margin: 0;
+                        }
+                    }
+
+                    input[type=checkbox] {
+                        transform: scale(1.2);
+                    }
+
+                    input {
+                        background-color: transparent;
+                        border: none;
+                        border-bottom: 2px solid transparent;
+                        font-size: 1.4em;
+                        color: $primary_color;
+                        transition: .2s ease-in-out;
+                        
+                        background-color: #fff;
+                        border-radius: 6px;
+                        box-shadow: 0px 0px 7px 1px $secondary_color_shadow;
+                        padding: 14px 22px;
+
+                        &:focus {
+                            border-bottom: 2px solid $primary_color;
+                            outline: none;
+                        }
+                    }
+
+                    .conditions {
+                        display: flex;
+                        flex-direction: column;
+                        
+                        p {
+                            font-style: 0.1em;
+                            font-weight: initial;
+                            text-align: left;
+                        }
+                    }
+                }
+
+                p {
+                    text-align: center;
+                    color: $primary_color;
+                    font-weight: 600;
+                }
+            }
+
+            .logo {
+                position: absolute;
+                top: 20px;
+                left: 24px;
+
+                &:hover {
+                    a {
+                        color: $primary_color_hover;
+                    }
+                }
+
+                a {
+                    transition: .2s ease-in-out;
+                    font-size: 2em;
+                    font-weight: 800;
+                    color: $primary_color;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .right {
+            text-align: left;
+            width: 50%;
+            height: 100%;
+            max-height: 90%;
+            background-image: url('/public/images/signup.jpg');
+            margin: 30px;
+            padding: 30px;
+            padding-left: 0;
+            display: flex;
+            justify-content: flex-end;
+            box-shadow: 0px 0px 7px 1px $secondary_color_shadow;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+        }
+    }
+}
