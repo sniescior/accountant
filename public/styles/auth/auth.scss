@@ -116,6 +116,7 @@ body {
             border-radius: 12px;
             background-size: cover;
             background-position: center;
+            transition: .3s ease-in-out;
         }
 
         @media screen and (max-width: 1230px) {
@@ -125,7 +126,17 @@ body {
             }
 
             .right {
-                display: none;
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: 100%;
+                max-height: unset;
+                z-index: -1000;
+                filter: opacity(0.4);
+                padding: 0;
+                margin: 0;
+                border-radius: none;
             }
         }
 
