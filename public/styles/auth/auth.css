@@ -41,30 +41,6 @@ body .wrapper .left .form-wrapper #signup-form {
   gap: 20px;
   margin-bottom: 12px;
 }
-body .wrapper .left .form-wrapper #signup-form .remember {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0 4px;
-}
-body .wrapper .left .form-wrapper #signup-form .remember .form-ctrl {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-}
-body .wrapper .left .form-wrapper #signup-form .remember .form-ctrl label {
-  color: #383b61;
-  font-weight: 600;
-  cursor: pointer;
-}
-body .wrapper .left .form-wrapper #signup-form .remember p {
-  margin: 0;
-}
-body .wrapper .left .form-wrapper #signup-form input[type=checkbox] {
-  transform: scale(1.2);
-}
 body .wrapper .left .form-wrapper #signup-form input {
   background-color: transparent;
   border: none;
@@ -80,15 +56,6 @@ body .wrapper .left .form-wrapper #signup-form input {
 body .wrapper .left .form-wrapper #signup-form input:focus {
   border-bottom: 2px solid #383b61;
   outline: none;
-}
-body .wrapper .left .form-wrapper #signup-form .conditions {
-  display: flex;
-  flex-direction: column;
-}
-body .wrapper .left .form-wrapper #signup-form .conditions p {
-  font-style: 0.1em;
-  font-weight: initial;
-  text-align: left;
 }
 body .wrapper .left .form-wrapper p {
   text-align: center;
@@ -125,4 +92,25 @@ body .wrapper .right {
   border-radius: 12px;
   background-size: cover;
   background-position: center;
+}
+@media screen and (max-width: 1230px) {
+  body .wrapper .left {
+    width: 100%;
+    padding: 10px;
+  }
+  body .wrapper .right {
+    display: none;
+  }
+}
+@media screen and (max-width: 580px) {
+  body .wrapper .left {
+    width: 100%;
+  }
+  body .wrapper .left .logo {
+    display: none;
+  }
+  body .wrapper .left .form-wrapper {
+    max-width: unset;
+    align-items: center;
+  }
 }/*# sourceMappingURL=auth.css.map */

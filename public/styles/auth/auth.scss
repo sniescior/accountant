@@ -53,35 +53,6 @@ body {
                     gap: 20px;
                     margin-bottom: 12px;
 
-                    .remember {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        width: 100%;
-                        padding: 0 4px;
-
-                        .form-ctrl {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            gap: 6px;
-
-                            label {
-                                color: $primary_color;
-                                font-weight: 600;
-                                cursor: pointer;
-                            }
-                        }
-
-                        p {
-                            margin: 0;
-                        }
-                    }
-
-                    input[type=checkbox] {
-                        transform: scale(1.2);
-                    }
-
                     input {
                         background-color: transparent;
                         border: none;
@@ -98,17 +69,6 @@ body {
                         &:focus {
                             border-bottom: 2px solid $primary_color;
                             outline: none;
-                        }
-                    }
-
-                    .conditions {
-                        display: flex;
-                        flex-direction: column;
-                        
-                        p {
-                            font-style: 0.1em;
-                            font-weight: initial;
-                            text-align: left;
                         }
                     }
                 }
@@ -156,6 +116,33 @@ body {
             border-radius: 12px;
             background-size: cover;
             background-position: center;
+        }
+
+        @media screen and (max-width: 1230px) {
+            .left {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .right {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .left {
+                width: 100%;
+
+                .logo {
+                    display: none;
+                }
+                
+                .form-wrapper {
+                    max-width: unset;
+                    align-items: center;
+                }
+            }
         }
     }
 }
