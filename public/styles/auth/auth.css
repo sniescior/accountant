@@ -110,7 +110,7 @@ body .wrapper .right {
     filter: opacity(0.4);
     padding: 0;
     margin: 0;
-    border-radius: none;
+    border-radius: 0;
   }
 }
 @media screen and (max-width: 580px) {
