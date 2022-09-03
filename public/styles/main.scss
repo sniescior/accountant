@@ -64,6 +64,33 @@ body {
         }
     }
 
+    .logo {
+        a {
+            color: $primary_color;
+            font-size: 2em;
+            font-weight: 800;
+            text-decoration: none;
+            transition: .2s ease-in-out;
+
+            &:hover {
+                color: $primary_color_hover;
+            }
+        }
+
+        .logo-image {
+            display: none;
+            
+            img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        
+    }
+
     nav {
         display: flex;
         justify-content: space-between;
@@ -78,20 +105,6 @@ body {
         }
 
         .left {
-            .logo {
-                a {
-                    color: $primary_color;
-                    font-size: 2em;
-                    font-weight: 800;
-                    text-decoration: none;
-                    transition: .2s ease-in-out;
-
-                    &:hover {
-                        color: $primary_color_hover;
-                    }
-                }
-            }
-
             ul {
                 display: flex;
                 margin: 0;
@@ -215,10 +228,14 @@ body {
     }
 
     @media screen and (max-width: 500px) {
-        nav {
-            .left {
-                .logo {
+        .left {
+            .logo {
+                a {
                     display: none;
+                }
+
+                .logo-image {
+                    display: block;
                 }
             }
         }

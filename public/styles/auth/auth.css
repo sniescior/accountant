@@ -117,9 +117,6 @@ body .wrapper .right {
   body .wrapper .left {
     width: 100%;
   }
-  body .wrapper .left .logo {
-    display: none;
-  }
   body .wrapper .left .form-wrapper {
     max-width: unset;
     align-items: center;
