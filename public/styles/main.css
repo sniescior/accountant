@@ -103,6 +103,7 @@ body nav .left ul li:hover {
 body nav .left ul li:hover i, body nav .left ul li:hover .nav-link {
   transition: 0.2s ease-in-out;
   color: rgba(33, 41, 151, 0.8549019608);
+  text-decoration: none;
 }
 body nav .left ul li .extended-list {
   position: absolute;
@@ -268,11 +269,6 @@ body .wrapper .main-banner img {
      object-position: center;
   z-index: -100000;
 }
-@media screen and (max-width: 1255px) {
-  body .wrapper .main-banner img {
-    max-width: 500px;
-  }
-}
 @media screen and (max-width: 1085px) {
   body .wrapper .main-banner {
     flex-direction: column;
@@ -311,5 +307,13 @@ body .wrapper .main-banner img {
   }
   body .wrapper .main-banner .apps-wrapper button {
     display: block;
+  }
+}
+@media screen and (max-width: 1255px) {
+  body .wrapper .main-banner {
+    margin-top: 30px;
+  }
+  body .wrapper .main-banner img {
+    max-width: 500px;
   }
 }/*# sourceMappingURL=main.css.map */

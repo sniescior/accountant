@@ -137,6 +137,7 @@ body {
                         i, .nav-link {
                             transition: .2s ease-in-out;
                             color: $primary_color_hover;
+                            text-decoration: none;
                         }
                     }
 
@@ -344,12 +345,7 @@ body {
                 height: 100%;
                 object-fit: contain;
                 object-position: center;
-                z-index: -100000;
-
-                @media screen and (max-width: 1255px) {
-                    max-width: 500px;
-                }
-
+                z-index: -100000;    
             }
 
             @media screen and (max-width: 1085px) {
@@ -399,6 +395,16 @@ body {
                     button {
                         display: block;
                     }
+                }
+            }
+        }
+
+        @media screen and (max-width: 1255px) {
+            .main-banner {
+                margin-top: 30px;
+
+                img {
+                    max-width: 500px;
                 }
             }
         }
