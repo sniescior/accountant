@@ -1,6 +1,5 @@
 <nav id="navbar">
     <div class="left">
-
         <div class="logo">
             <a href="/">Accountant</a>
             <a href="/" class="logo-image">
@@ -8,57 +7,66 @@
             </a>
         </div>
 
-        <ul>
-            <li id="business-toggle" onclick="toggleExtendedList(this)">
-                <div class="nav-link">
-                    <a href="#" class="bt-secondary">
-                        Business banking
-                    </a>
-                    <i class="bi bi-chevron-down"></i>
-                </div>
+        <ul id="main-list">
+            <li class="main-list-item" id="business-toggle" onclick="toggleExtendedList(this)">
+                <a href="#" class="nav-link bt-secondary">Business banking</a>
+                <i class="nav-link bi bi-chevron-down"></i>
                 <ul class="extended-list" id="business">
-                    <li class="extended-list-item">Benefits</li>
-                    <span></span>
-                    <li class="extended-list-item">Plans</li>
-                    <span></span>
-                    <li class="extended-list-item">Features</li>
-                    <span></span>
-                    <li class="extended-list-item">Accountant for your type of business</li>
-                    <span></span>
-                    <li class="extended-list-item">Smart and easy to implement</li>
-                    <span></span>
-                    <li class="extended-list-item">Guides</li>
+                    <li class="extended-list-item"><a href="#">Benefits</a></li>
+                    <span class="list-item-divider"></span>
+                    <li class="extended-list-item"><a href="#">Plans</a></li>
+                    <span class="list-item-divider"></span>
+                    <li class="extended-list-item"><a href="#">Features</a></li>
+                    <span class="list-item-divider"></span>
+                    <li class="extended-list-item"><a href="#">Accountant for your type of business</a></li>
+                    <span class="list-item-divider"></span>
+                    <li class="extended-list-item"><a href="#">Smart and easy to implement</a></li>
+                    <span class="list-item-divider"></span>
+                    <li class="extended-list-item"><a href="#">Guides</a></li>
                 </ul>
             </li>
-            <li id="personal-toggle" onclick="toggleExtendedList(this)">
+            <li class="main-list-item" id="personal-toggle" onclick="toggleExtendedList(this)">
                 <a href="#" class="nav-link bt-secondary">Personal use</a>
-                <i class="bi bi-chevron-down"></i>
+                <i class="nav-link bi bi-chevron-down"></i>
                 <ul class="extended-list" id="personal">
-                    <li class="extended-list-item">Guides</li>
-                    <span></span>
-                    <li class="extended-list-item"><a href="/auth/signup">
-                        Start for free
-                    </a></li>
+                    <li class="extended-list-item">
+                        <a href="#">Guides</a>
+                    </li>
+                    <span class="list-item-divider"></span>
+                    <li class="extended-list-item">
+                        <a href="/auth/signup">Start for free</a>
+                    </li>
                 </ul>
             </li>
-            <li id="about-toggle" onclick="toggleExtendedList(this)">
-                <div class="nav-link">
-                    <a href="#" class="bt-secondary">About</a>
-                    <i class="bi bi-chevron-down"></i>
-                </div>
+            <li class="main-list-item" id="about-toggle" onclick="toggleExtendedList(this)">    
+                <a href="#" class="nav-link bt-secondary">About</a>
+                <i class="nav-link bi bi-chevron-down"></i>
                 <ul class="extended-list" id="about">
-                    <li class="extended-list-item">Contact</li>
-                    <span></span>
-                    <li class="extended-list-item">License</li>
-                    <span></span>
-                    <li class="extended-list-item">Privacy</li>
+                    <li class="extended-list-item">
+                        <a href="#">Contact</a>
+                    </li>
+                    <span class="list-item-divider"></span>
+                    <li class="extended-list-item">
+                        <a href="#">License</a>
+                    </li>
+                    <span class="list-item-divider"></span>
+                    <li class="extended-list-item">
+                        <a href="#">Privacy</a>
+                    </li>
                 </ul>
             </li>
-            <li><a href="#" class="nav-link bt-secondary">Help</a></li>
+            <li class="main-list-item">
+                <a href="#" class="nav-link bt-secondary">Help</a>
+            </li>
         </ul>
     </div>
     <div class="right">
         <a href="/auth/signin" class="bt-secondary bold">Log in</a>
         <a href="/auth/signup" class="bt-primary">Get started</a>
+        <button id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 </nav>

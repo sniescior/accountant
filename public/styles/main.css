@@ -75,14 +75,14 @@ body nav .left {
   align-items: center;
   gap: 22px;
 }
-body nav .left ul {
+body nav .left #main-list {
   display: flex;
   margin: 0;
   gap: 12px;
   list-style-type: none;
   position: relative;
 }
-body nav .left ul li {
+body nav .left #main-list .main-list-item {
   display: flex;
   gap: 6px;
   position: relative;
@@ -91,21 +91,18 @@ body nav .left ul li {
   transition: 0.2s ease-in-out;
   border-radius: 10px;
 }
-body nav .left ul li .nav-link a {
+body nav .left #main-list .main-list-item .nav-link {
   margin-right: 3px;
-}
-body nav .left ul li .nav-link i, body nav .left ul li .nav-link a {
   transition: 0.2s ease-in-out;
 }
-body nav .left ul li:hover {
+body nav .left #main-list .main-list-item:hover {
   background-color: rgba(255, 255, 255, 0.316);
 }
-body nav .left ul li:hover i, body nav .left ul li:hover .nav-link {
-  transition: 0.2s ease-in-out;
+body nav .left #main-list .main-list-item:hover .nav-link {
   color: rgba(33, 41, 151, 0.8549019608);
   text-decoration: none;
 }
-body nav .left ul li .extended-list {
+body nav .left #main-list .main-list-item .extended-list {
   position: absolute;
   top: 10px;
   left: -10px;
@@ -120,38 +117,58 @@ body nav .left ul li .extended-list {
   box-shadow: 0px 0px 7px 1px rgba(56, 59, 97, 0.1450980392);
   gap: 8px;
   opacity: 0;
+  list-style-type: none;
 }
-body nav .left ul li .extended-list span {
+body nav .left #main-list .main-list-item .extended-list .list-item-divider {
   box-sizing: border-box;
   width: 100%;
   height: 1px;
   background-color: rgba(56, 59, 97, 0.1450980392);
   margin: auto;
 }
-body nav .left ul li .extended-list li {
+body nav .left #main-list .main-list-item .extended-list .extended-list-item {
   width: 100%;
   padding: 1px 12px;
   border-radius: 4px;
   transition: 0.2s ease-in-out;
 }
-body nav .left ul li .extended-list li:hover a {
+body nav .left #main-list .main-list-item .extended-list .extended-list-item:hover a {
   color: rgba(33, 41, 151, 0.8549019608);
 }
-body nav .left ul li .extended-list li a {
+body nav .left #main-list .main-list-item .extended-list .extended-list-item a {
   text-decoration: none;
   color: #383b61;
   transition: 0.2s ease-in-out;
 }
-body nav .left ul li.extended {
+body nav .left #main-list .main-list-item.extended {
   background-color: rgba(255, 255, 255, 0.64);
 }
-body nav .left ul li.extended .nav-link i, body nav .left ul li.extended .nav-link a {
+body nav .left #main-list .main-list-item.extended .nav-link {
   color: rgba(33, 41, 151, 0.8549019608);
 }
-body nav .left ul li.extended .extended-list {
+body nav .left #main-list .main-list-item.extended .extended-list {
   opacity: 1;
   z-index: 20;
   top: 50px;
+}
+body nav .right {
+  gap: 20px;
+}
+body nav .right #menu-toggle {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  flex-direction: column;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+body nav .right #menu-toggle span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background-color: #383b61;
 }
 @media screen and (max-width: 1000px) {
   body nav .left {
@@ -162,8 +179,47 @@ body nav .left ul li.extended .extended-list {
   }
 }
 @media screen and (max-width: 945px) {
-  body nav .left ul {
+  body nav .left {
+    left: -100vw;
+    top: 0;
+  }
+  body nav .left .logo a {
     display: none;
+  }
+  body nav .left .logo .logo-image {
+    display: unset;
+  }
+  body nav .left #main-list {
+    position: absolute;
+    left: -100vw;
+    top: 0;
+    z-index: -1000000;
+    opacity: 0;
+    width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+    padding: 0;
+    gap: 0;
+    background-color: #383b61;
+    gap: 0;
+    flex-direction: column;
+  }
+  body nav .left #main-list .main-list-item {
+    display: flex;
+    flex-direction: column;
+  }
+  body nav .left #main-list .main-list-item .extended-list {
+    padding: 0;
+    opacity: 1;
+    position: relative;
+    display: unset;
+  }
+  body nav .right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  body nav .right #menu-toggle {
+    display: flex;
   }
 }
 @media screen and (max-width: 500px) {
