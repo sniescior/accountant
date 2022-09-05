@@ -404,7 +404,7 @@ body #sidebar-menu {
   transition: 0.3s ease-in-out;
 }
 #side-menu.hidden {
-  right: -300px;
+  right: -320px;
 }
 #side-menu .logo {
   display: flex;
