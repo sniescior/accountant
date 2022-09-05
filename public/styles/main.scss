@@ -119,7 +119,7 @@ body {
             gap: 22px;
         }
 
-        @media screen and (max-width: 455px) {
+        @media screen and (max-width: 510px) {
             .right {
                 a {
                     display: none;
@@ -504,6 +504,18 @@ body {
     z-index: 10000;
     transition: .3s ease-in-out;
 
+    .auth-buttons-wrapper {
+        display: none;
+
+        @media screen and (max-width: 520px) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+    }
+
     &.hidden {
         right: -320px;
     }
@@ -524,7 +536,7 @@ body {
         max-width: unset;
 
         &.hidden {
-            right: -100vw;
+            right: calc(-100vw - 30px);
         }
 
         .logo {

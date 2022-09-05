@@ -89,7 +89,7 @@ body nav .left {
   align-items: center;
   gap: 22px;
 }
-@media screen and (max-width: 455px) {
+@media screen and (max-width: 510px) {
   body nav .right a {
     display: none;
   }
@@ -403,6 +403,18 @@ body #sidebar-menu {
   z-index: 10000;
   transition: 0.3s ease-in-out;
 }
+#side-menu .auth-buttons-wrapper {
+  display: none;
+}
+@media screen and (max-width: 520px) {
+  #side-menu .auth-buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+}
 #side-menu.hidden {
   right: -320px;
 }
@@ -421,7 +433,7 @@ body #sidebar-menu {
     max-width: unset;
   }
   #side-menu.hidden {
-    right: -100vw;
+    right: calc(-100vw - 30px);
   }
   #side-menu .logo {
     display: flex;
