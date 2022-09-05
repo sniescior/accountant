@@ -11,34 +11,25 @@
     <link rel="stylesheet" href="/public/styles/auth/auth.css">
 </head>
 <body>
+    <%- include('../partials/_navbar.ejs') %> 
     <div class="wrapper">
-        <div class="left">
-            <div class="logo">
-                <a href="/">Accountant</a>
-                <a href="/" class="logo-image">
-                    <img src="/public/images/logo.png" alt="Accountant">
-                </a>
-            </div>
-
-            <div class="form-wrapper">
-                <h2>Create an account</h2>
-                <h5>Let's get you started in just a few steps.</h5>
-                <form id="signup-form" action="">
-                    <input type="text" placeholder="Name" required>
-                    <input type="email" placeholder="Email" required>
-                    <input type="password" placeholder="Password" required>
-                    
-                    <button class="bt-primary" type="submit">Continue</button>
-                </form>
-                <p>
-                    Joined us before? <a href="/auth/signin">Sign in</a>
-                </p>
-            </div>
+        <div class="form-wrapper">
+            <h2>Create an account</h2>
+            <h5>Let's get you started in just a few steps.</h5>
+            <form id="signup-form" action="">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                
+                <button class="bt-primary" type="submit">Continue</button>
+            </form>
+            <p>
+                Joined us before? <a href="/auth/signin">Sign in</a>
+            </p>
         </div>
-        <div class="right"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <script src="/public/js/navbar.js"></script>
+    <script src="/public/js/main.js"></script>
 </body>
 </html>
