@@ -63,10 +63,10 @@
     <div class="right">
         <a href="/auth/signin" class="bt-secondary bold">Log in</a>
         <a href="/auth/signup" class="bt-primary">Get started</a>
-        <button id="menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button id="side-menu-open-button" class="menu-toggle" onclick="toggleSideMenu()">
+            <i class="bi bi-list"></i>
         </button>
     </div>
 </nav>
+
+<%- include('_menu.ejs') %> 

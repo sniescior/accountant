@@ -1,0 +1,66 @@
+<menu id="side-menu" class="hidden">
+    <div class="logo">
+        <a href="/" class="logo-image">
+            <img src="/public/images/logo.png" alt="Accountant">
+        </a>
+        <button id="side-menu-close-button" class="menu-toggle close" onclick="toggleSideMenu()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+    <li class="menu-list-item" id="menu-business-toggle" onclick="toggleExtendedList(this)">
+        <div class="menu-link">
+            <a href="#" class="bt-secondary">Business banking</a>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+        <ul class="extended-list" id="business">
+            <li class="extended-list-item"><a href="#">Benefits</a></li>
+            <li class="extended-list-item"><a href="#">Plans</a></li>
+            <li class="extended-list-item"><a href="#">Features</a></li>
+            <li class="extended-list-item"><a href="#">Accountant for your type of business</a></li>
+            <li class="extended-list-item"><a href="#">Smart and easy to implement</a></li>
+            <li class="extended-list-item"><a href="#">Guides</a></li>
+        </ul>
+    </li>
+    <span class="menu-item-divider"></span>
+    <li class="menu-list-item" id="menu-personal-toggle" onclick="toggleExtendedList(this)">
+        <div class="menu-link">
+            <a href="#" class="bt-secondary">Personal use</a>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+        <ul class="extended-list" id="personal">
+            <li class="extended-list-item">
+                <a href="#">Guides</a>
+            </li>
+            <span class="list-item-divider"></span>
+            <li class="extended-list-item">
+                <a href="/auth/signup">Start for free</a>
+            </li>
+        </ul>
+    </li>
+    <span class="menu-item-divider"></span>
+    <li class="menu-list-item" id="menu-about-toggle" onclick="toggleExtendedList(this)">    
+        <div class="menu-link">
+            <a href="#" class="bt-secondary">About</a>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+        <ul class="extended-list" id="about">
+            <li class="extended-list-item">
+                <a href="#">Contact</a>
+            </li>
+            <span class="list-item-divider"></span>
+            <li class="extended-list-item">
+                <a href="#">License</a>
+            </li>
+            <span class="list-item-divider"></span>
+            <li class="extended-list-item">
+                <a href="#">Privacy</a>
+            </li>
+        </ul>
+    </li>
+    <span class="menu-item-divider"></span>
+    <li class="menu-list-item">
+        <div class="menu-link">
+            <a href="#" class="bt-secondary">Help</a>
+        </div>
+    </li>
+</menu>

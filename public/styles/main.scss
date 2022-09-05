@@ -12,8 +12,27 @@ $secondary_color_shadow: #383b6125;
 
 body {
     background-color: $bg_primary_color;
+    width: 100vw;
     min-height: 100vh;
     position: relative;
+    overflow-x: hidden;
+
+    .wrapper {
+        transition: .3s ease-in-out;
+    }
+
+    // .shade applies when #side-menu is opened
+    &.shade {
+        overflow: hidden;
+
+        .wrapper {
+            opacity: 0.4;
+        }
+
+        #side-menu {
+            overflow-y: scroll;
+        }
+    }
 
     .bt-primary {
         background-color: $primary_color;
@@ -98,6 +117,14 @@ body {
             justify-content: center;
             align-items: center;
             gap: 22px;
+        }
+
+        @media screen and (max-width: 455px) {
+            .right {
+                a {
+                    display: none;
+                }
+            }
         }
 
         .left {
@@ -195,45 +222,50 @@ body {
 
         .right {
             gap: 20px;
-
-            #menu-toggle {
-                display: none;
-                justify-content: center;
-                align-items: center;
-                gap: 6px;
-                flex-direction: column;
-                border: none;
-                background-color: transparent;
-                outline: none;
-
-                span {
-                    display: block;
-                    width: 30px;
-                    height: 3px;
-                    background-color: $primary_color;
-                }
-            }
         }
     }
 
-    @media screen and (max-width: 1000px) {
+    .menu-toggle {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        flex-direction: column;
+        border: none;
+        background-color: transparent;
+        outline: none;
+        font-size: 2.5em;
+        margin: 0;
+        padding: 0;
+
+        .close {
+            font-size: 2em;
+        }
+
+        span {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: $primary_color;
+            transition: .3s ease-in-out;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
         nav {
             .left {
                 gap: 0;
 
-                ul {
+                .main-list {
                     gap: 0;
                 }
             }
         }
     }
 
-    @media screen and (max-width: 945px) {
+    @media screen and (max-width: 1005px) {
         nav {
             .left {
-                left: -100vw;
-                top: 0;
-
                 .logo {
                     a {
                         display: none;
@@ -243,44 +275,20 @@ body {
                         display: unset;
                     }
                 }
-                
+
                 #main-list {
-                    position: absolute;
-                    left: -100vw;
-                    top: 0;
-                    z-index: -1000000;
-                    opacity: 0;
-                    width: 100vw;
-                    min-height: 100vh;
-                    height: 100%;
-                    padding: 0;
-                    gap: 0;
-                    background-color: $primary_color;
-                    gap: 0;
-                    flex-direction: column;
-
-                    .main-list-item {
-                        display: flex;
-                        flex-direction: column;
-
-                        .extended-list {
-                            padding: 0;
-                            opacity: 1;
-                            position: relative;
-                            display: unset;
-                        }
-                    }
+                    display: none;
                 }
             }
             
             .right {
                 width: 100%;
                 justify-content: flex-end;
-
-                #menu-toggle {
-                    display: flex;
-                }
             }
+        }
+
+        .menu-toggle {
+            display: flex;
         }
     }
 
@@ -464,5 +472,133 @@ body {
                 }
             }
         }
+    }
+
+    #sidebar-menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: #111;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow-x: hidden;
+    }
+}
+
+// MARK: side-menu
+#side-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    max-height: 100vh;
+    height: 100%;
+    width: fit-content;
+    max-width: 300px;
+    margin: 0;
+    padding: 20px 24px;
+    background-color: $bg_primary_color;
+    box-shadow: 0 0 10px 10px $secondary_color_shadow;
+    color: $primary_color;
+    list-style-type: none;
+    z-index: 10000;
+    transition: .3s ease-in-out;
+
+    &.hidden {
+        right: -320px;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px 0;
+
+        a {
+            display: none;
+            color: $primary_color;
+        }
+    }
+
+    @media screen and (max-width: 520px) {
+        width: 100vw;
+        max-width: unset;
+
+        &.hidden {
+            right: -100vw;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: space-between;
+
+            .logo-image {
+                display: initial;
+            }
+        }
+    }
+
+    .menu-list-item {
+        margin: 12px 0;
+
+        .menu-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            cursor: pointer;
+
+            &:hover {
+                a, i {
+                    color: $primary_color_hover;
+                }
+            }
+
+            a, i {
+                color: $primary_color;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .extended-list {
+            visibility: hidden;
+            height: 0;
+            margin: 0;
+        }
+
+        &.extended {
+            .menu-link {
+                a {
+                    color: $primary_color_hover;
+                }
+            }
+
+            .extended-list {
+                visibility: visible;
+                height: unset;
+                list-style-type: none;
+                padding: 10px;
+
+                .extended-list-item {
+                    a {
+                        color: $primary_color_shadow;
+                        text-decoration: none;
+                    }
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    .menu-item-divider {
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: $secondary_color_shadow;
     }
 }
