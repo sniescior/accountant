@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 const handleErrors = async (username, email, password, confirmPassword) => {
     var errorMessages = {'username': false, 'email': false, 'password': false, 'confirmPassword': false}
@@ -21,6 +22,14 @@ const handleErrors = async (username, email, password, confirmPassword) => {
     return errorMessages
 }
 
+const maxAge = 3 * 24 * 60 * 60 // 3 days in seconds
+
+const createToken = (id) => {
+    return jwt.sign({id}, 'super confidential secret', {
+        expiresIn: maxAge
+    })
+}
+
 module.exports.signup_get = (req, res) => {
     var errorMessages = {'username': false, 'email': false, 'password': false, 'confirmPassword': false}
     res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: '', username: '' })
@@ -36,6 +45,10 @@ module.exports.signup_post = async (req, res) => {
     if(password == confirmPassword) {
         try {
             const user = await User.create({ username, email, password })
+
+            const token = createToken(user._id)
+            res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
+
             res.status(201) // success status
             res.send('signed up')
         } catch (error) {
@@ -52,13 +65,14 @@ module.exports.signup_post = async (req, res) => {
 }
 
 module.exports.signin_post = async (req, res) => {
-    const { username, email, password } = req.body
+    const { username, password } = req.body
     
     try {
-
+        console.log('Sign-in attempt')
+        console.log(req.body);
+        res.send('Not yet implemented. But nice try.')
     } catch (error) {
-
+        console.log(error)
+        res.send('Internal error')
     }
-
-    res.send('user login')
 }

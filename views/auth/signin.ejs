@@ -16,16 +16,14 @@
         <div class="form-wrapper">
             <h2>Login</h2>
             <h5>Welcome back! Please enter your details.</h5>
-            <form id="signin-form" action="" method="POST">
+            <form id="signin-form" action="/auth/signin" method="POST">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 
-                <input type="email" placeholder="Email or username" required>
-                <input type="password" placeholder="Password" required>
+                <input type="email" placeholder="Email or username" name="username" required>
+                <input type="password" placeholder="Password" name="password" required>
                 <button class="bt-primary" type="submit">Login</button>
             </form>
-            <p>
-                New to Accountant? <a href="/auth/signup">Register</a>
-            </p>
+            <p>New to Accountant? <a href="/auth/signup">Register</a></p>
         </div>
     </div>
 

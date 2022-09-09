@@ -23,10 +23,12 @@
                 <% if (errors.username) { %>
                     <p class="text-danger m-0"> Username <b>@<%= username %></b> is already in use.</p>
                 <% } %>
+                
                 <input type="email" placeholder="Email" name="email" value="<%= email %>" required class="<% if (errors.email) { %>error<% } %>">
                 <% if (errors.email) { %>
                     <p class="text-danger m-0">Email <b><%= email %></b> has already been registered.</p>
                 <% } %>
+
                 <input type="password" placeholder="Password" name="password" required class="<% if (errors.password || errors.confirmPassword) { %>error<% } %>">
                 <% if (errors.password) { %>
                     <p class="text-danger m-0">Password should be at least 8 characters long.</p>

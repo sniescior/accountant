@@ -11,7 +11,7 @@ router.get('/signup', csrfProtection, authController.signup_get)
 
 router.get('/signin', csrfProtection, authController.signin_get)
 
-router.post('/signin', csrfProtection, authController.signin_post)
+router.post('/signin', parseForm, csrfProtection, authController.signin_post)
 
 router.post('/signup', parseForm, csrfProtection, authController.signup_post)
 

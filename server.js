@@ -13,7 +13,6 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(cookieParser())
 
-
 // database connection
 mongoose
     .connect('mongodb://localhost:27017/accountant', { useNewUrlParser: true, useUnifiedTopology: true })
