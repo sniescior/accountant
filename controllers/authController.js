@@ -1,44 +1,53 @@
 const User = require('../models/User')
+const mongoose = require('mongoose')
 
-const handleErrors = (error) => {
-    console.log(error.message, error.code)
-    let error_messages = { 'username': '', 'email': '', 'password': ''}
-
-    // duplicate found error
-    if(error.code == 11000) {
-        error_messages['email'] = 'Email or username already registered'
-        return error_messages
-    }
+const handleErrors = async (username, email, password, confirmPassword) => {
+    var errorMessages = {'username': false, 'email': false, 'password': false, 'confirmPassword': false}
     
-    // validation errors
-    if(error.message.includes('user validation failed')) {
-        Object.values(error.errors).forEach(({properties}) => {
-            // console.log(properties)
-            // console.log(element.message + ' ' + element.path)
-            error_messages[properties.path] = properties.message
-        });
+    const sameUsernameUser = await User.findOne({'username': username})
+    if(sameUsernameUser) {
+        errorMessages['username'] = true
+    } 
+    
+    const sameEmailUser = await User.findOne({'email': email})
+    if (sameEmailUser) {
+        errorMessages['email'] = true
     }
 
-    return error_messages
+    if(password.length < 8) {
+        errorMessages['password'] = true
+    }
+
+    return errorMessages
 }
 
 module.exports.signup_get = (req, res) => {
-    res.render('auth/signup')
+    var errorMessages = {'username': false, 'email': false, 'password': false, 'confirmPassword': false}
+    res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: '', username: '' })
 }
 
 module.exports.signin_get = (req, res) => {
-    res.render('auth/signin')
+    res.render('auth/signin', { csrfToken: req.csrfToken() })
 }
 
 module.exports.signup_post = async (req, res) => {
-    const { username, email, password } = req.body
+    const { username, email, password, confirmPassword } = req.body
 
-    try {
-        const user = await User.create({ username, email, password })
-        res.status(201).json(user) // success status
-    } catch (error) {
-        const errors = handleErrors(error)
-        res.status(400).json({ errors })
+    if(password == confirmPassword) {
+        try {
+            const user = await User.create({ username, email, password })
+            res.status(201) // success status
+            res.send('signed up')
+        } catch (error) {
+            res.status(400) // error status
+            var errorMessages = await handleErrors(username, email, password, confirmPassword)
+            
+            res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: email, username: username })
+        }
+    } else {
+        var errors = {'confirmPassword': 'Password doesn\'t match'}
+        res.status(400)
+        res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errors, email: email, username: username })
     }
 }
 

@@ -1,13 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const authController = require('../controllers/authController')
+const csurf = require('csurf')
+const bodyParser = require('body-parser')
 
-router.get('/signup', authController.signup_get)
+const csrfProtection = csurf({ cookie: true })
+const parseForm = bodyParser.urlencoded({ extended: false })
 
-router.get('/signin', authController.signin_get)
+router.get('/signup', csrfProtection, authController.signup_get)
 
-router.post('/signin', authController.signin_post)
+router.get('/signin', csrfProtection, authController.signin_get)
 
-router.post('/signup', authController.signup_post)
+router.post('/signin', csrfProtection, authController.signin_post)
+
+router.post('/signup', parseForm, csrfProtection, authController.signup_post)
 
 module.exports = router

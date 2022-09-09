@@ -16,7 +16,9 @@
         <div class="form-wrapper">
             <h2>Login</h2>
             <h5>Welcome back! Please enter your details.</h5>
-            <form id="signup-form" action="">
+            <form id="signin-form" action="" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                
                 <input type="email" placeholder="Email or username" required>
                 <input type="password" placeholder="Password" required>
                 <button class="bt-primary" type="submit">Login</button>
