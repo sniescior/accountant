@@ -6,6 +6,13 @@ body {
   position: relative;
   overflow-x: hidden;
 }
+body .list-item-divider {
+  box-sizing: border-box;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(56, 59, 97, 0.1450980392);
+  margin: auto;
+}
 body .wrapper {
   transition: 0.3s ease-in-out;
 }
@@ -89,6 +96,64 @@ body nav .left {
   align-items: center;
   gap: 22px;
 }
+body nav .right .user-info {
+  cursor: pointer;
+  position: relative;
+}
+body nav .right .user-info:hover .user-info-icon {
+  background-color: rgba(255, 255, 255, 0.316);
+}
+body nav .right .user-info .user-info-icon {
+  transition: 0.2s ease-in-out;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 1.7em;
+  color: #383b61;
+}
+body nav .right .user-info.toggled .user-menu {
+  top: 50px;
+  z-index: 100;
+  opacity: 1;
+}
+body nav .right .user-info.toggled .user-info-icon {
+  background-color: rgba(255, 255, 255, 0.64);
+}
+body nav .right .user-info .user-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: #fff;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  transition: 0.3s ease-in-out;
+  border-radius: 9px;
+  box-shadow: 0px 0px 7px 1px rgba(56, 59, 97, 0.1450980392);
+  gap: 8px;
+  list-style-type: none;
+  z-index: -1;
+  opacity: 0;
+}
+body nav .right .user-info .user-menu li {
+  padding: 1px 12px;
+  display: flex;
+  gap: 8px;
+}
+body nav .right .user-info .user-menu li:last-of-type:hover i, body nav .right .user-info .user-menu li:last-of-type:hover a {
+  color: #e40606;
+}
+body nav .right .user-info .user-menu li:last-of-type i, body nav .right .user-info .user-menu li:last-of-type a {
+  color: #be0000;
+}
+body nav .right .user-info .user-menu li:hover a {
+  color: rgba(33, 41, 151, 0.8549019608);
+}
+body nav .right .user-info .user-menu li i, body nav .right .user-info .user-menu li a {
+  color: #383b61;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+}
 @media screen and (max-width: 510px) {
   body nav .right a {
     display: none;
@@ -137,13 +202,6 @@ body nav .left #main-list .main-list-item .extended-list {
   gap: 8px;
   opacity: 0;
   list-style-type: none;
-}
-body nav .left #main-list .main-list-item .extended-list .list-item-divider {
-  box-sizing: border-box;
-  width: 100%;
-  height: 1px;
-  background-color: rgba(56, 59, 97, 0.1450980392);
-  margin: auto;
 }
 body nav .left #main-list .main-list-item .extended-list .extended-list-item {
   width: 100%;
@@ -303,6 +361,21 @@ body .wrapper .main-banner .apps-wrapper .app-card {
   padding: 10px 17px;
   color: #383b61;
   box-shadow: 0 0 9px 1px rgba(56, 59, 97, 0.1450980392);
+  transition: 0.2s ease-in-out;
+}
+body .wrapper .main-banner .apps-wrapper .app-card:hover {
+  background-color: rgba(255, 255, 255, 0.39);
+}
+body .wrapper .main-banner .apps-wrapper .app-card:hover.dashboard-shortcut {
+  text-decoration: underline;
+}
+body .wrapper .main-banner .apps-wrapper .app-card.dashboard-shortcut {
+  font-weight: 700;
+  display: none;
+}
+body .wrapper .main-banner .apps-wrapper .app-card.dashboard-shortcut a {
+  color: #383b61;
+  text-decoration: none;
 }
 body .wrapper .main-banner .apps-wrapper .app-card i {
   font-size: 2em;
@@ -360,6 +433,9 @@ body .wrapper .main-banner img {
 @media screen and (max-width: 500px) {
   body .wrapper .main-banner #get-started-form {
     display: none;
+  }
+  body .wrapper .main-banner .apps-wrapper .app-card.dashboard-shortcut {
+    display: initial;
   }
   body .wrapper .main-banner .apps-wrapper button {
     display: block;

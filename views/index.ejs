@@ -10,7 +10,7 @@
 </head>
 <body class="">
     <%- include('partials/_navbar.ejs') %>
-    
+
     <div class="wrapper">
         <div class="main-banner">
             <div class="breakpoint">
@@ -45,7 +45,13 @@
                             <h3>Google Play</h3>
                         </div>
                     </div>
-                    <button class="bt-secondary">Get started now</button>
+                    <% if (user) { %>
+                        <div class="app-card dashboard-shortcut">
+                            <a class="" href="/app/dashboard">Go to dashboard</a>
+                        </div>
+                    <% } else { %>
+                        <button class="bt-secondary">Get started now</button>
+                    <% } %>
                 </div>
             </div>
                 

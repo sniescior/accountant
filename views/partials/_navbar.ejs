@@ -61,9 +61,41 @@
         </ul>
     </div>
     <div class="right">
-        <a href="/auth/signin" class="bt-secondary bold">Log in</a>
-        <a href="/auth/signup" class="bt-primary">Get started</a>
-        <a href="/auth/signout" class="bt-secondary text-danger bold"><i style="font-size: 1.4em;" class="bi bi-box-arrow-right"></i></a>
+        <% if (!user) { %>
+            <a href="/auth/signin" class="bt-secondary bold">Log in</a>
+            <a href="/auth/signup" class="bt-primary">Get started</a>
+        <% } else { %>
+            <div class="user-info" id="user-info" onclick="toggleUserMenu()">
+                <i class="bi bi-person-circle user-info-icon"></i>
+
+                <ul class="user-menu" id="user-menu">
+                    <li>
+                        <i class="bi bi-clipboard-data"></i>
+                        <a href="/app/dashboard">Dashboard</a>
+                    </li>
+                    <span class="list-item-divider"></span>
+                    <li>
+                        <i class="bi bi-award"></i>
+                        <a href="">Plan</a>
+                    </li>
+                    <span class="list-item-divider"></span>
+                    <li>
+                        <i class="bi bi-sliders"></i>
+                        <a href="">Settings</a>
+                    </li>
+                    <span class="list-item-divider"></span>
+                    <li>
+                        <i class="bi bi-bell"></i>
+                        <a href="">Notifications</a>
+                    </li>
+                    <span class="list-item-divider"></span>
+                    <li>
+                        <i class="bi bi-box-arrow-right"></i>
+                        <a href="/auth/signout">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        <% } %>
         <button id="side-menu-open-button" class="menu-toggle" onclick="toggleSideMenu()">
             <i class="bi bi-list"></i>
         </button>

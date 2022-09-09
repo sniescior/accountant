@@ -5,6 +5,7 @@ const authenticationRouter = require('./routes/authRouter')
 const appRouter = require('./routes/appRouter')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+const { checkUser } = require('./middleware/authMiddleware')
 
 // view engine
 app.set('view engine', 'ejs')
@@ -20,7 +21,7 @@ mongoose
     .then(() => console.log('Database connected'))
     .catch(err => console.log(err))
 
-
+app.get('*', checkUser)
 app.get('/', (req, res) => {
     res.render('index')
 })

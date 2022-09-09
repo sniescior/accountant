@@ -75,7 +75,27 @@ function toggleSideMenu() {
     }
 }
 
+// MARK: User menu (user-info) scripts
+
+const userInfo = document.getElementById('user-info')
+const userMenu = document.getElementById('user-menu')
+
+function toggleUserMenu() {
+    if(userInfo.classList.contains('toggled')) {
+        userInfo.classList.remove('toggled')
+    } else {
+        userInfo.classList.add('toggled')
+    }
+}
+
+// MARK: Event listener
+
 body.addEventListener('click', (e) => {
+    
+    if(userInfo.classList.contains('toggled') && !userInfo.contains(e.target) && !userMenu.contains(e.target)) {
+        userInfo.classList.remove('toggled')
+    }
+
     if(!sideMenu.classList.contains('hidden')) {
         // if clicked on side-menu closing button or side-menu itself or side-menu list element do nothing
         if(!ifTarget(e, toggleMenuElements) && !openButton.contains(e.target) && !sideMenu.contains(e.target)) {
