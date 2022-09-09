@@ -1,10 +1,11 @@
 const User = require('../models/User')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
-const handleErrors = async (username, email, password, confirmPassword) => {
+const signupErrors = async (username, email, password, confirmPassword) => {
     var errorMessages = {'username': false, 'email': false, 'password': false, 'confirmPassword': false}
-    
+
     const sameUsernameUser = await User.findOne({'username': username})
     if(sameUsernameUser) {
         errorMessages['username'] = true
@@ -53,7 +54,7 @@ module.exports.signup_post = async (req, res) => {
             res.send('signed up')
         } catch (error) {
             res.status(400) // error status
-            var errorMessages = await handleErrors(username, email, password, confirmPassword)
+            var errorMessages = await signupErrors(username, email, password, confirmPassword)
             
             res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: email, username: username })
         }
@@ -65,14 +66,18 @@ module.exports.signup_post = async (req, res) => {
 }
 
 module.exports.signin_post = async (req, res) => {
-    const { username, password } = req.body
+    const { email, password } = req.body
     
     try {
-        console.log('Sign-in attempt')
-        console.log(req.body);
-        res.send('Not yet implemented. But nice try.')
+        const user = await User.login(email, password)
+
+        const token = createToken(user._id)
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
+
+        res.status(200).json({user: user._id})
     } catch (error) {
         console.log(error)
-        res.send('Internal error')
+        res.status(400)
+        res.send('Error occurred.')
     }
 }

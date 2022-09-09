@@ -19,7 +19,7 @@
             <form id="signin-form" action="/auth/signin" method="POST">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 
-                <input type="email" placeholder="Email or username" name="username" required>
+                <input type="email" placeholder="Email" name="email" required>
                 <input type="password" placeholder="Password" name="password" required>
                 <button class="bt-primary" type="submit">Login</button>
             </form>
