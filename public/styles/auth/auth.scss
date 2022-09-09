@@ -54,11 +54,14 @@ body {
                     font-size: 1.4em;
                     color: $primary_color;
                     transition: .2s ease-in-out;
-                    
                     background-color: #fff;
                     border-radius: 6px;
                     box-shadow: 0px 0px 7px 1px $secondary_color_shadow;
                     padding: 14px 22px;
+                    
+                    &.error {
+                        box-shadow: 0px 0px 1px 1px #be0000;
+                    }
 
                     &:focus {
                         border-bottom: 2px solid $primary_color;
