@@ -6,10 +6,8 @@ const requireAuth = (req, res, next) => {
     if(token) { // if jwt exists
         jwt.verify(token, 'super confidential secret', (error, decodedToken) => {   // if jwt is valid
             if(error) {
-                console.log(error.message)
                 res.redirect('/auth/signin')
             } else {
-                console.log(decodedToken)
                 next()
             }
         })

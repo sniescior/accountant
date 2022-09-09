@@ -33,11 +33,33 @@ const createToken = (id) => {
 
 module.exports.signup_get = (req, res) => {
     var errorMessages = {'username': false, 'email': false, 'password': false, 'confirmPassword': false}
-    res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: '', username: '' })
+    const token = req.cookies.jwt
+    if(token) {
+        jwt.verify(token, 'super confidential secret', (error, decodedToken) => {   // if jwt is valid
+            if(error) {
+                res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: '', username: '' })
+            } else {
+                res.redirect('/')
+            }
+        })
+    } else {
+        res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: '', username: '' })
+    }
 }
 
 module.exports.signin_get = (req, res) => {
-    res.render('auth/signin', { csrfToken: req.csrfToken(), 'error': null, 'email': '' })
+    const token = req.cookies.jwt
+    if(token) {
+        jwt.verify(token, 'super confidential secret', (error, decodedToken) => {   // if jwt is valid
+            if(error) {
+                res.render('auth/signin', { csrfToken: req.csrfToken(), 'error': null, 'email': '' })
+            } else {
+                res.redirect('/')
+            }
+        })
+    } else {
+        res.render('auth/signin', { csrfToken: req.csrfToken(), 'error': null, 'email': '' })
+    }
 }
 
 module.exports.signup_post = async (req, res) => {
