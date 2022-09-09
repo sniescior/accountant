@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const authenticationRouter = require('./routes/authRouter')
+const appRouter = require('./routes/appRouter')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
     res.render('index')
 })
 
+app.use('/app', appRouter)
 app.use('/auth', authenticationRouter)
 
 var listener = app.listen(3000, (e) => {

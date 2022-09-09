@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
-const signupErrors = async (username, email, password, confirmPassword) => {
+const signupErrors = async (username, email, password) => {
     var errorMessages = {'username': false, 'email': false, 'password': false, 'confirmPassword': false}
 
     const sameUsernameUser = await User.findOne({'username': username})
@@ -37,7 +37,7 @@ module.exports.signup_get = (req, res) => {
 }
 
 module.exports.signin_get = (req, res) => {
-    res.render('auth/signin', { csrfToken: req.csrfToken() })
+    res.render('auth/signin', { csrfToken: req.csrfToken(), 'error': null, 'email': '' })
 }
 
 module.exports.signup_post = async (req, res) => {
@@ -54,7 +54,7 @@ module.exports.signup_post = async (req, res) => {
             res.send('signed up')
         } catch (error) {
             res.status(400) // error status
-            var errorMessages = await signupErrors(username, email, password, confirmPassword)
+            var errorMessages = await signupErrors(username, email, password)
             
             res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: email, username: username })
         }
@@ -74,10 +74,11 @@ module.exports.signin_post = async (req, res) => {
         const token = createToken(user._id)
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
 
-        res.status(200).json({user: user._id})
+        // res.status(200).json({user: user._id})
+        // res.render('app/dashboard')
+        return res.redirect('/app/dashboard')
     } catch (error) {
-        console.log(error)
         res.status(400)
-        res.send('Error occurred.')
+        res.render('auth/signin', { csrfToken: req.csrfToken(), error, 'email': email })
     }
 }

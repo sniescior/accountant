@@ -28,7 +28,7 @@ body .wrapper .form-wrapper h2 {
 body .wrapper .form-wrapper h5 {
   font-size: 1.2em;
   color: rgba(56, 59, 97, 0.6156862745);
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 body .wrapper .form-wrapper #signup-form,
 body .wrapper .form-wrapper #signin-form {
