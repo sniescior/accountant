@@ -141,14 +141,24 @@ body {
                 .user-info-icon {
                     transition: .2s ease-in-out;
                     border-radius: 10px;
-                    padding: 12px 20px;
-                    font-size: 1.7em;
+                    padding: 7px 12px;
                     color: $primary_color;
+                    display: flex;
+                    align-items: center;
+
+                    p {
+                        margin: 0 12px 0 0;
+                        font-weight: 700;
+                    }
+                    
+                    i {
+                        font-size: 1.7em;
+                    }
                 }
 
                 &.toggled {
                     .user-menu {
-                        top: 50px;
+                        top: 57px;
                         z-index: 100;
                         opacity: 1;
                     }
@@ -587,6 +597,12 @@ body {
         margin: 0;
         overflow-x: hidden;
     }
+
+    @media screen and (max-width: 520px) {
+        .user-info {
+            display: none;
+        }
+    }
 }
 
 // MARK: side-menu
@@ -634,6 +650,10 @@ body {
         }
     }
 
+    .menu-user-details {
+        display: none;
+    }
+
     @media screen and (max-width: 520px) {
         width: 100vw;
         max-width: unset;
@@ -648,6 +668,54 @@ body {
 
             .logo-image {
                 display: initial;
+            }
+        }
+
+        .menu-user-details {
+            display: flex;
+            flex-direction: column;
+
+            .menu-list-item {
+                display: flex;
+                gap: 8px;
+                font-weight: 600;
+
+                &:last-of-type {
+                    a, i {
+                        color: #be0000;
+                    }
+
+                    &:hover {
+                        a, i {
+                            color: #e40606;
+                        }
+                    }
+                }
+
+                &:hover {
+                    a, i {
+                        color: $primary_color_hover;
+                    }
+                }
+
+                a, i {
+                    transition: .2s ease-in-out;
+                    color: $primary_color;
+                    text-decoration: none;
+                }
+            }
+
+            .details {
+                text-align: center;
+
+                i {
+                    font-size: 1.7em;
+                }
+
+                p {
+                    font-weight: 700;
+                    font-size: 1.6em;
+                }
             }
         }
     }

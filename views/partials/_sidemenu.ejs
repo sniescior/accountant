@@ -70,4 +70,38 @@
             <a href="/auth/signup" class="bt-primary">Get started</a>
         <% } %>
     </div>
+
+    <% if (user) { %>
+        <div class="menu-user-details">
+            <div class="details">
+                <i class="bi bi-person-circle"></i>
+                <p><%- user.username %></p>
+            </div>
+
+            <li class="menu-list-item">
+            <i class="bi bi-clipboard-data"></i>
+            <a href="/app/dashboard">Dashboard</a>
+            </li>
+            <span class="menu-item-divider"></span>
+            <li class="menu-list-item">
+                <i class="bi bi-award"></i>
+                <a href="#">Plan</a>
+            </li>
+            <span class="menu-item-divider"></span>
+            <li class="menu-list-item">
+                <i class="bi bi-sliders"></i>
+                <a href="#">Settings</a>
+            </li>
+            <span class="menu-item-divider"></span>
+            <li class="menu-list-item">
+                <i class="bi bi-bell"></i>
+                <a href="#">Notifications</a>
+            </li>
+            <span class="menu-item-divider"></span>
+            <li class="menu-list-item">
+                <i class="bi bi-box-arrow-right"></i>
+                <a href="/auth/signout">Log out</a>
+            </li>
+        </div>
+    <% } %>
 </menu>
