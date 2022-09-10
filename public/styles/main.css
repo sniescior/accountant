@@ -106,12 +106,20 @@ body nav .right .user-info:hover .user-info-icon {
 body nav .right .user-info .user-info-icon {
   transition: 0.2s ease-in-out;
   border-radius: 10px;
-  padding: 12px 20px;
-  font-size: 1.7em;
+  padding: 7px 12px;
   color: #383b61;
+  display: flex;
+  align-items: center;
+}
+body nav .right .user-info .user-info-icon p {
+  margin: 0 12px 0 0;
+  font-weight: 700;
+}
+body nav .right .user-info .user-info-icon i {
+  font-size: 1.7em;
 }
 body nav .right .user-info.toggled .user-menu {
-  top: 50px;
+  top: 57px;
   z-index: 100;
   opacity: 1;
 }
@@ -459,6 +467,11 @@ body #sidebar-menu {
   margin: 0;
   overflow-x: hidden;
 }
+@media screen and (max-width: 520px) {
+  body .user-info {
+    display: none;
+  }
+}
 
 #side-menu {
   position: fixed;
@@ -503,6 +516,9 @@ body #sidebar-menu {
   display: none;
   color: #383b61;
 }
+#side-menu .menu-user-details {
+  display: none;
+}
 @media screen and (max-width: 520px) {
   #side-menu {
     width: 100vw;
@@ -517,6 +533,39 @@ body #sidebar-menu {
   }
   #side-menu .logo .logo-image {
     display: initial;
+  }
+  #side-menu .menu-user-details {
+    display: flex;
+    flex-direction: column;
+  }
+  #side-menu .menu-user-details .menu-list-item {
+    display: flex;
+    gap: 8px;
+    font-weight: 600;
+  }
+  #side-menu .menu-user-details .menu-list-item:last-of-type a, #side-menu .menu-user-details .menu-list-item:last-of-type i {
+    color: #be0000;
+  }
+  #side-menu .menu-user-details .menu-list-item:last-of-type:hover a, #side-menu .menu-user-details .menu-list-item:last-of-type:hover i {
+    color: #e40606;
+  }
+  #side-menu .menu-user-details .menu-list-item:hover a, #side-menu .menu-user-details .menu-list-item:hover i {
+    color: rgba(33, 41, 151, 0.8549019608);
+  }
+  #side-menu .menu-user-details .menu-list-item a, #side-menu .menu-user-details .menu-list-item i {
+    transition: 0.2s ease-in-out;
+    color: #383b61;
+    text-decoration: none;
+  }
+  #side-menu .menu-user-details .details {
+    text-align: center;
+  }
+  #side-menu .menu-user-details .details i {
+    font-size: 1.7em;
+  }
+  #side-menu .menu-user-details .details p {
+    font-weight: 700;
+    font-size: 1.6em;
   }
 }
 #side-menu .menu-list-item {
