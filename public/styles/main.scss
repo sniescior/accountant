@@ -17,6 +17,14 @@ body {
     position: relative;
     overflow-x: hidden;
 
+    .list-item-divider {
+        box-sizing: border-box;
+        width: 100%;
+        height: 1px;
+        background-color: $secondary_color_shadow;
+        margin: auto;
+    }
+
     .wrapper {
         transition: .3s ease-in-out;
     }
@@ -119,6 +127,87 @@ body {
             gap: 22px;
         }
 
+        .right {
+            .user-info {
+                cursor: pointer;
+                position: relative;
+
+                &:hover {
+                    .user-info-icon {
+                        background-color: rgba(255, 255, 255, 0.316);
+                    }
+                }
+                
+                .user-info-icon {
+                    transition: .2s ease-in-out;
+                    border-radius: 10px;
+                    padding: 12px 20px;
+                    font-size: 1.7em;
+                    color: $primary_color;
+                }
+
+                &.toggled {
+                    .user-menu {
+                        top: 50px;
+                        z-index: 100;
+                        opacity: 1;
+                    }
+                    
+                    .user-info-icon {
+                        background-color: rgba(255, 255, 255, 0.64);
+                    }
+                }
+
+                .user-menu {
+                    position: absolute;
+                    top: 30px;
+                    right: 0;
+                    background-color: #fff;
+                    min-width: 200px;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 12px;
+                    transition: .3s ease-in-out;
+                    border-radius: 9px;
+                    box-shadow: 0px 0px 7px 1px $secondary_color_shadow;
+                    gap: 8px;
+                    list-style-type: none;
+                    z-index: -1;
+                    opacity: 0;
+
+                    li {
+                        padding: 1px 12px;
+                        display: flex;
+                        gap: 8px;
+
+                        &:last-of-type {
+                            &:hover {
+                                i, a {
+                                    color: #e40606;
+                                }
+                            }
+                            
+                            i, a {
+                                color: #be0000;
+                            }
+                        }
+
+                        &:hover {
+                            a {
+                                color: $primary_color_hover;
+                            }
+                        }
+
+                        i, a {
+                            color: $primary_color;
+                            text-decoration: none;
+                            transition: .2s ease-in-out;
+                        }
+                    }
+                }
+            }
+        }
+
         @media screen and (max-width: 510px) {
             .right {
                 a {
@@ -174,14 +263,6 @@ body {
                         gap: 8px;
                         opacity: 0;
                         list-style-type: none;
-
-                        .list-item-divider {
-                            box-sizing: border-box;
-                            width: 100%;
-                            height: 1px;
-                            background-color: $secondary_color_shadow;
-                            margin: auto;
-                        }
 
                         .extended-list-item {
                             width: 100%;
@@ -386,6 +467,25 @@ body {
                     padding: 10px 17px;
                     color: $primary_color;
                     box-shadow: 0 0 9px 1px $secondary_color_shadow;
+                    transition: .2s ease-in-out;
+
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.39);
+
+                        &.dashboard-shortcut {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    &.dashboard-shortcut {
+                        font-weight: 700;
+                        display: none;
+
+                        a {
+                            color: $primary_color;
+                            text-decoration: none;
+                        }
+                    }
 
                     i {
                         font-size: 2em;
@@ -456,6 +556,9 @@ body {
                 }
 
                 .apps-wrapper {
+                    .app-card.dashboard-shortcut {
+                        display: initial;
+                    }
                     button {
                         display: block;
                     }

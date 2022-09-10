@@ -65,7 +65,9 @@
     </li>
 
     <div class="auth-buttons-wrapper">
-        <a href="/auth/signin" class="bt-secondary bold">Log in</a>
-        <a href="/auth/signup" class="bt-primary">Get started</a>
+        <% if (!user) { %>
+            <a href="/auth/signin" class="bt-secondary bold">Log in</a>
+            <a href="/auth/signup" class="bt-primary">Get started</a>
+        <% } %>
     </div>
 </menu>
