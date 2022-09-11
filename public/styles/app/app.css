@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+body .app-container {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+body .section-divider {
+  padding: 18px 20px 12px 20px;
+  background-color: rgba(17, 17, 17, 0.9);
+  color: rgba(238, 238, 238, 0.784);
+  display: flex;
+  justify-content: center;
+}
+body .section-divider h6 {
+  max-width: 700px;
+  width: 100%;
+  font-weight: 600;
+  margin: 0;
+}
+body .header {
+  background-color: #111;
+  padding: 30px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 16px 6px rgba(41, 41, 41, 0.9);
+}
+body .header .title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body .header .title button {
+  border: none;
+  outline: none;
+  color: rgb(238, 238, 238);
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin: 20px 0;
+  font-weight: 700;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  gap: 6px;
+  background-color: #2340C3;
+}
+body .header .title button i {
+  transition: 0.3s ease-in-out;
+  font-weight: 800;
+}
+body .header .title img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px 2px rgba(238, 238, 238, 0.1);
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body .header .title h2 {
+  color: rgb(238, 238, 238);
+  margin: 0;
+  margin-top: 12px;
+  font-size: 2.6em;
+  font-weight: 400;
+}
+body .header .title h3 {
+  color: rgba(238, 238, 238, 0.6);
+  font-size: 1.3em;
+}
+body .settings-section {
+  background-color: #111;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 0 16px 6px rgba(41, 41, 41, 0.9);
+}
+body .settings-section ul {
+  width: 100%;
+  max-width: 700px;
+  list-style-type: none;
+  padding: 0;
+  margin: 12px 30px 20px 30px;
+  font-size: 1.5em;
+}
+body .settings-section ul a {
+  color: rgba(238, 238, 238, 0.869);
+  text-decoration: none;
+}
+body .settings-section ul a:last-of-type li {
+  margin-bottom: 0;
+}
+body .settings-section ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(238, 238, 238, 0.869);
+  margin: 10px 0;
+  transition: 0.2s ease-in-out;
+}
+body .settings-section ul li p {
+  margin: 0;
+}
+body .settings-section ul li.link-item:hover {
+  color: #fff;
+}
+body .settings-section ul li:first-of-type {
+  margin-top: 0;
+}/*# sourceMappingURL=app.css.map */

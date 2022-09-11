@@ -23,7 +23,11 @@ mongoose
 
 app.get('*', checkUser)
 app.get('/', (req, res) => {
-    res.render('index')
+    if(checkUser) {
+        res.redirect('/app/dashboard')
+    } else {
+        res.render('index')
+    }
 })
 
 app.use('/app', appRouter)
