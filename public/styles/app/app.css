@@ -1,12 +1,61 @@
+html, * {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  position: relative;
+}
+body form {
+  width: 100%;
+  margin-bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body form input {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
+  width: 100%;
+  margin-top: 18px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  transition: 0.2s ease-in-out;
+  color: #fff;
+}
+body form input:focus, body form input:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  outline: none;
+}
+body form button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 18px 0;
+}
+body form button.bt-primary {
+  box-shadow: none;
+}
+body form button.bt-secondary {
+  color: #2340C3;
+}
+body form button:hover.bt-secondary {
+  color: #2340C3;
 }
 body .app-container {
   padding: 0;
   margin: 0;
   width: 100%;
+  transition: 0.7s ease-in-out;
+}
+body .app-container.hidden {
+  transform: translateX(-200px);
+  overflow-y: hidden;
+  z-index: -1000;
 }
 body .section-divider {
   padding: 18px 20px 12px 20px;
@@ -83,12 +132,18 @@ body .settings-section ul {
   max-width: 700px;
   list-style-type: none;
   padding: 0;
-  margin: 12px 30px 20px 30px;
+  margin: 12px;
   font-size: 1.5em;
 }
 body .settings-section ul a {
   color: rgba(238, 238, 238, 0.869);
   text-decoration: none;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+}
+body .settings-section ul a.move-right li {
+  transition: 1s ease-in-out;
+  transform: translateX(100px);
 }
 body .settings-section ul a:last-of-type li {
   margin-bottom: 0;
@@ -99,7 +154,7 @@ body .settings-section ul li {
   justify-content: space-between;
   color: rgba(238, 238, 238, 0.869);
   margin: 10px 0;
-  transition: 0.2s ease-in-out;
+  transition: 0.4s ease-in-out;
 }
 body .settings-section ul li p {
   margin: 0;
@@ -109,4 +164,65 @@ body .settings-section ul li.link-item:hover {
 }
 body .settings-section ul li:first-of-type {
   margin-top: 0;
+}
+@media screen and (max-width: 900px) {
+  body .settings-section ul {
+    margin: 12px 30px;
+  }
+}
+body .nested-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100vw;
+  background-color: #111;
+  transition: 0.5s ease-in-out;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  z-index: 100;
+}
+body .nested-menu.hidden {
+  transition: 1s ease-in-out;
+  right: -100vw;
+}
+body .nested-menu .header {
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  color: #eee;
+}
+body .nested-menu .header .back-toggle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+body .nested-menu .header h2 {
+  margin: 0;
+}
+body .nested-menu .header i {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6em;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+body .nested-menu .settings-section {
+  box-shadow: none;
+}
+body .nested-menu .settings-section ul li {
+  justify-content: space-between;
+  align-items: center;
+}
+body .nested-menu .settings-section ul li .change-option {
+  display: flex;
+  gap: 8px;
+  color: #2340C3;
 }/*# sourceMappingURL=app.css.map */

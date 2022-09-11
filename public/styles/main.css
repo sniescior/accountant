@@ -26,9 +26,9 @@ body.shade #side-menu {
   overflow-y: scroll;
 }
 body .bt-primary {
-  background-color: #383b61;
+  background-color: #2340C3;
   color: #eee;
-  padding: 12px 24px;
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,7 +92,7 @@ body .bt-toggle.active {
   background-color: #2340C3;
 }
 body .bt-toggle.active .circle {
-  transform: translateX(37px);
+  transform: translateX(43px);
   left: unset;
   background-color: rgba(238, 238, 238, 0.869);
 }
