@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account settings</title>
     <%- include('../partials/_global_styles.ejs') %>
-    <link rel="stylesheet" href="../public/styles/app/app.css">
+    <link rel="stylesheet" href="/public/styles/app/app.css">
 </head>
 <body>
     <div class="app-container" id="appContainer">
         <div class="header">
-            <div class="title">
+            <div class="title mt-3">
                 <img src="../../public/images/user.jpg" alt="">
                 <h2><%- user.username %></h2>
                 <h3><%- user.email %></h3>
-                <button>
+                <button class="bt-primary my-2">
                     Edit profile
-                    <i class="bi bi-chevron-right"></i>
+                    <span class="arrow-right"></span>
                 </button>
             </div>
         </div>
@@ -27,27 +27,27 @@
             </h6>
         </div>
         <section class="settings-section">
-            <ul>
-                <a onclick="toggleNestedMenu('configuration')" id="configuration-link"><li class="link-item">
+            <ul class="section-list">
+                <a class="menu-link" href="#configuration" onclick="toggleNestedMenu('configuration')" id="configuration-link"><li>
                     <div>
                         <i class="bi bi-gear me-2" width="16" height="16"></i>Configuration
                     </div>
                     <i class="bi bi-chevron-right"></i>
                 </li></a>
-                <a onclick="toggleNestedMenu('accounts')" id="accounts-link"><li class="link-item">
+                <a class="menu-link" href="#accounts" onclick="toggleNestedMenu('accounts')" id="accounts-link"><li>
                     <div>
                         <i class="bi bi-credit-card-2-back me-2"></i>Accounts
                     </div>
                     <i class="bi bi-chevron-right"></i>
                 </li></a>
-                <a onclick="toggleNestedMenu('plan')" id="plam-link"><li class="link-item">
+                <a class="menu-link" href="#plan" onclick="toggleNestedMenu('plan')" id="plam-link"><li>
                     <div>
                         <i class="bi bi-award me-2"></i>
                         Plan
                     </div>
                     <i class="bi bi-chevron-right"></i>
                 </li></a>
-                <a onclick="toggleNestedMenu('security')" id="security-link"><li class="link-item">
+                <a class="menu-link" href="#security" onclick="toggleNestedMenu('security')" id="security-link"><li>
                     <div>
                         <i class="bi bi-shield-lock me-2"></i>Security
                     </div>
@@ -61,7 +61,7 @@
             </h6>
         </div>
         <section class="settings-section">
-            <ul>
+            <ul class="section-list">
                 <li>
                     <p onclick="toggleButton('dark-mode')">
                         <i class="bi bi-moon me-2"></i>
@@ -80,10 +80,11 @@
                         <div class="circle"></div>
                     </button>
                 </li>
-                <a onclick="toggleNestedMenu('language')" id="language-link">
-                    <li class="link-item">
+                <a class="menu-link" href="#language" onclick="toggleNestedMenu('language')" id="language-link">
+                    <li>
                         <div>
-                            <i class="bi bi-translate me-2"></i>Language
+                            <i class="bi bi-translate me-2"></i>
+                            Language
                         </div>
                         <i class="bi bi-chevron-right"></i>
                     </li>
@@ -94,16 +95,30 @@
             <h6>MORE</h6>
         </div>
         <section class="settings-section">
-            <ul>
-                <a href="#"><li class="link-item"><div>
-                    <i class="bi bi-phone me-2"></i>Get Mobile App
-                </div></li></a>
-                <a href="#"><li class="link-item"><div>
-                    <i class="bi bi-star me-2"></i>Feedback
-                </div></li></a>
-                <a href="#"><li class="link-item"><div>
-                    <i class="bi bi-cup-hot me-2"></i>Buy me a coffee
-                </div></li></a>
+            <ul class="section-list">
+                <a class="menu-link" href="#">
+                    <li>
+                        <div>
+                            <i class="bi bi-phone me-2"></i>
+                            Get Mobile App
+                        </div>
+                    </li>
+                </a>
+                <a class="menu-link" href="#">
+                    <li>
+                        <div>
+                            <i class="bi bi-star me-2"></i>Feedback
+                        </div>
+                    </li>
+                </a>
+                <a class="menu-link" href="#">
+                    <li>
+                        <div>
+                            <i class="bi bi-cup-hot me-2"></i>
+                            Buy me a coffee
+                        </div>
+                    </li>
+                </a>
             </ul>
         </section>
     </div>

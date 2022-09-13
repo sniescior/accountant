@@ -1,14 +1,3 @@
-html, * {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  position: relative;
-}
 body form {
   width: 100%;
   margin-bottom: 26px;
@@ -78,29 +67,35 @@ body .header {
   align-items: center;
   box-shadow: 0 0 16px 6px rgba(41, 41, 41, 0.9);
 }
+body .header .back-toggle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  text-decoration: none;
+  color: #eee;
+}
+body .header .back-toggle h2 {
+  margin: 0;
+}
+body .header .back-toggle i {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6em;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
 body .header .title {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-body .header .title button {
-  border: none;
-  outline: none;
-  color: rgb(238, 238, 238);
-  border-radius: 20px;
-  padding: 10px 20px;
-  margin: 20px 0;
-  font-weight: 700;
-  display: flex;
-  justify-self: center;
-  align-items: center;
-  gap: 6px;
-  background-color: #2340C3;
-}
-body .header .title button i {
-  transition: 0.3s ease-in-out;
-  font-weight: 800;
 }
 body .header .title img {
   width: 130px;
@@ -127,7 +122,10 @@ body .settings-section {
   justify-content: center;
   box-shadow: 0 0 16px 6px rgba(41, 41, 41, 0.9);
 }
-body .settings-section ul {
+body .settings-section:last-of-type {
+  padding-bottom: 30px;
+}
+body .settings-section .section-list {
   width: 100%;
   max-width: 700px;
   list-style-type: none;
@@ -135,40 +133,137 @@ body .settings-section ul {
   margin: 12px;
   font-size: 1.5em;
 }
-body .settings-section ul a {
+@media screen and (max-width: 900px) {
+  body .settings-section .section-list {
+    margin: 12px 30px;
+  }
+}
+body .settings-section .section-list .menu-link {
   color: rgba(238, 238, 238, 0.869);
   text-decoration: none;
   transition: 0.5s ease-in-out;
   cursor: pointer;
 }
-body .settings-section ul a.move-right li {
+body .settings-section .section-list .menu-link.move-right li {
   transition: 1s ease-in-out;
   transform: translateX(100px);
 }
-body .settings-section ul a:last-of-type li {
+body .settings-section .section-list .menu-link:last-of-type li {
   margin-bottom: 0;
 }
-body .settings-section ul li {
+body .settings-section .section-list .menu-link.extended {
+  display: block;
+  color: #eee;
+  padding-bottom: 20px;
+  position: relative;
+}
+body .settings-section .section-list .menu-link.extended li, body .settings-section .section-list .menu-link.extended i {
+  color: #fff;
+}
+body .settings-section .section-list .menu-link.extended .detailed {
+  position: relative;
+  top: 0;
+  opacity: 1;
+  z-index: initial;
+  visibility: visible;
+  transform: translateY(0);
+}
+body .settings-section .section-list .menu-link.extended .detailed .detailed-list {
+  margin: 0;
+  margin-top: 12px;
+  padding: 0;
+  transition: none;
+  opacity: 1;
+  text-align: center;
+}
+body .settings-section .section-list .menu-link.extended .detailed .detailed-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  transition: transform 0.2s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.15);
+  position: relative;
+}
+body .settings-section .section-list .menu-link.extended .detailed .detailed-list li h2 {
+  margin: 0;
+  font-size: 0.6em;
+}
+body .settings-section .section-list .menu-link.extended .detailed .detailed-list li h4 {
+  margin: 0;
+  font-size: 0.8em;
+  color: #fff;
+}
+body .settings-section .section-list .menu-link.extended .detailed .detail-description {
+  opacity: 1;
+}
+body .settings-section .section-list .menu-link.extended .detailed .styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+body .settings-section .section-list .menu-link.extended .detailed .styles .style-dot {
+  display: block;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  position: relative;
+}
+body .settings-section .section-list .menu-link.extended .detailed .styles .style-dot.active::after, body .settings-section .section-list .menu-link.extended .detailed .styles .style-dot:hover::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 41px;
+  height: 41px;
+  border: 3px solid #eee;
+  border-radius: 50%;
+}
+body .settings-section .section-list .menu-link.extended i {
+  transform: rotate(180deg);
+}
+body .settings-section .section-list .menu-link .detailed {
+  position: absolute;
+  opacity: 0;
+  z-index: -1000;
+  transition: 0.2s ease-in-out;
+  transform: translateY(10px);
+  color: #eee;
+  visibility: hidden;
+}
+body .settings-section .section-list .menu-link .detailed .detail-description {
+  transition: none;
+  opacity: 0;
+}
+body .settings-section .section-list .menu-link .detailed .detailed-list {
+  transition: none;
+  opacity: 0;
+}
+body .settings-section .section-list .menu-link .detailed .detailed-list .move {
+  transform: translateX(-60px);
+}
+body .settings-section .section-list li {
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: rgba(238, 238, 238, 0.869);
   margin: 10px 0;
   transition: 0.4s ease-in-out;
+  border-radius: 12px;
 }
-body .settings-section ul li p {
+body .settings-section .section-list li p {
   margin: 0;
 }
-body .settings-section ul li.link-item:hover {
+body .settings-section .section-list li.link-item:hover {
   color: #fff;
 }
-body .settings-section ul li:first-of-type {
+body .settings-section .section-list li:first-of-type {
   margin-top: 0;
 }
-@media screen and (max-width: 900px) {
-  body .settings-section ul {
-    margin: 12px 30px;
-  }
+body .settings-section .section-list li i {
+  transition: 0.3s ease-in-out;
 }
 body .nested-menu {
   position: fixed;
@@ -186,43 +281,6 @@ body .nested-menu.hidden {
   transition: 1s ease-in-out;
   right: -100vw;
 }
-body .nested-menu .header {
-  box-shadow: none;
-  display: flex;
-  align-items: center;
-  color: #eee;
-}
-body .nested-menu .header .back-toggle {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  cursor: pointer;
-}
-body .nested-menu .header h2 {
-  margin: 0;
-}
-body .nested-menu .header i {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.6em;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-}
 body .nested-menu .settings-section {
   box-shadow: none;
-}
-body .nested-menu .settings-section ul li {
-  justify-content: space-between;
-  align-items: center;
-}
-body .nested-menu .settings-section ul li .change-option {
-  display: flex;
-  gap: 8px;
-  color: #2340C3;
 }/*# sourceMappingURL=app.css.map */

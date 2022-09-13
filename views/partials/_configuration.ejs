@@ -1,31 +1,101 @@
 <div class="nested-menu hidden" id="configuration">
     <div class="header">
-        <div class="back-toggle" onclick="toggleNestedMenu('configuration')">
+        <a href="#main" class="back-toggle" onclick="toggleNestedMenu('configuration')">
             <i class="bi bi-chevron-left"></i>
             <h2>
                 Configuration
             </h2>
-        </div>
+        </a>
     </div>
     <div class="section-divider">
         <h6>
-            AUTOMATE
+            QUICK CONFIGURATION
         </h6>
     </div>
     <section class="settings-section">
-        <ul>
-            <a href="#"><li class="link-item">
-                <div>
-                    Budget 
+        <ul class="section-list">
+            <a class="menu-link" id="income-c-menu-toggle">
+                <li class="link-item" onclick="toggleDetailedMenu('income-c-menu-toggle')">
+                    <div>
+                        Income Categories
+                    </div>
+                    <i class="bi bi-chevron-down"></i>
+                </li>
+                <div class="detailed">
+                    <ul class="detailed-list">
+                        <li>
+                            <h2 class="title">
+                                Allowance
+                            </h2>
+                        </li>
+                        <li>
+                            <h2 class="title">
+                                Sallary
+                            </h2>
+                        </li>
+                        <li>
+                            <h2 class="title">
+                                Petty cash
+                            </h2>
+                        </li>
+                        <li>
+                            <h2 class="title">
+                                Bonus
+                            </h2>
+                        </li>
+                        <li>
+                            <h2 class="title">
+                                Other
+                            </h2>
+                        </li>
+                        <button class="bt-secondary text-primary">Add category</button>
+                    </ul>
                 </div>
-                <i class="bi bi-chevron-right"></i>
-            </li></a>
-            <a href="#"><li class="link-item">
-                <div>
-                    Repeatability
+            </a>
+            <a class="menu-link" id="expense-c-menu-toggle">
+                <li class="link-item" onclick="toggleDetailedMenu('expense-c-menu-toggle')">
+                    <div>
+                        Expense Categories
+                    </div>
+                    <i class="bi bi-chevron-down"></i>
+                </li>
+                <div class="detailed">
+                    <ul class="detailed-list">
+                        <li>
+                            <h2 class="title">
+                                Food
+                            </h2>
+                        </li>
+                        <li>
+                            <h2 class="title">
+                                Social Life
+                            </h2>
+                        </li>
+                        <li>
+                            <h2 class="title">
+                                Transportation
+                            </h2>
+                        </li>
+                        <button class="bt-secondary text-primary">Add category</button>
+                    </ul>
                 </div>
-                <i class="bi bi-chevron-right"></i>
-            </li></a>
+            </a>
+            <a class="menu-link" id="budget-menu-toggle">
+                <li class="link-item" onclick="toggleDetailedMenu('budget-menu-toggle')">
+                    <div>Budget</div>
+                    <i class="bi bi-chevron-down"></i>
+                </li>
+                <%- include('../partials/_budget.ejs') %>
+            </a>
+            <a class="menu-link" href="#repeat" onclick="toggleNestedMenu('repeat', false)">
+                <li class="link-item">
+                    <div>
+                        Repeatability
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </li>
+                <h5 class="detail-description text-secondary py-2">Every time you key in an expense, income or transfer transaction just click the recycle icon to make it repetitive.</h5>
+            </a>
         </ul>
     </section>
     <div class="section-divider">
@@ -34,16 +104,17 @@
         </h6>
     </div>
     <section class="settings-section">
-        <ul>
-            <a href="#">
-                <li class="link-item">
+        <ul class="section-list">
+            <a class="menu-link" href="#currency" onclick="toggleNestedMenu('currency')">
+                <li class="link-item my-0">
                     <div>
                         Main Currency Setting
                     </div>
                     <i class="bi bi-chevron-right"></i>
                 </li>
+                <h5 class="detail-description text-secondary py-2">GBP - Great British pound (£)</h5>
             </a>
-            <a href="#"><li class="link-item">
+            <a class="menu-link" href="#"><li class="link-item">
                 <div>
                     Carry-over
                 </div>
@@ -59,8 +130,8 @@
         </h6>
     </div>
     <section class="settings-section">
-        <ul>
-            <a><li class="link-item">
+        <ul class="section-list">
+            <a><li>
                 <div>
                     Alarm
                 </div>
@@ -68,11 +139,30 @@
                     <div class="circle"></div>
                 </button>
             </li></a>
-            <a href="#"><li class="link-item">
-                <div>
-                    Style
+            <a class="menu-link" id="style-menu-toggle">
+                <li onclick="toggleDetailedMenu('style-menu-toggle')">
+                    <div>
+                        Style
+                    </div>
+                    <i class="bi bi-chevron-down"></i>
+                </li>
+                <div class="detailed">
+                    <div class="styles my-1">
+                        <div class="style-dot bg-success"></div>
+                        <div class="style-dot bg-primary active"></div>
+                        <div class="style-dot bg-danger"></div>
+                        <div class="style-dot bg-warning"></div>
+                        <div class="style-dot bg-info"></div>
+                    </div>
+                    <h5 class="detail-description text-secondary pt-3">
+                        Select theme you prefer.
+                        <span class="text-primary">This is your accent colour now.</span>
+                    </h5>
                 </div>
-            </li></a>
+            </a>
         </ul>
     </section>
 </div>
+
+<%- include('../partials/_repeat.ejs') %>
+<%- include('../partials/_currency.ejs') %>
