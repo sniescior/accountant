@@ -12,5 +12,71 @@
             CURRENCY
         </h6>
     </div>
-    Currency
+    <section class="settings-section">
+        <ul class="section-list">
+            <a class="menu-link extended">
+                <div class="detailed">
+                    <ul class="detailed-list">
+                        <li onclick="openPopUp('AUD')"><h2>AUD - Australia (AU$)</h2></li>
+                        <li onclick="openPopUp('CAD')"><h2>CAD - Canada (CA$)</h2></li>
+                        <li onclick="openPopUp('EUR')"><h2>EUR - Europe (€)</h2></li>
+                        <li class="active" onclick="openPopUp('GBP')"><h2>GBP - The United Kingdom (£)</h2></li>
+                        <li onclick="openPopUp('NOK')"><h2>NOK - Norway (KR)</h2></li>
+                        <li onclick="openPopUp('PLN')"><h2>PLN - Poland (zł)</h2></li>
+                        <li onclick="openPopUp('USD')"><h2>USD - USA (US$)</h2></li>
+                    </ul>
+                </div>
+            </a>
+        </ul>
+    </section>
+</div>
+
+<div class="pop-up-alert" id="AUD">
+    <h2>Your main currency will be changed to <span class="text-primary">AUD</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
+<div class="pop-up-alert" id="CAD">
+    <h2>Your main currency will be changed to <span class="text-primary">CAD</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
+<div class="pop-up-alert" id="EUR">
+    <h2>Your main currency will be changed to <span class="text-primary">EUR</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
+<div class="pop-up-alert" id="GBP">
+    <h2>Your main currency will be changed to <span class="text-primary">GBP</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
+<div class="pop-up-alert" id="NOK">
+    <h2>Your main currency will be changed to <span class="text-primary">NOK</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
+<div class="pop-up-alert" id="PLN">
+    <h2>Your main currency will be changed to <span class="text-primary">PLN</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
+<div class="pop-up-alert" id="USD">
+    <h2>Your main currency will be changed to <span class="text-primary">USD</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
 </div>

@@ -1,6 +1,67 @@
+body {
+  position: relative;
+}
+body #overlay {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(17, 17, 17, 0.2);
+  -webkit-backdrop-filter: blur(6px) opacity(1);
+          backdrop-filter: blur(6px) opacity(1);
+  transition: -webkit-backdrop-filter 0.3s ease-in-out;
+  transition: backdrop-filter 0.3s ease-in-out;
+  transition: backdrop-filter 0.3s ease-in-out, -webkit-backdrop-filter 0.3s ease-in-out;
+}
+body #overlay.hidden {
+  -webkit-backdrop-filter: blur(6px) opacity(0);
+          backdrop-filter: blur(6px) opacity(0);
+  z-index: -100000000;
+  height: 0;
+  width: 0;
+}
 body .safari {
   transition: none !important;
   transform: none !important;
+}
+body .pop-up-alert {
+  position: fixed;
+  top: 54%;
+  left: 50%;
+  transform: translateY(50%) translateX(-50%);
+  background-color: #222;
+  border-radius: 20px;
+  padding: 24px 26px;
+  color: #eee;
+  z-index: -1000;
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  box-shadow: 4px 4px 10px 12px rgba(46, 46, 46, 0.1);
+}
+body .pop-up-alert .bt-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 12px;
+}
+body .pop-up-alert .bt-wrapper .bt-secondary {
+  color: rgba(238, 238, 238, 0.5);
+}
+body .pop-up-alert h2 {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+}
+body .pop-up-alert.pop {
+  z-index: 10000;
+  top: 50%;
+  opacity: 1;
+  transition: 0.3s ease-in-out;
+}
+@media screen and (max-width: 760px) {
+  body .pop-up-alert {
+    width: 90%;
+  }
 }
 body form {
   width: 100%;
@@ -133,6 +194,16 @@ body .settings-section.list {
   align-items: center;
   padding: 0 20px;
 }
+@media screen and (min-width: 1000px) {
+  body .settings-section.list {
+    justify-content: center;
+    width: 100%;
+    flex-direction: row;
+  }
+  body .settings-section.list .info-card {
+    max-width: 400px;
+  }
+}
 body .settings-section:last-of-type {
   padding-bottom: 30px;
 }
@@ -211,6 +282,20 @@ body .settings-section .section-list .menu-link.extended .detailed .detailed-lis
   transition: transform 0.2s ease-in-out;
   background-color: rgba(255, 255, 255, 0.15);
   position: relative;
+}
+body .settings-section .section-list .menu-link.extended .detailed .detailed-list li.active {
+  position: relative;
+}
+body .settings-section .section-list .menu-link.extended .detailed .detailed-list li.active::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 3px solid #eee;
+  border-radius: 12px;
 }
 body .settings-section .section-list .menu-link.extended .detailed .detailed-list li h2 {
   margin: 0;

@@ -1,6 +1,7 @@
 
 // Global declarations
 const appContainer = document.getElementById('appContainer')
+const overlay = document.getElementById('overlay')
 var url = window.location
 
 // gonna be different behaviour when page opened in Safari Browser
@@ -148,3 +149,15 @@ window.addEventListener('popstate', function (e) {
     }
 });
 
+// MARK: Pop-Ups handling
+function openPopUp(elementId) {
+    const element = document.getElementById(elementId)
+    overlay.classList.toggle('hidden')
+    element.classList.add('pop')
+}
+
+function closePopUp(element) {
+    const popUpElement = element.parentElement.parentElement
+    overlay.classList.toggle('hidden')
+    popUpElement.classList.remove('pop')
+}
