@@ -23,32 +23,12 @@
                 </li>
                 <div class="detailed">
                     <ul class="detailed-list">
-                        <li>
-                            <h2 class="title">
-                                Allowance
-                            </h2>
-                        </li>
-                        <li>
-                            <h2 class="title">
-                                Sallary
-                            </h2>
-                        </li>
-                        <li>
-                            <h2 class="title">
-                                Petty cash
-                            </h2>
-                        </li>
-                        <li>
-                            <h2 class="title">
-                                Bonus
-                            </h2>
-                        </li>
-                        <li>
-                            <h2 class="title">
-                                Other
-                            </h2>
-                        </li>
-                        <button class="bt-secondary text-primary">Add category</button>
+                        <li><h2 class="title">Allowance</h2></li>
+                        <li><h2 class="title">Sallary</h2></li>
+                        <li><h2 class="title">Petty cash</h2></li>
+                        <li><h2 class="title">Bonus</h2></li>
+                        <li><h2 class="title">Other</h2></li>
+                        <button onclick="openBottomUpSheet('income-category-add')" class="bt-secondary text-primary">Add category</button>
                     </ul>
                 </div>
             </a>
@@ -61,22 +41,10 @@
                 </li>
                 <div class="detailed">
                     <ul class="detailed-list">
-                        <li>
-                            <h2 class="title">
-                                Food
-                            </h2>
-                        </li>
-                        <li>
-                            <h2 class="title">
-                                Social Life
-                            </h2>
-                        </li>
-                        <li>
-                            <h2 class="title">
-                                Transportation
-                            </h2>
-                        </li>
-                        <button class="bt-secondary text-primary">Add category</button>
+                        <li><h2 class="title">Food</h2></li>
+                        <li><h2 class="title">Social Life</h2></li>
+                        <li><h2 class="title">Transportation</h2></li>
+                        <button onclick="openBottomUpSheet('expense-category-add')" class="bt-secondary text-primary">Add category</button>
                     </ul>
                 </div>
             </a>
@@ -166,3 +134,34 @@
 
 <%- include('../partials/_repeat.ejs') %>
 <%- include('../partials/_currency.ejs') %>
+
+<div class="bottom-up-sheet" id="income-category-add">
+    <h2>Add income category</h2>
+    <form action="">
+        <input type="text" placeholder="Category name">
+        <div class="bt-wrapper">
+            <button class="bt-primary">Save</button>
+        </div>
+    </form>
+</div>
+
+<div class="bottom-up-sheet" id="expense-category-add">
+    <h2>Add expenses category</h2>
+    <form action="">
+        <input type="text" placeholder="Category name">
+        <div class="bt-wrapper">
+            <button class="bt-primary">Save</button>
+        </div>
+    </form>
+</div>
+
+<div class="bottom-up-sheet" id="budget-add">
+    <h2>Add budget</h2>
+    <form action="">
+        <input type="text" placeholder="Category name">
+        <input type="number" placeholder="Amount">
+        <div class="bt-wrapper">
+            <button class="bt-primary">Save</button>
+        </div>
+    </form>
+</div>

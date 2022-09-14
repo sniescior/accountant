@@ -161,3 +161,25 @@ function closePopUp(element) {
     overlay.classList.toggle('hidden')
     popUpElement.classList.remove('pop')
 }
+
+function openBottomUpSheet(elementId) {
+    const element = document.getElementById(elementId)
+    overlay.classList.remove('hidden')
+    element.classList.add('up')
+}
+
+function closeBottomUpSheet(elementId) {
+    const element = document.getElementById(elementId)
+    overlay.classList.add('hidden')
+    element.classList.remove('up')
+}
+
+overlay.addEventListener('click', (e) => {
+    Array.from(document.getElementsByClassName('bottom-up-sheet')).forEach(element => {
+        element.classList.remove('up')
+    })
+    Array.from(document.getElementsByClassName('pop-up-alert')).forEach(element => {
+        element.classList.remove('pop')
+    })
+    overlay.classList.add('hidden')
+})

@@ -26,6 +26,33 @@ body .safari {
   transition: none !important;
   transform: none !important;
 }
+body .bottom-up-sheet {
+  position: fixed;
+  bottom: -100px;
+  background-color: #333;
+  color: #eee;
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+  max-width: 700px;
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 28px 20px;
+  border-radius: 20px 20px 0 0;
+  z-index: -100000;
+}
+body .bottom-up-sheet.up {
+  bottom: 0;
+  opacity: 1;
+  z-index: 10000;
+}
+body .bottom-up-sheet form .bt-wrapper {
+  width: 100%;
+}
+body .bottom-up-sheet form .bt-wrapper .bt-primary {
+  width: 100%;
+  border-radius: 12px;
+}
 body .pop-up-alert {
   position: fixed;
   top: 54%;
@@ -75,11 +102,23 @@ body form input {
   background-color: rgba(255, 255, 255, 0.15);
   border: none;
   width: 100%;
-  margin-top: 18px;
+  margin-top: 10px;
   padding: 10px 18px;
   border-radius: 12px;
   transition: 0.2s ease-in-out;
   color: #fff;
+}
+body form input::-moz-placeholder {
+  color: rgba(238, 238, 238, 0.767);
+}
+body form input:-ms-input-placeholder {
+  color: rgba(238, 238, 238, 0.767);
+}
+body form input::placeholder {
+  color: rgba(238, 238, 238, 0.767);
+}
+body form input:first-of-type {
+  margin-top: 18px;
 }
 body form input:last-of-type {
   margin-bottom: 10px;
