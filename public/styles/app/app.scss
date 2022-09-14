@@ -151,6 +151,12 @@ body {
         justify-content: center;
         box-shadow: 0 0 16px 6px rgba(41, 41, 41, 0.9);
 
+        &.list {
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+        }
+
         &:last-of-type {
             padding-bottom: 30px;
         }
@@ -354,6 +360,147 @@ body {
 
                 i {
                     transition: .2s ease-in-out;
+                }
+            }
+        }
+
+        .info-card {
+            max-width: 700px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #eee;
+            margin: 22px;
+            margin-top: 5px;
+            box-shadow:  2px 2px 16px rgba(136, 136, 136, 0.2);
+            border-radius: 12px;
+            
+            .card-header {
+                padding: 20px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                
+                .card-title {
+                    display: flex;
+                    gap: 10px;
+                    
+                    h2 {
+                        font-size: 1.7em;
+                        display: flex;
+                        flex-direction: column;
+                        margin: 0;
+                        
+                        span {
+                            font-size: .7em;
+                            font-weight: 800;
+                            
+                            span {
+                                font-size: .9em;
+                                font-weight: initial;
+                                color: rgba(238, 238, 238, 0.7);
+                            }
+                        }
+                    }
+                    
+                    i {
+                        transform: rotate(-23deg);
+                        font-size: 2em;
+                        
+                        &.personal {
+                            color: #96d35f;
+                            filter: drop-shadow(3px 3px 14px #96d35f);
+                        }
+                        
+                        &.standard {
+                            color: #f5ec00;
+                            filter: drop-shadow(3px 3px 14px #f5ec00);
+                        }
+                        
+                        &.enterprice {
+                            color: green;
+                            filter: drop-shadow(3px 3px 14px green);
+                        }
+                    }
+                }
+
+                .card-price {
+                    font-size: 2em;
+                    margin: 0;
+                }
+            }
+
+            .card-divider {
+                display: block;
+                height: 3px;
+                background-color: rgba(238, 238, 238, 0.1);
+                margin: 20px 20px;
+            }
+
+            .bt-wrapper {
+                padding: 0 12px 12px 12px;
+                width: 100%;
+
+                .bt-primary {
+                    width: 100%;
+                    border-radius: 16px;
+                    font-size: 1.4em;
+                }
+            }
+
+            .card-list {
+                list-style-type: none;
+                padding: 0 0px 20px 20px;
+                margin: 0;
+                
+                .card-list-item {
+                    color: #eee;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    margin: 20px 0;
+
+                    &.disabled {
+                        color: rgba(238, 238, 238, 0.5);
+
+                        h6 {
+                            text-decoration: line-through;
+                        }
+
+                        i {
+                            border: 2px solid rgba(238, 238, 238, 0.5);
+                            background-color: transparent;
+                        }
+                    }
+
+                    h6 {
+                        margin: 0;
+                        font-size: 1.2em;
+                    }
+
+                    span {
+                        font-weight: 900;
+                        color: #fff;
+                    }
+
+                    i {
+                        font-size: 1.3em;
+                        width: 30px;
+                        height: 30px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        background-color: #96d35f;
+                        border: 2px solid #96d35f;
+                    }
+
+                    @media screen and (max-width: 340px) {
+                        i {
+                            width: 25px;
+                            height: 25px;
+                        }
+                    }
                 }
             }
         }

@@ -48,6 +48,16 @@ body .bt-primary {
   font-weight: 600;
   border: none;
 }
+body .bt-primary.disabled {
+  background-color: rgba(238, 238, 238, 0.2);
+  color: rgba(238, 238, 238, 0.6);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+body .bt-primary.disabled:hover {
+  background-color: rgba(238, 238, 238, 0.2);
+  color: rgba(238, 238, 238, 0.6);
+}
 body .bt-primary .arrow-right {
   display: block;
   height: 10px;
