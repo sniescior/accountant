@@ -5,6 +5,16 @@ var url = window.location
 
 // gonna be different behaviour when page opened in Safari Browser
 var isSafari = window['safari']
+if(isSafari) {
+    appContainer.classList.add('safari')
+    Array.from(document.getElementsByClassName('nested-menu')).forEach((element) => {
+        element.classList.add('safari')
+    })
+
+    Array.from(document.getElementsByClassName('menu-link')).forEach((element) => {
+        element.classList.add('safari')
+    })
+}
 
 // Switch button function (for example dark-mode toggle button)
 function toggleButton(elementId) {
@@ -17,15 +27,16 @@ function toggleButton(elementId) {
 }
 
 // When user goes from one settings screen to another (for example #configuration -> #currency)
-function toggleNestedMenu(elementId, goToMainSettingsScreen = true) {
+function toggleNestedMenu(elementId, goToMainSettingsScreen = true, buttonUsed = true) {
     const element = document.getElementById(elementId)
     const elementLinkId = elementId + '-link'
     const elementLink = document.getElementById(elementLinkId)
+
     if(element.classList.contains('hidden')) {
         element.classList.remove('hidden')
         document.body.classList.add('hidden')
         appContainer.classList.add('hidden')
-        if(isSafari) appContainer.classList.add('safari')
+
         if(elementLink) {
             elementLink.classList.add('move-right')
         }
@@ -35,7 +46,7 @@ function toggleNestedMenu(elementId, goToMainSettingsScreen = true) {
             appContainer.classList.remove('hidden')
         }
         element.classList.add('hidden')
-        if(isSafari) element.classList.add('safari')
+        
         if(elementLink) {
             elementLink.classList.remove('move-right')
         }
@@ -67,10 +78,10 @@ window.onload = (e) => {
 }
 
 // open nestedmenu when certain url 
-function setNestedMenu(nestedMenuId, goToMainSettingsScreen = true) {
+function setNestedMenu(nestedMenuId, goToMainSettingsScreen = true, buttonUsed = true) {
     const nestedMenu = document.getElementById(nestedMenuId)
     if(nestedMenu.classList.contains('hidden')) {
-        toggleNestedMenu(nestedMenuId, goToMainSettingsScreen)
+        toggleNestedMenu(nestedMenuId, goToMainSettingsScreen, buttonUsed)
     }
 }
 
@@ -85,6 +96,7 @@ window.addEventListener('popstate', function (e) {
         document.body.classList.remove('hidden')
         appContainer.classList.remove('hidden')
 
+        // All nestedMenuLists back to the initial position (hidden)
         Array.from(nestedMenuList).forEach((element) => {
             if(!element.classList.contains('hidden')) {
                 element.classList.add('hidden')
@@ -103,36 +115,36 @@ window.addEventListener('popstate', function (e) {
         const repeatNestedMenu = document.getElementById('repeat')
         const currencyNestedMenu = document.getElementById('currency')
         if(!repeatNestedMenu.classList.contains('hidden')) {
-            toggleNestedMenu(repeatNestedMenu.id, false)
+            toggleNestedMenu(repeatNestedMenu.id, false, false)
             return
         }
         
         if(!currencyNestedMenu.classList.contains('hidden')) {
-            toggleNestedMenu(currencyNestedMenu.id, false)
+            toggleNestedMenu(currencyNestedMenu.id, false, false)
             return
         }
         
-        setNestedMenu('configuration')
+        setNestedMenu('configuration', true, false)
     }
     
     if(url.href.endsWith('#repeat')) {
-        setNestedMenu('repeat', false)
+        setNestedMenu('repeat', false, false)
     }
     
     if(url.href.endsWith('#currency')) {
-        setNestedMenu('currency', false)
+        setNestedMenu('currency', false, false)
     }
     
     if(url.href.endsWith('#accounts')) {
-        setNestedMenu('accounts')
+        setNestedMenu('accounts', true, false)
     }
     
     if(url.href.endsWith('#plan')) {
-        setNestedMenu('plan')
+        setNestedMenu('plan', true, false)
     }
     
     if(url.href.endsWith('#security')) {
-        setNestedMenu('security')
+        setNestedMenu('security', true, false)
     }
 });
 

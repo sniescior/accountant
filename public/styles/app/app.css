@@ -1,3 +1,6 @@
+body .safari {
+  transition: none !important;
+}
 body form {
   width: 100%;
   margin-bottom: 26px;
@@ -147,6 +150,9 @@ body .settings-section .section-list .menu-link {
 body .settings-section .section-list .menu-link.move-right li {
   transition: 1s ease-in-out;
   transform: translateX(100px);
+}
+body .settings-section .section-list .menu-link.safari li {
+  transition: none !important;
 }
 body .settings-section .section-list .menu-link:last-of-type li {
   margin-bottom: 0;
