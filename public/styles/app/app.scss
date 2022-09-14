@@ -2,6 +2,7 @@ body {
 
     .safari {
         transition: none !important;
+        transform: none !important;
     }
 
     form {
@@ -21,6 +22,10 @@ body {
             border-radius: 12px;
             transition: .2s ease-in-out;
             color: #fff;
+            
+            &:last-of-type {
+                margin-bottom: 10px;
+            }
 
             &:focus, &:hover {
                 background-color: rgba(255, 255, 255, 0.25);
@@ -30,7 +35,7 @@ body {
 
         button {
             width: fit-content;
-            margin: 18px 0;
+            // margin: 18px 0;
             
             &.bt-primary {
                 box-shadow: none;
@@ -165,22 +170,30 @@ body {
             .menu-link {
                 color: rgba(238, 238, 238, 0.869);
                 text-decoration: none;
-                transition: .5s ease-in-out;
+                transition: .2s ease-in-out;
                 cursor: pointer;
+
+                li, i {
+                    transition: .2s ease-in-out;
+                }
+
+                &:hover {
+                    li, i {
+                        color: #fff;
+                    }
+                }
 
                 // animate menu-link when navigating to a new screen
                 &.move-right {
                     li {
-                        transition: 1s ease-in-out;
+                        transition: transform 1s ease-in-out;
                         transform: translateX(100px);
                     }
-
                 }
 
                 &.safari {
-
                     li {
-                        transition: none !important;
+                        transform: none;
                     }
                 }
 
@@ -215,6 +228,15 @@ body {
                             transition: none;
                             opacity: 1;
                             text-align: center;
+
+                            .detailed-group-title {
+                                margin: 10px 8px 0 0;
+                                text-align: left;
+
+                                &:first-of-type {
+                                    margin-bottom: 10px;
+                                }
+                            }
                             
                             li {
                                 display: flex;
@@ -227,7 +249,7 @@ body {
 
                                 h2 {
                                     margin: 0;
-                                    font-size: .6em;
+                                    font-size: .8em;
                                 }
                                 
                                 h4 {
@@ -299,6 +321,12 @@ body {
                         .move {
                             transform: translateX(-60px);
                         }
+
+                        li {
+                            &:last-of-type {
+                                margin-bottom: 10px;
+                            }
+                        }
                     }
                 }
             }
@@ -309,7 +337,7 @@ body {
                 justify-content: space-between;
                 color: rgba(238, 238, 238, 0.869);
                 margin: 10px 0;
-                transition: .4s ease-in-out;
+                transition: .2s ease-in-out;
                 border-radius: 12px;
 
                 p {
@@ -325,7 +353,7 @@ body {
                 }
 
                 i {
-                    transition: .3s ease-in-out;
+                    transition: .2s ease-in-out;
                 }
             }
         }

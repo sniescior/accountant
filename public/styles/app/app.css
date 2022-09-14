@@ -1,5 +1,6 @@
 body .safari {
   transition: none !important;
+  transform: none !important;
 }
 body form {
   width: 100%;
@@ -19,6 +20,9 @@ body form input {
   transition: 0.2s ease-in-out;
   color: #fff;
 }
+body form input:last-of-type {
+  margin-bottom: 10px;
+}
 body form input:focus, body form input:hover {
   background-color: rgba(255, 255, 255, 0.25);
   outline: none;
@@ -27,7 +31,6 @@ body form button {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  margin: 18px 0;
 }
 body form button.bt-primary {
   box-shadow: none;
@@ -144,15 +147,21 @@ body .settings-section .section-list {
 body .settings-section .section-list .menu-link {
   color: rgba(238, 238, 238, 0.869);
   text-decoration: none;
-  transition: 0.5s ease-in-out;
+  transition: 0.2s ease-in-out;
   cursor: pointer;
 }
+body .settings-section .section-list .menu-link li, body .settings-section .section-list .menu-link i {
+  transition: 0.2s ease-in-out;
+}
+body .settings-section .section-list .menu-link:hover li, body .settings-section .section-list .menu-link:hover i {
+  color: #fff;
+}
 body .settings-section .section-list .menu-link.move-right li {
-  transition: 1s ease-in-out;
+  transition: transform 1s ease-in-out;
   transform: translateX(100px);
 }
 body .settings-section .section-list .menu-link.safari li {
-  transition: none !important;
+  transform: none;
 }
 body .settings-section .section-list .menu-link:last-of-type li {
   margin-bottom: 0;
@@ -182,6 +191,13 @@ body .settings-section .section-list .menu-link.extended .detailed .detailed-lis
   opacity: 1;
   text-align: center;
 }
+body .settings-section .section-list .menu-link.extended .detailed .detailed-list .detailed-group-title {
+  margin: 10px 8px 0 0;
+  text-align: left;
+}
+body .settings-section .section-list .menu-link.extended .detailed .detailed-list .detailed-group-title:first-of-type {
+  margin-bottom: 10px;
+}
 body .settings-section .section-list .menu-link.extended .detailed .detailed-list li {
   display: flex;
   justify-content: space-between;
@@ -193,7 +209,7 @@ body .settings-section .section-list .menu-link.extended .detailed .detailed-lis
 }
 body .settings-section .section-list .menu-link.extended .detailed .detailed-list li h2 {
   margin: 0;
-  font-size: 0.6em;
+  font-size: 0.8em;
 }
 body .settings-section .section-list .menu-link.extended .detailed .detailed-list li h4 {
   margin: 0;
@@ -250,13 +266,16 @@ body .settings-section .section-list .menu-link .detailed .detailed-list {
 body .settings-section .section-list .menu-link .detailed .detailed-list .move {
   transform: translateX(-60px);
 }
+body .settings-section .section-list .menu-link .detailed .detailed-list li:last-of-type {
+  margin-bottom: 10px;
+}
 body .settings-section .section-list li {
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: rgba(238, 238, 238, 0.869);
   margin: 10px 0;
-  transition: 0.4s ease-in-out;
+  transition: 0.2s ease-in-out;
   border-radius: 12px;
 }
 body .settings-section .section-list li p {
@@ -269,7 +288,7 @@ body .settings-section .section-list li:first-of-type {
   margin-top: 0;
 }
 body .settings-section .section-list li i {
-  transition: 0.3s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 body .nested-menu {
   position: fixed;
