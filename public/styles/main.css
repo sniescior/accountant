@@ -43,7 +43,7 @@ body .bt-primary {
   gap: 6px;
   text-decoration: none;
   box-shadow: 0px 0px 6px 1px rgba(56, 59, 97, 0.6156862745);
-  border-radius: 6px;
+  border-radius: 12px;
   transition: 0.2s ease-in-out;
   font-weight: 600;
   border: none;

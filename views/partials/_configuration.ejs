@@ -82,7 +82,7 @@
                 </li>
                 <h5 class="detail-description text-secondary py-2">GBP - Great British pound (£)</h5>
             </a>
-            <a class="menu-link" href="#"><li class="link-item">
+            <a class="menu-link"><li class="link-item">
                 <div>
                     Carry-over
                 </div>
@@ -155,13 +155,25 @@
     </form>
 </div>
 
-<div class="bottom-up-sheet" id="budget-add">
-    <h2>Add budget</h2>
-    <form action="">
-        <input type="text" placeholder="Category name">
-        <input type="number" placeholder="Amount">
-        <div class="bt-wrapper">
-            <button class="bt-primary">Save</button>
-        </div>
-    </form>
+<div class="bottom-up-sheet high" id="budget-add">
+    <div>
+        <h2>Add budget</h2>
+        <form action="" id="budget-add-form">
+            <div class="select-wrapper" onclick="expandOptions('budget-add-form')">
+                <input class="select" placeholder="Category">
+                <i class="bi bi-chevron-down"></i>
+            </div>
+
+            <ul class="options-wrapper">
+                <li class="option">Food</li>
+                <li class="option">Social Life</li>
+                <li class="option">Transportation</li>
+            </ul>
+
+            <input type="number" placeholder="Amount" step="10">
+        </form>
+    </div>
+    <div class="bt-wrapper">
+        <button class="bt-primary w-100">Save</button>
+    </div>
 </div>

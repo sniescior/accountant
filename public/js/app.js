@@ -183,3 +183,8 @@ overlay.addEventListener('click', (e) => {
     })
     overlay.classList.add('hidden')
 })
+
+function expandOptions(elementID) {
+    const element = document.getElementById(elementID)
+    element.classList.toggle('focus')
+}
