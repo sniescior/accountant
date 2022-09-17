@@ -303,12 +303,14 @@ body {
             cursor: pointer;
             text-decoration: none;
             color: #eee;
-
+            
             h2 {
+                pointer-events: none;
                 margin: 0;
             }
-
+            
             i {
+                pointer-events: none;
                 width: 50px;
                 height: 50px;
                 border-radius: 12px;
@@ -394,6 +396,13 @@ body {
                 text-decoration: none;
                 transition: .2s ease-in-out;
                 cursor: pointer;
+
+                &.act-as-link {
+                    li, i, h5 {
+                        pointer-events: none;
+                    }
+                }
+                
 
                 li, i {
                     transition: .2s ease-in-out;

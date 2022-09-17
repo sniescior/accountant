@@ -1,6 +1,6 @@
 <div class="nested-menu hidden" id="configuration">
     <div class="header">
-        <a href="#main" class="back-toggle" onclick="toggleNestedMenu('configuration')">
+        <a href="/app/settings" class="back-toggle" data-link>
             <i class="bi bi-chevron-left"></i>
             <h2>
                 Configuration
@@ -55,7 +55,7 @@
                 </li>
                 <%- include('../partials/_budget.ejs') %>
             </a>
-            <a class="menu-link" href="#repeat" onclick="toggleNestedMenu('repeat', false)">
+            <a class="menu-link act-as-link" href="/app/settings/configuration/repeat" data-link>
                 <li class="link-item">
                     <div>
                         Repeatability
@@ -73,7 +73,7 @@
     </div>
     <section class="settings-section">
         <ul class="section-list">
-            <a class="menu-link" href="#currency" onclick="toggleNestedMenu('currency')">
+            <a class="menu-link act-as-link" href="/app/settings/configuration/currency" data-link>
                 <li class="link-item my-0">
                     <div>
                         Main Currency Setting

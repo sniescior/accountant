@@ -272,9 +272,11 @@ body .header .back-toggle {
   color: #eee;
 }
 body .header .back-toggle h2 {
+  pointer-events: none;
   margin: 0;
 }
 body .header .back-toggle i {
+  pointer-events: none;
   width: 50px;
   height: 50px;
   border-radius: 12px;
@@ -353,6 +355,9 @@ body .settings-section .section-list .menu-link {
   text-decoration: none;
   transition: 0.2s ease-in-out;
   cursor: pointer;
+}
+body .settings-section .section-list .menu-link.act-as-link li, body .settings-section .section-list .menu-link.act-as-link i, body .settings-section .section-list .menu-link.act-as-link h5 {
+  pointer-events: none;
 }
 body .settings-section .section-list .menu-link li, body .settings-section .section-list .menu-link i {
   transition: 0.2s ease-in-out;
