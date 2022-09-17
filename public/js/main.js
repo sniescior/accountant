@@ -4,7 +4,7 @@
 const body = document.body
 
 // determine whether clicked element is a list item (li) or not
-function ifTarget(event, list) {
+function ifTarget(event, list) {    
     for(let i = 0; i < 3; i++) {
         if(list[i].contains(event.target)) return true
     }
@@ -92,17 +92,22 @@ function toggleUserMenu() {
 
 body.addEventListener('click', (e) => {
     
-    if(userInfo.classList.contains('toggled') && !userInfo.contains(e.target) && !userMenu.contains(e.target)) {
-        userInfo.classList.remove('toggled')
-    }
-
-    if(!sideMenu.classList.contains('hidden')) {
-        // if clicked on side-menu closing button or side-menu itself or side-menu list element do nothing
-        if(!ifTarget(e, toggleMenuElements) && !openButton.contains(e.target) && !sideMenu.contains(e.target)) {
-            closeSideMenu()
+    if(userInfo) {
+        if(userInfo.classList.contains('toggled') && !userInfo.contains(e.target) && !userMenu.contains(e.target)) {
+            userInfo.classList.remove('toggled')
         }
-        return
     }
 
+    if(sideMenu) {
+
+        if(!sideMenu.classList.contains('hidden')) {
+            // if clicked on side-menu closing button or side-menu itself or side-menu list element do nothing
+            if(!ifTarget(e, toggleMenuElements) && !openButton.contains(e.target) && !sideMenu.contains(e.target)) {
+                closeSideMenu()
+            }
+            return
+        }
+    }
+    
     if(!ifTarget(e, toggleNavElements)) removeActiveElements(toggleNavElements)
 })

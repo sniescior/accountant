@@ -1,0 +1,76 @@
+<div class="nested-menu hidden" id="accounts">
+    <div class="header">
+        <a href="/app/settings" class="back-toggle" data-link>
+            <i class="bi bi-chevron-left"></i>
+            <h2>Accounts</h2>
+        </a>
+    </div>
+    <div class="section-divider">
+        <h6>ACTIVE ACCOUNTS</h6>
+    </div>
+    <section class="settings-section">
+        <ul class="section-list">
+            <a class="menu-link" id="acc-groups-menu-toggle">
+                <li class="link-item" onclick="toggleDetailedMenu('acc-groups-menu-toggle')">
+                    <div>Accounts Groups</div>
+                    <i class="bi bi-chevron-down"></i>
+                </li>
+                <div class="detailed">
+                    <ul class="detailed-list">
+                        <li><h2 class="title">Cash</h2></li>
+                        <li><h2 class="title">Accounts</h2></li>
+                        <li><h2 class="title">Card</h2></li>
+                        <li><h2 class="title">Debit Card</h2></li>
+                        <li><h2 class="title">Savings</h2></li>
+                        <li><h2 class="title">Top Up / Prepaid</h2></li>
+                        <li><h2 class="title">Investments</h2></li>
+                        <li><h2 class="title">Overdrafts</h2></li>
+                        <li><h2 class="title">Loan</h2></li>
+                        <li><h2 class="title">Insurance</h2></li>
+                        <li><h2 class="title">Others</h2></li>
+                        <button class="bt-secondary text-primary" onclick="openBottomUpSheet('acc-groups-add')">Add group</button>
+                    </ul>
+                </div>
+            </a>
+            <a class="menu-link" id="acc-settings-menu-toggle">
+                <li class="link-item" onclick="toggleDetailedMenu('acc-settings-menu-toggle')">
+                    <div>Accounts Settings</div>
+                    <i class="bi bi-chevron-down"></i>
+                </li>
+                <div class="detailed">
+                    <ul class="detailed-list">
+                        <h5 class="detailed-group-title text-secondary">Cash</h5>
+                        <li><h2 class="title">Cash</h2></li>
+                        <h5 class="detailed-group-title text-secondary">Accounts</h5>
+                        <li><h2 class="title">Accounts</h2></li>
+                        <h5 class="detailed-group-title text-secondary">Card</h5>
+                        <li><h2 class="title">Card 1</h2></li>
+                        <li><h2 class="title">Card 2</h2></li>
+                        <button class="bt-secondary text-primary" onclick="openBottomUpSheet('acc-add')">Add account</button>
+                    </ul>
+                </div>
+            </a>
+        </ul>
+    </section>
+</div>
+
+<div class="bottom-up-sheet" id="acc-groups-add">
+    <h2>New Accounts Group</h2>
+    <form action="">
+        <input type="text" placeholder="Name">
+        <div class="bt-wrapper">
+            <button class="bt-primary">Save</button>
+        </div>
+    </form>
+</div>
+
+<div class="bottom-up-sheet" id="acc-add">
+    <h2>Add Account</h2>
+    <form action="">
+        <input type="text" placeholder="Account Group" value="Cash">
+        <input type="text" placeholder="Name">
+        <div class="bt-wrapper">
+            <button class="bt-primary">Save</button>
+        </div>
+    </form>
+</div>

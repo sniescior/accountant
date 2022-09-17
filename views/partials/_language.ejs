@@ -1,0 +1,70 @@
+<div class="nested-menu hidden" id="language">
+    <div class="header">
+        <a href="/app/settings" class="back-toggle" data-link>
+            <i class="bi bi-chevron-left"></i>
+            <h2>
+                Language
+            </h2>
+        </a>
+    </div>
+    <div class="section-divider">
+        <h6>
+            CHOOSE YOUR LANGUAGE
+        </h6>
+    </div>
+    <section class="settings-section">
+        <ul class="section-list">
+            <a class="menu-link extended">
+                <div class="detailed">
+                    <ul class="detailed-list">
+                        <li onclick="openPopUp('German')"><h2>Deutsch</h2></li>
+                        <li class="active" onclick="openPopUp('English')"><h2>English</h2></li>
+                        <li onclick="openPopUp('French')"><h2>Français</h2></li>
+                        <li onclick="openPopUp('Italian')"><h2>Italiano</h2></li>
+                        <li onclick="openPopUp('Polish')"><h2>Polski</h2></li>
+                    </ul>
+                </div>
+            </a>
+        </ul>
+    </section>
+</div>
+
+<div class="pop-up-alert" id="English">
+    <h2>Language will be changed to <span class="text-primary">English</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
+
+<div class="pop-up-alert" id="Polish">
+    <h2>Language will be changed to <span class="text-primary">Polski</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
+
+<div class="pop-up-alert" id="French">
+    <h2>Language will be changed to <span class="text-primary">Français</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
+
+<div class="pop-up-alert" id="Italian">
+    <h2>Language will be changed to <span class="text-primary">Italiano</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
+
+<div class="pop-up-alert" id="German">
+    <h2>Language will be changed to <span class="text-primary">Deutsch</span></h2>
+    <div class="bt-wrapper">
+        <button onclick="closePopUp(this)" class="bt-secondary">Cancel</button>
+        <button class="bt-primary">OK</button>
+    </div>
+</div>
