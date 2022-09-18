@@ -14,7 +14,6 @@ function toggleButton(elementId) {
     }
 }
 
-// MARK: Pop-Ups handling
 function openPopUp(elementId) {
     const element = document.getElementById(elementId)
     overlay.classList.toggle('hidden')
@@ -39,23 +38,38 @@ function closeBottomUpSheet(elementId) {
     element.classList.remove('up')
 }
 
-overlay.addEventListener('click', (e) => {
-    Array.from(document.getElementsByClassName('bottom-up-sheet')).forEach(element => {
-        element.classList.remove('up')
-    })
-    Array.from(document.getElementsByClassName('pop-up-alert')).forEach(element => {
-        element.classList.remove('pop')
-    })
-    overlay.classList.add('hidden')
-})
-
 function expandOptions(elementID) {
     const element = document.getElementById(elementID)
     element.classList.toggle('focus')
 }
 
 const toggleDetailedMenu = (elementID) => {
-    console.log(elementID);
+
+    // Close every detailedMenu element (except for the toggled one)
+    Array.from(document.getElementsByClassName('menu-link')).forEach(element => {
+        if(element.id != elementID) {
+            element.classList.remove('extended')
+        }
+    })
+
     const element = document.getElementById(elementID)
     element.classList.toggle('extended')
 }
+
+overlay.addEventListener('click', (e) => {
+    // Close all bottomUpSheet elements
+    Array.from(document.getElementsByClassName('bottom-up-sheet')).forEach(element => {
+        element.classList.remove('up')
+    })
+
+    // Close all popUp alerts
+    Array.from(document.getElementsByClassName('pop-up-alert')).forEach(element => {
+        element.classList.remove('pop')
+    })
+
+    // When closing a bottomUpSheet -> close all expandable lists
+    Array.from(document.getElementsByClassName('focus')).forEach(element => {
+        element.classList.remove('focus')
+    })
+    overlay.classList.add('hidden')
+})

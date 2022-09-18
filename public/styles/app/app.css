@@ -15,6 +15,7 @@ body #overlay {
   transition: -webkit-backdrop-filter 0.3s ease-in-out;
   transition: backdrop-filter 0.3s ease-in-out;
   transition: backdrop-filter 0.3s ease-in-out, -webkit-backdrop-filter 0.3s ease-in-out;
+  transition-delay: 0.2s;
 }
 body #overlay.hidden {
   -webkit-backdrop-filter: blur(6px) opacity(0);
