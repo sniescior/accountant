@@ -1,7 +1,6 @@
 const { default: mongoose } = require("mongoose");
 
-// IncomeCategory, ExpenseCategory
-const categorySchema = new mongoose.Schema({
+const incomeCategorySchema = new mongoose.Schema({
     "name": {
         type: String,
         required: true,
@@ -9,4 +8,4 @@ const categorySchema = new mongoose.Schema({
     }
 })
 
-module.exports = categorySchema
+module.exports = incomeCategorySchema

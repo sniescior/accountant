@@ -55,7 +55,20 @@
                     <div>Budget</div>
                     <i class="bi bi-chevron-down"></i>
                 </li>
-                <%- include('../partials/_budget.ejs') %>
+                <div class="detailed">
+                    <div class="detailed-list-title">Your budget</div>
+                    <ul class="detailed-list">
+                        <% user.expenseCategories.forEach(element => { %>
+                            <% if (element.budget) { %>
+                                <li onclick="openPopUp('<%- element.id %>-budget-delete', this)">
+                                    <h2 class="title"><%- element.name %></h2>
+                                    <h4 class="budget-bound">£<%- element.budget %></h4>
+                                </li>
+                            <% } %>
+                        <% }) %>
+                        <button onclick="openBottomUpSheet('budget-add')" class="bt-secondary text-primary">Add budget</button>
+                    </ul>
+                </div>
             </a>
             <a class="menu-link act-as-link" href="/app/settings/configuration/repeat" data-link>
                 <li class="link-item">
@@ -160,43 +173,54 @@
 <div class="bottom-up-sheet high" id="budget-add">
     <div>
         <h2>Add budget</h2>
-        <form action="" id="budget-add-form">
+        <form action="/app/settings/budget-add" method="POST" id="budget-add-form">
             <div class="select-wrapper" onclick="expandOptions('budget-add-form')">
-                <input class="select" placeholder="Category">
+                <input class="select" placeholder="Category" id="budget-options" name="budgetAddCategory">
                 <i class="bi bi-chevron-down"></i>
             </div>
 
             <ul class="options-wrapper">
-                <li class="option">Food</li>
-                <li class="option">Social Life</li>
-                <li class="option">Transportation</li>
+                <% Array.from(user.expenseCategories).forEach(element => { %>
+                    <li class="option" onclick="setValue('budget-add-form', 'budget-options', '<%- element.name %>')"><%- element.name %></li>
+                <% }) %>
             </ul>
 
-            <input type="number" placeholder="Amount" step="10">
+            <input type="number" placeholder="Amount" name="budgetAddValue">
         </form>
     </div>
     <div class="bt-wrapper">
-        <button class="bt-primary w-100">Save</button>
+        <button onclick="submitForm('budget-add-form')" type="submit" class="bt-primary w-100">Save</button>
     </div>
 </div>
 
 <% user.expenseCategories.forEach(element => { %>
     <div class="pop-up-alert" id="<%- element.id %>">
-        <h2>Are you sure you want to delete this category <span class="text-primary"><%- element.name %></span> ? </h2>
+        <h2>Are you sure you want to delete this category <span class="text-primary"><%- element.name %></span></h2>
         <form action="/app/settings/expense-cat-delete" method="POST">
-            <button onclick="closeAllPopUps()" class="bt-secondary">Cancel</button>
+            <button type="button" onclick="closeAllPopUps()" class="bt-secondary">Cancel</button>
             <input type="hidden" value="<%- element.id %>" name="expenseCatID">
             <button type="submit" class="bt-primary">OK</button>
         </form>
     </div>
-    <% }) %>
+<% }) %>
     
 <% user.incomeCategories.forEach(element => { %>
     <div class="pop-up-alert" id="<%- element.id %>">
-        <h2>Are you sure you want to delete this category <span class="text-primary"><%- element.name %></span> ? </h2>
+        <h2>Are you sure you want to delete this category <span class="text-primary"><%- element.name %></span></h2>
         <form action="/app/settings/income-cat-delete" method="POST">
-            <button onclick="closeAllPopUps()" class="bt-secondary">Cancel</button>
+            <button type="button" onclick="closeAllPopUps()" class="bt-secondary">Cancel</button>
             <input type="hidden" value="<%- element.id %>" name="incomeCatID">
+            <button type="submit" class="bt-primary">OK</button>
+        </form>
+    </div>
+<% }) %>
+
+<% user.expenseCategories.forEach(element => { %>
+    <div class="pop-up-alert" id="<%- element.id %>-budget-delete">
+        <h2>Delete?</h2>
+        <form action="/app/settings/budget-delete" method="POST">
+            <button type="button" onclick="closeAllPopUps()" class="bt-secondary">Cancel</button>
+            <input type="hidden" value="<%- element.id %>" name="budgetCatID">
             <button type="submit" class="bt-primary">OK</button>
         </form>
     </div>

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const { isEmail } = require('validator')
 const bcrypt = require('bcrypt')
-const categorySchema = require('./Category')
+const incomeCategorySchema = require('./IncomeCategory')
+const expenseCategorySchema = require('./ExpenseCategory')
 
 const userSchema = mongoose.Schema({
     "username": {
@@ -22,10 +23,10 @@ const userSchema = mongoose.Schema({
         minlength: [8, 'Password should have at least 8 characters']
     },
     "expenseCategories": [
-        categorySchema
+        expenseCategorySchema
     ],
     "incomeCategories": [
-        categorySchema
+        incomeCategorySchema
     ],
 })
 
