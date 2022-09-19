@@ -91,6 +91,15 @@ body {
         transition: .2s ease-in-out;
         box-shadow: 4px 4px 10px 12px rgba(46, 46, 46, 0.1);
 
+        form {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 0;
+            padding: 0 12px 0 12px;
+        }
+
+        // to be depreciated -> .bt-wrapper in pop-up-alert
         .bt-wrapper {
             display: flex;
             justify-content: space-between;
@@ -103,7 +112,9 @@ body {
 
         h2 {
             font-size: 1.5em;
+            padding-right: 60px;
             margin-bottom: 30px;
+            max-width: 400px;
         }
 
         &.pop {
@@ -460,6 +471,7 @@ body {
                             transition: none;
                             opacity: 1;
                             text-align: center;
+                            cursor: default;
 
                             .detailed-group-title {
                                 margin: 10px 8px 0 0;
@@ -475,9 +487,20 @@ body {
                                 justify-content: space-between;
                                 align-items: center;
                                 padding: 18px 24px;
+                                transition: none;
                                 transition: transform .2s ease-in-out;
+                                transition: background-color .2s ease-in-out;
                                 background-color: rgba(255, 255, 255, 0.15);
                                 position: relative;
+                                cursor: pointer;
+
+                                &:hover {
+                                    background-color: rgba(255, 255, 255, 0.1);
+                                }
+                                
+                                &.focus {
+                                    background-color: rgba(255, 255, 255, 0.1);
+                                }
 
                                 &.active {
                                     position: relative;

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const { isEmail } = require('validator')
 const bcrypt = require('bcrypt')
+const categorySchema = require('./Category')
 
 const userSchema = mongoose.Schema({
     "username": {
@@ -19,13 +20,18 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please set your password'],
         minlength: [8, 'Password should have at least 8 characters']
-    }
+    },
+    "expenseCategories": [
+        categorySchema
+    ],
+    "incomeCategories": [
+        categorySchema
+    ],
 })
 
 // mongoose hooks
 // fire a function after doc saved to db
 userSchema.post('save', function (doc, next) {
-    console.log('New user was created and saved', doc);
     next()
 })
 
@@ -33,7 +39,6 @@ userSchema.post('save', function (doc, next) {
 userSchema.pre('save', async function (next) {
     const salt = await bcrypt.genSalt()
     this.password = await bcrypt.hash(this.password, salt)
-    console.log('user about to be created and saved', this);
     next()
 })
 

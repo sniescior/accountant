@@ -51,6 +51,23 @@ body {
         transition: .3s ease-in-out;
     }
 
+    .bt-icon {
+        outline: none;
+        border: none;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        transition: .3s ease-in-out;
+        background-color: transparent;
+
+        &:hover {
+            background-color: #be0000;
+        }
+    }
+
     .bt-primary {
         background-color: rgb(13, 110, 253);
         color: #eee;

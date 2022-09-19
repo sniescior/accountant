@@ -14,14 +14,16 @@ function toggleButton(elementId) {
     }
 }
 
-function openPopUp(elementId) {
+function openPopUp(elementId, LiToggle) {
     const element = document.getElementById(elementId)
+    LiToggle.classList.toggle('focus')
     overlay.classList.toggle('hidden')
     element.classList.add('pop')
 }
 
-function closePopUp(element) {
+function closePopUp(element, LiToggle) {
     const popUpElement = element.parentElement.parentElement
+    LiToggle.classList.toggle('focus')
     overlay.classList.toggle('hidden')
     popUpElement.classList.remove('pop')
 }
@@ -56,6 +58,18 @@ const toggleDetailedMenu = (elementID) => {
     element.classList.toggle('extended')
 }
 
+const closeAllPopUps = () => {
+    overlay.classList.add('hidden')
+    
+    Array.from(document.getElementsByClassName('pop-up-alert')).forEach(element => {
+        element.classList.remove('pop')
+    })
+    
+    Array.from(document.getElementsByClassName('focus')).forEach(element => {
+        element.classList.remove('focus')
+    })
+}
+
 overlay.addEventListener('click', (e) => {
     // Close all bottomUpSheet elements
     Array.from(document.getElementsByClassName('bottom-up-sheet')).forEach(element => {
@@ -63,9 +77,7 @@ overlay.addEventListener('click', (e) => {
     })
 
     // Close all popUp alerts
-    Array.from(document.getElementsByClassName('pop-up-alert')).forEach(element => {
-        element.classList.remove('pop')
-    })
+    closeAllPopUps()
 
     // When closing a bottomUpSheet -> close all expandable lists
     Array.from(document.getElementsByClassName('focus')).forEach(element => {
