@@ -3,6 +3,29 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+const startExpenseCategories = [
+    {'name': 'Food'},
+    {'name': 'Social Life'},
+    {'name': 'Self-development'},
+    {'name': 'Transportation'},
+    {'name': 'Culture'},
+    {'name': 'Household'},
+    {'name': 'Apparel'},
+    {'name': 'Beauty'},
+    {'name': 'Health'},
+    {'name': 'Education'},
+    {'name': 'Gift'},
+    {'name': 'Other'}
+]
+
+const startIncomeCategories = [
+    {'name': 'Allowance'},
+    {'name': 'Salary'},
+    {'name': 'Petty Cash'},
+    {'name': 'Bonus'},
+    {'name': 'Other'},
+]
+
 const signupErrors = async (username, email, password) => {
     var errorMessages = {'username': false, 'email': false, 'password': false, 'confirmPassword': false}
 
@@ -32,6 +55,7 @@ const createToken = (id) => {
 }
 
 module.exports.signup_get = (req, res) => {
+    console.log('Sign up get');
     var errorMessages = {'username': false, 'email': false, 'password': false, 'confirmPassword': false}
     const token = req.cookies.jwt
     if(token) {
@@ -63,6 +87,7 @@ module.exports.signin_get = (req, res) => {
 }
 
 module.exports.signup_post = async (req, res) => {
+    console.log('Sign up post');
     const { username, email, password, confirmPassword } = req.body
 
     if(password == confirmPassword) {
@@ -72,18 +97,28 @@ module.exports.signup_post = async (req, res) => {
             const token = createToken(user._id)
             res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
 
+            // startExpenseCategories.forEach(element => {
+            //     user.expenseCategories.push(element)
+            // })
+
+            // startIncomeCategories.forEach(element => {
+            //     user.incomeCategories.push(element)
+            // })
+
+            // // await user.save()
+
             res.status(201) // success status
             res.send('signed up')
         } catch (error) {
             res.status(400) // error status
             var errorMessages = await signupErrors(username, email, password)
             
-            res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: email, username: username })
+            res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: email, username: username , 'user': null })
         }
     } else {
         var errors = {'confirmPassword': 'Password doesn\'t match'}
         res.status(400)
-        res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errors, email: email, username: username })
+        res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errors, email: email, username: username, 'user': null })
     }
 }
 
