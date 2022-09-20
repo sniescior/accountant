@@ -466,6 +466,10 @@ body {
                         visibility: visible;
                         transform: translateY(0);
 
+                        .detailed-list-title {
+                            cursor: default;
+                        }
+
                         .detailed-list {
                             margin: 0;
                             margin-top: 12px;
@@ -474,6 +478,7 @@ body {
                             opacity: 1;
                             text-align: center;
                             cursor: default;
+
 
                             .detailed-group-title {
                                 margin: 10px 8px 0 0;

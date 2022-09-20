@@ -401,6 +401,9 @@ body .settings-section .section-list .menu-link.extended .detailed {
   visibility: visible;
   transform: translateY(0);
 }
+body .settings-section .section-list .menu-link.extended .detailed .detailed-list-title {
+  cursor: default;
+}
 body .settings-section .section-list .menu-link.extended .detailed .detailed-list {
   margin: 0;
   margin-top: 12px;

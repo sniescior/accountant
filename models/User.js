@@ -3,6 +3,7 @@ const { isEmail } = require('validator')
 const bcrypt = require('bcrypt')
 const incomeCategorySchema = require('./IncomeCategory')
 const expenseCategorySchema = require('./ExpenseCategory')
+const accountsGroupSchema = require('./AccountGroup')
 
 const userSchema = mongoose.Schema({
     "username": {
@@ -28,6 +29,9 @@ const userSchema = mongoose.Schema({
     "incomeCategories": [
         incomeCategorySchema
     ],
+    "accountGroups": [
+        accountsGroupSchema
+    ]
 })
 
 // mongoose hooks

@@ -53,8 +53,8 @@ const navigateTo = url => {
 const settingsClientRoutes = [
     { path: '/app/settings', view: 'main' },
     { path: '/app/settings/configuration', view: 'configuration' },
-    { path: '/app/settings/configuration/repeat', view: 'repeat', parent: 'configuration' },
-    { path: '/app/settings/configuration/currency', view: 'currency', parent: 'configuration' },
+    { path: '/app/settings/configuration/repeat', view: 'repeat' },
+    { path: '/app/settings/configuration/currency', view: 'currency' },
     { path: '/app/settings/accounts', view: 'accounts' },
     { path: '/app/settings/security', view: 'security' },
     { path: '/app/settings/plan', view: 'plan' },
