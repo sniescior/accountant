@@ -34,9 +34,6 @@ const route = (siteID, parentID) => {
     }
 
     if(parentID) {
-        document.body.classList.add('hidden')
-        appContainer.classList.add('hidden')
-
         nestedMenu.classList.remove('hidden')
         return
     }
@@ -73,8 +70,19 @@ const settingsClientRouter = async () => {
     })
 
     let match = potentialMatches.find(potentialMatch => potentialMatch.isMatch)
-    console.log(match);
-    route(match.route.view)
+    route(match.route.view, match.route.parent)
+}
+
+const setValue = (formID, inputID, textValue) => {
+    const formElement = document.getElementById(formID)
+    formElement.classList.remove('focus')
+    const inputElement = document.getElementById(inputID)
+    inputElement.value = textValue
+}
+
+const submitForm = (formID) => {
+    const form = document.getElementById(formID)
+    form.submit()
 }
 
 document.addEventListener('DOMContentLoaded', () => {

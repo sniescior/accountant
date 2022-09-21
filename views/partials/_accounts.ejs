@@ -17,17 +17,9 @@
                 </li>
                 <div class="detailed">
                     <ul class="detailed-list">
-                        <li><h2 class="title">Cash</h2></li>
-                        <li><h2 class="title">Accounts</h2></li>
-                        <li><h2 class="title">Card</h2></li>
-                        <li><h2 class="title">Debit Card</h2></li>
-                        <li><h2 class="title">Savings</h2></li>
-                        <li><h2 class="title">Top Up / Prepaid</h2></li>
-                        <li><h2 class="title">Investments</h2></li>
-                        <li><h2 class="title">Overdrafts</h2></li>
-                        <li><h2 class="title">Loan</h2></li>
-                        <li><h2 class="title">Insurance</h2></li>
-                        <li><h2 class="title">Others</h2></li>
+                        <% Array.from(user.accountGroups).forEach(element => { %>
+                            <li onclick="openPopUp('<%- element.id %>', this)"><h2 class="title"><%- element.groupName %></h2></li>
+                        <% }) %>
                         <button class="bt-secondary text-primary" onclick="openBottomUpSheet('acc-groups-add')">Add group</button>
                     </ul>
                 </div>
@@ -39,13 +31,14 @@
                 </li>
                 <div class="detailed">
                     <ul class="detailed-list">
-                        <h5 class="detailed-group-title text-secondary">Cash</h5>
-                        <li><h2 class="title">Cash</h2></li>
-                        <h5 class="detailed-group-title text-secondary">Accounts</h5>
-                        <li><h2 class="title">Accounts</h2></li>
-                        <h5 class="detailed-group-title text-secondary">Card</h5>
-                        <li><h2 class="title">Card 1</h2></li>
-                        <li><h2 class="title">Card 2</h2></li>
+                        <% Array.from(user.accountGroups).forEach(element => { %>
+                            <% if (element.accounts.length > 0) { %>
+                                <h5 class="detailed-group-title text-secondary"><%- element.groupName %></h5>
+                            <% } %>
+                            <% Array.from(element.accounts).forEach(account => { %>
+                                <li onclick="openBottomUpSheet('acc-details-<%- account.id %>')"><h2 class="title"><%- account.name %></h2></li>
+                            <% }) %>
+                        <% }) %>
                         <button class="bt-secondary text-primary" onclick="openBottomUpSheet('acc-add')">Add account</button>
                     </ul>
                 </div>
@@ -56,21 +49,76 @@
 
 <div class="bottom-up-sheet" id="acc-groups-add">
     <h2>New Accounts Group</h2>
-    <form action="">
-        <input type="text" placeholder="Name">
+    <form action="/app/settings/group-add" method="POST">
+        <input type="text" placeholder="Name" name="groupNameValue" required>
         <div class="bt-wrapper">
-            <button class="bt-primary">Save</button>
+            <button type="submit" class="bt-primary">Save</button>
         </div>
     </form>
 </div>
 
-<div class="bottom-up-sheet" id="acc-add">
-    <h2>Add Account</h2>
-    <form action="">
-        <input type="text" placeholder="Account Group" value="Cash">
-        <input type="text" placeholder="Name">
-        <div class="bt-wrapper">
-            <button class="bt-primary">Save</button>
+<% user.accountGroups.forEach(element => { %>
+    <div class="pop-up-alert" id="<%- element.id %>">
+        <h2>Are you sure you want to delete this group <span class="text-primary"><%- element.groupName %></span></h2>
+        <form action="/app/settings/acc-group-delete" method="POST">
+            <button type="button" onclick="closeAllPopUps()" class="bt-secondary">Cancel</button>
+            <input type="hidden" value="<%- element.id %>" name="groupNameID">
+            <button type="submit" class="bt-primary">OK</button>
+        </form>
+    </div>
+<% }) %>
+
+<% user.accountGroups.forEach(element => { %>
+    <% Array.from(element.accounts).forEach(account => { %>
+        <div class="bottom-up-sheet high" id="acc-details-<%- account.id %>">
+            <div>
+                <h2>Account details</h2>
+                <form action="/app/settings/acc-update" method="POST" id="acc-update-form-<%- account.id %>">
+                    <div class="select-wrapper" onclick="expandOptions('acc-update-form-<%- account.id %>')">
+                        <input type="hidden" name="accID" value="<%- account.id %>">
+                        <input class="select" placeholder="Category" id="acc-update-options-<%- account.id %>" name="accEditGroup" value="<%- element.groupName %>">
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+        
+                    <ul class="options-wrapper">
+                        <% Array.from(user.accountGroups).forEach(element => { %>
+                            <li class="option" onclick="setValue('acc-update-form-<%- account.id %>', 'acc-update-options-<%- account.id %>', '<%- element.groupName %>')"><%- element.groupName %></li>
+                        <% }) %>
+                    </ul>
+        
+                    <input class="mb-2" type="text" placeholder="Name" name="accEditName" value="<%- account.name %>">
+                    <input type="number" placeholder="Amount" name="accEditValue" value="<%- account.amount %>">
+                </form>
+            </div>
+            <div class="bt-wrapper">
+                <button onclick="submitForm('acc-update-form-<%- account.id %>')" class="bt-primary w-100">Update</button>
+                <button onclick="submitForm('acc-delete-form')" class="bt-secondary text-danger w-100 mt-2">Delete account</button>
+            </div>
         </div>
-    </form>
+
+    <% }) %>
+<% }) %>
+
+<div class="bottom-up-sheet high" id="acc-add">
+    <div>
+        <h2>Add Account</h2>
+        <form action="/app/settings/acc-add" method="POST" id="acc-add-form">
+            <div class="select-wrapper" onclick="expandOptions('acc-add-form')">
+                <input class="select" placeholder="Category" id="acc-options" name="accAddGroup">
+                <i class="bi bi-chevron-down"></i>
+            </div>
+
+            <ul class="options-wrapper">
+                <% Array.from(user.accountGroups).forEach(element => { %>
+                    <li class="option" onclick="setValue('acc-add-form', 'acc-options', '<%- element.groupName %>')"><%- element.groupName %></li>
+                <% }) %>
+            </ul>
+
+            <input class="mb-2" type="text" placeholder="Name" name="accAddName">
+            <input type="number" placeholder="Amount" name="accAddValue">
+        </form>
+    </div>
+    <div class="bt-wrapper">
+        <button onclick="submitForm('acc-add-form')" type="submit" class="bt-primary w-100">Save</button>
+    </div>
 </div>
