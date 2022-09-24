@@ -1,11 +1,14 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
 
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt
 
     if(token) { // if jwt exists
-        jwt.verify(token, 'super confidential secret', (error, decodedToken) => {   // if jwt is valid
+        jwt.verify(token, process.env.SESSION_SECRET, (error, decodedToken) => {   // if jwt is valid
             if(error) {
                 res.redirect('/auth/signin')
             } else {
@@ -22,7 +25,7 @@ const checkUser = async (req, res, next) => {
     const token = req.cookies.jwt
 
     if(token) {
-        jwt.verify(token, 'super confidential secret', async (error, decodedToken) => {   // if jwt is valid
+        jwt.verify(token, process.env.SESSION_SECRET, async (error, decodedToken) => {   // if jwt is valid
             if(error) {
                 res.locals.user = null
                 next()

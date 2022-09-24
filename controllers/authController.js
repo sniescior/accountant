@@ -2,6 +2,7 @@ const User = require('../models/User')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+require('dotenv').config()
 
 const startExpenseCategories = [
     {'name': 'Food'},
@@ -49,17 +50,16 @@ const signupErrors = async (username, email, password) => {
 const maxAge = 3 * 24 * 60 * 60 // 3 days in seconds
 
 const createToken = (id) => {
-    return jwt.sign({id}, 'super confidential secret', {
+    return jwt.sign({id}, process.env.SESSION_SECRET, {
         expiresIn: maxAge
     })
 }
 
 module.exports.signup_get = (req, res) => {
-    console.log('Sign up get');
     var errorMessages = {'username': false, 'email': false, 'password': false, 'confirmPassword': false}
     const token = req.cookies.jwt
     if(token) {
-        jwt.verify(token, 'super confidential secret', (error, decodedToken) => {   // if jwt is valid
+        jwt.verify(token, process.env.SESSION_SECRET, (error, decodedToken) => {   // if jwt is valid
             if(error) {
                 res.render('auth/signup', { csrfToken: req.csrfToken(), errors: errorMessages, email: '', username: '' })
             } else {
@@ -74,41 +74,41 @@ module.exports.signup_get = (req, res) => {
 module.exports.signin_get = (req, res) => {
     const token = req.cookies.jwt
     if(token) {
-        jwt.verify(token, 'super confidential secret', (error, decodedToken) => {   // if jwt is valid
+        jwt.verify(token, process.env.SESSION_SECRET, (error, decodedToken) => {   // if jwt is valid
             if(error) {
-                res.render('auth/signin', { csrfToken: req.csrfToken(), 'error': null, 'email': '' })
+                res.render('auth/signin', { csrfToken: req.csrfToken(), 'error': null, 'email': '', 'user': null })
             } else {
                 res.redirect('/')
             }
         })
     } else {
-        res.render('auth/signin', { csrfToken: req.csrfToken(), 'error': null, 'email': '' })
+        res.render('auth/signin', { csrfToken: req.csrfToken(), 'error': null, 'email': '', 'user': null })
     }
 }
 
 module.exports.signup_post = async (req, res) => {
-    console.log('Sign up post');
     const { username, email, password, confirmPassword } = req.body
 
     if(password == confirmPassword) {
         try {
-            const user = await User.create({ username, email, password })
+            const hashedPassword = await bcrypt.hash(password, 10)
+            const user = await User.create({ username: username, email: email, password: hashedPassword })
+            
+            startExpenseCategories.forEach(element => {
+                user.expenseCategories.push(element)
+            })
+            
+            startIncomeCategories.forEach(element => {
+                user.incomeCategories.push(element)
+            })
+            
+            await user.save()
 
             const token = createToken(user._id)
             res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
-
-            // startExpenseCategories.forEach(element => {
-            //     user.expenseCategories.push(element)
-            // })
-
-            // startIncomeCategories.forEach(element => {
-            //     user.incomeCategories.push(element)
-            // })
-
-            // // await user.save()
-
+            
             res.status(201) // success status
-            res.send('signed up')
+            res.redirect('/app/dashboard')
         } catch (error) {
             res.status(400) // error status
             var errorMessages = await signupErrors(username, email, password)
@@ -126,14 +126,22 @@ module.exports.signin_post = async (req, res) => {
     const { email, password } = req.body
     
     try {
-        const user = await User.login(email, password)
+        const user = await User.findOne({ email: email })
+        console.log(user)
+        if(user) {
+            const auth = bcrypt.compare(password, user.password)
+            if(auth) {
+                console.log('Auth sucessfull')
+                const token = createToken(user._id)
+                res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
 
-        const token = createToken(user._id)
-        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
-
-        // res.status(200).json({user: user._id})
-        // res.render('app/dashboard')
-        return res.redirect('/app/dashboard')
+                res.status(200)
+                return res.redirect('/app/dashboard')
+            } else {
+                console.log('Wrong username or password (probably password)')
+                res.render('auth/signin', { csrfToken: req.csrfToken(), error, 'email': email })
+            }
+        }
     } catch (error) {
         res.status(400)
         res.render('auth/signin', { csrfToken: req.csrfToken(), error, 'email': email })

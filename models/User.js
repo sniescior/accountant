@@ -40,19 +40,14 @@ userSchema.post('save', function (doc, next) {
     next()
 })
 
-// fire a function before user was saved to the db
-userSchema.pre('save', async function (next) {
-    const salt = await bcrypt.genSalt()
-    this.password = await bcrypt.hash(this.password, salt)
-    next()
-})
-
 // static method to login user
 userSchema.statics.login = async function(email, password) {
     const user = await this.findOne({ email })
-    
+    console.log(user)
+    console.log('Takie hasełko: ', password)
+
     if(user) {
-        const auth = await bcrypt.compare(password, user.password)
+        const auth = bcrypt.compareSync(password, user.password)
 
         if(auth) {          // password match
             return user
