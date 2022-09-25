@@ -5,5 +5,6 @@ module.exports.dashboard_get = (req, res) => {
 }
 
 module.exports.settings_get = async (req, res) => {
+    console.log('Settings get')
     res.render('app/settings')
 }

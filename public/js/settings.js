@@ -23,7 +23,6 @@ const closeNestedMenus = () => {
 }
 
 const route = (siteID, parentID) => {
-    console.log('Routing', siteID);
     const appContainer = document.getElementById('appContainer')
     const nestedMenu = document.getElementById(siteID)
     if(siteID == 'main') {
@@ -45,7 +44,6 @@ const route = (siteID, parentID) => {
 }
 
 const navigateTo = url => {
-    console.log('Navigating to ', url);
     history.pushState(null, null, url)
     settingsClientRouter()
 }
@@ -86,7 +84,6 @@ const submitForm = (formID) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Loaded');
     settingsClientRouter()
     document.addEventListener('click', (e) => {
         if(e.target.matches('[data-link]')) {
@@ -96,9 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     window.addEventListener('popstate', () => {
-        console.log('Popstate detected')
-        console.log(location.pathname);
-
         settingsClientRouter()
     })
 })
