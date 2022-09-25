@@ -3,9 +3,10 @@
 $bg_primary_color: #EFEEF6;
 $bg_secondary_color: #d0b8ccc4;
 
-$primary_color: #383b61;
+// $primary_color: #383b61;
+$primary_color:  rgb(13, 110, 253);
 $primary_color_shadow: #383b619d;
-$primary_color_hover: #212997da;
+$primary_color_hover: rgb(13, 110, 253, 0.9);
 
 $secondary_color: #2340C3;
 $secondary_color_shadow: #383b6125;
@@ -125,7 +126,6 @@ body {
         color: $primary_color;
         text-decoration: none;
         font-weight: 600;
-        transition: .2s ease-in-out;
         border: none;
         background-color: transparent;
 
@@ -162,7 +162,7 @@ body {
         }
 
         &.active {
-            background-color: #2340C3;
+            background-color: $primary_color;
 
             .circle {
                 transform: translateX(43px);

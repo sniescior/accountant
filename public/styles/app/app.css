@@ -307,7 +307,8 @@ body .header .title img {
   width: 130px;
   height: 130px;
   border-radius: 50%;
-  box-shadow: 0 0 20px 2px rgba(238, 238, 238, 0.1);
+  box-shadow: 0 0 10px 2px rgba(200, 200, 200, 0.1);
+  opacity: 0.9;
   -o-object-fit: cover;
      object-fit: cover;
 }
