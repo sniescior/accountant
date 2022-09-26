@@ -129,6 +129,10 @@ body {
         border: none;
         background-color: transparent;
 
+        i {
+            margin-left: 6px;
+        }
+
         &.bold {
             font-weight: 800;
         }

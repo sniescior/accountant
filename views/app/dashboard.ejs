@@ -6,12 +6,162 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accountant - Dashboard</title>
 
-    <%- include('../partials/_global_styles.ejs') %>
+    <link rel="stylesheet" href="/public/styles/main.css">
+    <link rel="stylesheet" href="/public/styles/app/app.css">
+    <link rel="stylesheet" href="/public/styles/app/dashboard.css">
 </head>
 <body>
-    <%- include('../partials/_navbar.ejs') %>
-    <h2 class="text-center">You've successfully logged in. Welcome to your dashboard.</h2>
-    
-    <%- include('../partials/_global_scripts.ejs') %>
+    <div class="dashboard-container" id="appContainer">
+        <div class="background">
+            <menu class="user-menu">
+                <div class="header">
+                    <img src="/public/images/defaultavatar.png" alt="">
+                    <div class="user-info">
+                        <h2><%= user.username %></h2>
+                        <h3><%= user.email %></h3>
+                    </div>
+
+                </div>
+                <ul class="user-menu-list">
+                    <a href="#">
+                        <li class="active">
+                            <i class="bi bi-house-fill"></i>
+                            Overview
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <i class="bi bi-book-fill"></i>
+                            Transactions
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <i class="bi bi-bar-chart-fill"></i>
+                            Statistics
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <i class="bi bi-credit-card-2-back-fill"></i>
+                            Accounts
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <i class="bi bi-bell-fill"></i>
+                            Notifications
+                        </li>
+                    </a>
+                    <a href="/app/settings">
+                        <li>
+                            <i class="bi bi-gear-fill"></i>
+                            Settings
+                        </li>
+                    </a>
+                </ul>
+                <a href="#" class="bt-secondary">
+                    Log out
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+            </menu>
+        </div>
+
+        <section>
+            <nav class="tab-nav">
+                <ul>
+                    <li class="active">Daily</li>
+                    <li>Weekly</li>
+                    <li>Monthly</li>
+                    <li>Summary</li>
+                </ul>
+            </nav>
+            <div class="quick-stats">
+                <div class="income">
+                    <h2>270.95</h2>
+                    <h3>income</h3>
+                </div>
+                <div class="expense">
+                    <h2>95.76</h2>
+                    <h3>expenses</h3>
+                </div>
+                <div>
+                    <h2>175.19</h2>
+                    <h3>total</h3>
+                </div>
+            </div>
+
+            <div class="control-wrapper">
+                <button class="bt-primary">New transaction</button>
+                <form action="">
+                    <div class="dropdown-input" id="filter-transactions" onclick="expandOptions(this.id)">
+                        <input class="select" value="All transactions">
+                        <i class="bi bi-chevron-down"></i>
+
+                        <ul class="dropdown">
+                            <li>Income</li>
+                            <li>Expenses</li>
+                            <li>Transfers</li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <tr class="header-row">
+                        <th>
+                            Date
+                            <i class="bi bi-chevron-down"></i>
+                        </th>
+                        <th>
+                            Account
+                            <i class="bi bi-chevron-down"></i>
+                        </th>
+                        <th>
+                            Value
+                            <i class="bi bi-chevron-down"></i>
+                        </th>
+                        <th>
+                            Category
+                            <i class="bi bi-chevron-down"></i>
+                        </th>
+                    </tr>
+                    <tr class="spacer"><th></th><th></th><th></th><th></th><th></th></tr>
+                    <tr class="data-row">
+                        <th>Today, 2:23 pm</th>
+                        <th>Oyster Card</th>
+                        <th class="expense">
+                            £1.65
+                        </th>
+                        <th>Transportation</th>
+                    </tr>
+                    <tr class="data-row">
+                        <th>Today, 1:45 pm</th>
+                        <th>Salary</th>
+                        <th class="income">
+                            £3000
+                        </th>
+                        <th>Salary</th>
+                    </tr>
+                    <tr class="data-row">
+                        <th>Today, 8:13 am</th>
+                        <th>
+                            Cash
+                            <i class="bi bi-arrow-right-short"></i>
+                            Oyster Card
+                        </th>
+                        <th class="transfer">
+                            £10
+                        </th>
+                        <th></th>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+    </div>
+    <script type="text/javascript" src="/public/js/app.js"></script>
+    <script type="text/javascript" src="/public/js/main.js"></script>
 </body>
 </html>

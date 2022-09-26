@@ -108,6 +108,12 @@ body.addEventListener('click', (e) => {
             return
         }
     }
+
+    Array.from(document.getElementsByClassName('focus')).forEach(element => {
+        if(e.target != element) {
+            element.classList.remove('focus')
+        }
+    })
     
     if(!ifTarget(e, toggleNavElements)) removeActiveElements(toggleNavElements)
 })

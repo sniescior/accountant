@@ -101,6 +101,9 @@ body .bt-secondary {
   border: none;
   background-color: transparent;
 }
+body .bt-secondary i {
+  margin-left: 6px;
+}
 body .bt-secondary.bold {
   font-weight: 800;
 }
