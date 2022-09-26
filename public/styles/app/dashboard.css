@@ -82,9 +82,45 @@ body .dashboard-container .user-menu .user-menu-list a li {
 body .dashboard-container .user-menu .user-menu-list a li i {
   margin-right: 5px;
 }
-body .dashboard-container .user-menu .user-menu-list a li:hover, body .dashboard-container .user-menu .user-menu-list a li.active {
+body .dashboard-container .user-menu .user-menu-list a li.active {
   color: #fff;
   background-color: rgba(238, 238, 238, 0.18);
+}
+body .dashboard-container .user-menu .user-menu-list a li:hover {
+  color: #fff;
+  background-color: rgba(238, 238, 238, 0.18);
+}
+body .dashboard-container .user-menu .button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+body .dashboard-container .user-menu .button-wrapper form {
+  margin: 0;
+  width: 50px;
+}
+body .dashboard-container .user-menu .button-wrapper a {
+  font-size: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  text-decoration: none;
+  color: #eee;
+  border: 2px solid rgba(238, 238, 238, 0.1);
+  border-radius: 12px;
+  transition: 0.2s ease-in-out;
+}
+body .dashboard-container .user-menu .button-wrapper a:hover {
+  background-color: rgba(238, 238, 238, 0.2);
+  color: #fff;
+}
+body .dashboard-container .user-menu .button-wrapper a:hover.logout {
+  background-color: rgba(238, 238, 238, 0.1);
+  color: #dc3545;
+  border: 2px solid #dc3545;
 }
 body .dashboard-container section {
   width: 100%;
@@ -104,6 +140,7 @@ body .dashboard-container section .control-wrapper .bt-primary {
   font-size: 0.9em;
   white-space: nowrap;
   cursor: pointer;
+  border: 2px solid rgb(13, 110, 253);
 }
 body .dashboard-container section .control-wrapper form {
   display: flex;
@@ -113,26 +150,39 @@ body .dashboard-container section .control-wrapper form {
   gap: 10px;
   margin: 0;
 }
-body .dashboard-container section .control-wrapper form .dropdown-input {
+body .dashboard-container section .control-wrapper form .input-wrapper {
   display: flex;
   align-items: center;
   border: 2px solid rgba(238, 238, 238, 0.3);
   border-radius: 12px;
-  padding: 0 12px 0 0;
+  padding: 0 12px 0 12px;
   cursor: pointer;
   position: relative;
   transition: 0.1s ease-in-out;
+  color: #eee;
 }
-body .dashboard-container section .control-wrapper form .dropdown-input i {
+body .dashboard-container section .control-wrapper form .input-wrapper i {
   transition: 0.2s ease-in-out;
 }
-body .dashboard-container section .control-wrapper form .dropdown-input input {
-  cursor: pointer;
+body .dashboard-container section .control-wrapper form .input-wrapper input {
+  font-size: 0.9em;
   border: none;
+}
+body .dashboard-container section .control-wrapper form .input-wrapper input::-moz-placeholder {
+  color: #eee;
+}
+body .dashboard-container section .control-wrapper form .input-wrapper input:-ms-input-placeholder {
+  color: #eee;
+}
+body .dashboard-container section .control-wrapper form .input-wrapper input::placeholder {
+  color: #eee;
+}
+body .dashboard-container section .control-wrapper form .input-wrapper.dropdown-wrapper input {
+  cursor: pointer;
   font-size: 0.9em;
   pointer-events: none;
 }
-body .dashboard-container section .control-wrapper form .dropdown-input .dropdown {
+body .dashboard-container section .control-wrapper form .input-wrapper .dropdown {
   display: block;
   position: absolute;
   top: 25px;
@@ -149,23 +199,23 @@ body .dashboard-container section .control-wrapper form .dropdown-input .dropdow
   border: 1px solid rgba(238, 238, 238, 0.1);
   z-index: -1000;
 }
-body .dashboard-container section .control-wrapper form .dropdown-input .dropdown li {
+body .dashboard-container section .control-wrapper form .input-wrapper .dropdown li {
   margin: 2px 6px;
   padding: 10px 16px;
   font-size: 1.1em;
   border-radius: 8px;
 }
-body .dashboard-container section .control-wrapper form .dropdown-input .dropdown li:hover {
+body .dashboard-container section .control-wrapper form .input-wrapper .dropdown li:hover {
   background-color: rgba(238, 238, 238, 0.2);
 }
-body .dashboard-container section .control-wrapper form .dropdown-input.focus {
+body .dashboard-container section .control-wrapper form .input-wrapper.focus {
   background-color: rgba(238, 238, 238, 0.1);
   border: 2px solid rgb(13, 110, 253);
 }
-body .dashboard-container section .control-wrapper form .dropdown-input.focus i {
+body .dashboard-container section .control-wrapper form .input-wrapper.focus.dropdown-wrapper i {
   transform: rotate(180deg);
 }
-body .dashboard-container section .control-wrapper form .dropdown-input.focus .dropdown {
+body .dashboard-container section .control-wrapper form .input-wrapper.focus .dropdown {
   top: 45px;
   opacity: 1;
   z-index: 1000;
@@ -176,76 +226,63 @@ body .dashboard-container section .control-wrapper form input {
   width: fit-content;
   margin: 0;
   background-color: transparent;
+  padding: 10px 8px;
   border: 2px solid rgba(238, 238, 238, 0.3);
 }
 body .dashboard-container section .tab-nav {
   margin-top: 10px;
 }
 body .dashboard-container section .tab-nav ul {
+  box-shadow: 21px 21px 42px #101010, -21px -21px 42px #121212;
   list-style-type: none;
-  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  max-width: 800px;
+  max-width: 600px;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  padding: 6px 6px;
+  border-radius: 23px;
 }
 body .dashboard-container section .tab-nav ul li {
   text-align: center;
-  font-size: 1.4em;
-  font-weight: 700;
+  font-size: 1.3em;
+  font-weight: 500;
   cursor: pointer;
   color: #eee;
-}
-body .dashboard-container section .tab-nav ul li::after {
-  content: "";
-  display: block;
-  width: 100px;
-  height: 2px;
-  background-color: transparent;
-  margin-top: 6px;
-  transition: 0.2s ease-in-out;
-}
-body .dashboard-container section .tab-nav ul li:hover::after {
-  content: "";
-  display: block;
-  width: 100px;
-  height: 2px;
-  background-color: #eee;
-  margin-top: 6px;
+  padding: 6px 30px;
+  border-radius: 20px;
 }
 body .dashboard-container section .tab-nav ul li.active {
   color: rgb(13, 110, 253);
-}
-body .dashboard-container section .tab-nav ul li.active::after {
-  content: "";
-  display: block;
-  width: 100px;
-  height: 2px;
-  background-color: rgb(13, 110, 253);
-  margin-top: 6px;
+  background-color: #eee;
 }
 body .dashboard-container section .quick-stats {
   display: flex;
   justify-content: space-around;
-  background-color: rgba(238, 238, 238, 0.1);
   margin: 20px;
   margin-top: 8px;
   padding: 20px 10px;
   border-radius: 20px;
   position: relative;
+  gap: 20px;
 }
-body .dashboard-container section .quick-stats .income h2 {
+body .dashboard-container section .quick-stats .stats-card {
+  padding: 20px 30px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px #070707, -5px -5px 10px #1b1b1b;
+}
+body .dashboard-container section .quick-stats .stats-card.income h2 {
   color: #198754;
 }
-body .dashboard-container section .quick-stats .expense h2 {
+body .dashboard-container section .quick-stats .stats-card.expense h2 {
   color: #dc3545;
 }
-body .dashboard-container section .quick-stats h2 {
+body .dashboard-container section .quick-stats .stats-card h2 {
   font-size: 1.8em;
 }
-body .dashboard-container section .quick-stats h3 {
+body .dashboard-container section .quick-stats .stats-card h3 {
   font-size: 0.9em;
   text-transform: uppercase;
   font-weight: 400;

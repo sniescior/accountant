@@ -43,6 +43,7 @@ function closeBottomUpSheet(elementId) {
 function expandOptions(elementID) {
     const element = document.getElementById(elementID)
     element.classList.toggle('focus')
+    console.log(element);
 }
 
 const toggleDetailedMenu = (elementID) => {

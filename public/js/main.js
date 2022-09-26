@@ -99,7 +99,6 @@ body.addEventListener('click', (e) => {
     }
 
     if(sideMenu) {
-
         if(!sideMenu.classList.contains('hidden')) {
             // if clicked on side-menu closing button or side-menu itself or side-menu list element do nothing
             if(!ifTarget(e, toggleMenuElements) && !openButton.contains(e.target) && !sideMenu.contains(e.target)) {
@@ -110,7 +109,7 @@ body.addEventListener('click', (e) => {
     }
 
     Array.from(document.getElementsByClassName('focus')).forEach(element => {
-        if(e.target != element) {
+        if(e.target != element && e.target.parentElement != element) {
             element.classList.remove('focus')
         }
     })

@@ -23,47 +23,24 @@
 
                 </div>
                 <ul class="user-menu-list">
-                    <a href="#">
-                        <li class="active">
-                            <i class="bi bi-house-fill"></i>
-                            Overview
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li>
-                            <i class="bi bi-book-fill"></i>
-                            Transactions
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li>
-                            <i class="bi bi-bar-chart-fill"></i>
-                            Statistics
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li>
-                            <i class="bi bi-credit-card-2-back-fill"></i>
-                            Accounts
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li>
-                            <i class="bi bi-bell-fill"></i>
-                            Notifications
-                        </li>
-                    </a>
-                    <a href="/app/settings">
-                        <li>
-                            <i class="bi bi-gear-fill"></i>
-                            Settings
-                        </li>
-                    </a>
+                    <a href="#"><li class="active"><i class="bi bi-house-fill"></i>Overview</li></a>
+                    <a href="#"><li><i class="bi bi-book-fill"></i>Transactions</li></a>
+                    <a href="#"><li><i class="bi bi-bar-chart-fill"></i>Statistics</li></a>
+                    <a href="#"><li><i class="bi bi-credit-card-2-back-fill"></i>Accounts</li></a>
+                    <a href="#"><li><i class="bi bi-bell-fill"></i>Notifications</li></a>
                 </ul>
-                <a href="#" class="bt-secondary">
-                    Log out
-                    <i class="bi bi-box-arrow-right"></i>
-                </a>
+                <div class="button-wrapper">
+                    <form action="">
+                        <a href="/app/settings">
+                            <i class="bi bi-gear-fill"></i>
+                        </a>
+                    </form>
+                    <form action="">
+                        <a href="#" class="logout">
+                            <i class="bi bi-box-arrow-right"></i>
+                        </a>
+                    </form>
+                </div>
             </menu>
         </div>
 
@@ -77,16 +54,16 @@
                 </ul>
             </nav>
             <div class="quick-stats">
-                <div class="income">
-                    <h2>270.95</h2>
+                <div class="stats-card income">
+                    <h2>3270.95</h2>
                     <h3>income</h3>
                 </div>
-                <div class="expense">
+                <div class=" stats-card expense">
                     <h2>95.76</h2>
                     <h3>expenses</h3>
                 </div>
-                <div>
-                    <h2>175.19</h2>
+                <div class="stats-card">
+                    <h2>3175.19</h2>
                     <h3>total</h3>
                 </div>
             </div>
@@ -94,38 +71,31 @@
             <div class="control-wrapper">
                 <button class="bt-primary">New transaction</button>
                 <form action="">
-                    <div class="dropdown-input" id="filter-transactions" onclick="expandOptions(this.id)">
+                    <div class="input-wrapper" id="search-transactions" onclick="expandOptions(this.id)">
+                        <i class="bi bi-search ml-0"></i>
+                        <input class="select" placeholder="Search">
+                    </div>
+                    <div class="input-wrapper dropdown-wrapper" id="filter-transactions" onclick="expandOptions(this.id)">
                         <input class="select" value="All transactions">
                         <i class="bi bi-chevron-down"></i>
-
+                        
                         <ul class="dropdown">
                             <li>Income</li>
                             <li>Expenses</li>
                             <li>Transfers</li>
                         </ul>
                     </div>
+                    <button class="bt-primary">Filter</button>
                 </form>
             </div>
 
             <div class="table-wrapper">
                 <table>
                     <tr class="header-row">
-                        <th>
-                            Date
-                            <i class="bi bi-chevron-down"></i>
-                        </th>
-                        <th>
-                            Account
-                            <i class="bi bi-chevron-down"></i>
-                        </th>
-                        <th>
-                            Value
-                            <i class="bi bi-chevron-down"></i>
-                        </th>
-                        <th>
-                            Category
-                            <i class="bi bi-chevron-down"></i>
-                        </th>
+                        <th>Date <i class="bi bi-chevron-down"></i></th>
+                        <th>Account <i class="bi bi-chevron-down"></i></th>
+                        <th>Value <i class="bi bi-chevron-down"></i></th>
+                        <th>Category <i class="bi bi-chevron-down"></i></th>
                     </tr>
                     <tr class="spacer"><th></th><th></th><th></th><th></th><th></th></tr>
                     <tr class="data-row">
@@ -159,7 +129,6 @@
                 </table>
             </div>
         </section>
-
     </div>
     <script type="text/javascript" src="/public/js/app.js"></script>
     <script type="text/javascript" src="/public/js/main.js"></script>

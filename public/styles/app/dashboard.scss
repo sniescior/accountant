@@ -89,10 +89,51 @@ body {
                             margin-right: 5px;
                         }
                         
-                        &:hover,
                         &.active {
                             color: #fff;
                             background-color: rgba(238, 238, 238, 0.18);
+                        }
+                        
+                        &:hover {
+                            color: #fff;
+                            background-color: rgba(238, 238, 238, 0.18);
+                        }
+                    }
+                }
+            }
+
+            .button-wrapper {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+
+                form {
+                    margin: 0;
+                    width: 50px;
+                }
+                
+                a {
+                    font-size: 1.5em;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 45px;
+                    height: 45px;
+                    text-decoration: none;
+                    color: #eee;
+                    border: 2px solid rgba(238, 238, 238, 0.1);
+                    border-radius: 12px;
+                    transition: .2s ease-in-out;
+                    
+                    &:hover {
+                        background-color: rgba(238, 238, 238, 0.2);
+                        color: #fff;
+                        
+                        &.logout {
+                            background-color: rgba(238, 238, 238, 0.1);
+                            color: #dc3545;
+                            border: 2px solid #dc3545;
                         }
                     }
                 }
@@ -115,8 +156,9 @@ body {
                     font-size: 0.9em;
                     white-space: nowrap;
                     cursor: pointer;
+                    border: 2px solid $primary_color;
                 }
-
+                
                 form {
                     display: flex;
                     flex-direction: row;
@@ -125,25 +167,36 @@ body {
                     gap: 10px;
                     margin: 0;
 
-                    .dropdown-input {
+                    .input-wrapper {
                         display: flex;
                         align-items: center;
                         border: 2px solid rgba(238, 238, 238, 0.3);
                         border-radius: 12px;
-                        padding: 0 12px 0 0;
+                        padding: 0 12px 0 12px;
                         cursor: pointer;
                         position: relative;
                         transition: .1s ease-in-out;
+                        color: #eee;
                         
                         i {
                             transition: .2s ease-in-out;
                         }
 
                         input {
-                            cursor: pointer;
-                            border: none;
                             font-size: 0.9em;
-                            pointer-events: none;
+                            border: none;
+
+                            &::placeholder {
+                                color: #eee;
+                            }
+                        }
+
+                        &.dropdown-wrapper {
+                            input {
+                                cursor: pointer;
+                                font-size: 0.9em;
+                                pointer-events: none;
+                            }
                         }
 
                         .dropdown {
@@ -179,8 +232,10 @@ body {
                             background-color: rgba(238, 238, 238, 0.1);
                             border: 2px solid $primary_color;
 
-                            i {
-                                transform: rotate(180deg);
+                            &.dropdown-wrapper {
+                                i {
+                                    transform: rotate(180deg);
+                                }
                             }
                             
                             .dropdown {
@@ -195,6 +250,7 @@ body {
                         width: fit-content;
                         margin: 0;
                         background-color: transparent;
+                        padding: 10px 8px;
                         border: 2px solid rgba(238, 238, 238, 0.3);
                     }
                 }
@@ -204,54 +260,30 @@ body {
                 margin-top: 10px;
                 
                 ul {
+                    box-shadow:  21px 21px 42px #101010,
+                                -21px -21px 42px #121212;
                     list-style-type: none;
-                    width: 100%;
                     margin-left: auto;
                     margin-right: auto;
-                    max-width: 800px;
+                    max-width: 600px;
                     display: flex;
                     align-items: center;
                     justify-content: space-around;
+                    padding: 6px 6px;
+                    border-radius: 23px;
 
                     li {
                         text-align: center;
-                        font-size: 1.4em;
-                        font-weight: 700;
+                        font-size: 1.3em;
+                        font-weight: 500;
                         cursor: pointer;
                         color: #eee;
-                        
-                        &::after {
-                            content: '';
-                            display: block;
-                            width: 100px;
-                            height: 2px;
-                            background-color: transparent;
-                            margin-top: 6px;
-                            transition: .2s ease-in-out;
-                        }
-                        
-                        &:hover {
-                            &::after {
-                                content: '';
-                                display: block;
-                                width: 100px;
-                                height: 2px;
-                                background-color: #eee;
-                                margin-top: 6px;
-                            }
-                        }
+                        padding: 6px 30px;
+                        border-radius: 20px;
 
                         &.active {
                             color: $primary_color;
-
-                            &::after {
-                                content: '';
-                                display: block;
-                                width: 100px;
-                                height: 2px;
-                                background-color: $primary_color;
-                                margin-top: 6px;
-                            }
+                            background-color: #eee;
                         }
                     }
                 }
@@ -260,34 +292,42 @@ body {
             .quick-stats {
                 display: flex;
                 justify-content: space-around;
-                background-color: rgba(238, 238, 238, 0.1);
                 margin: 20px;
                 margin-top: 8px;
                 padding: 20px 10px;
                 border-radius: 20px;
                 position: relative;
+                gap: 20px;
 
-                .income {
-                    h2 {
-                        color: #198754;
+                .stats-card {
+                    padding: 20px 30px;
+                    width: 100%;
+                    border-radius: 20px;
+                    box-shadow:  5px 5px 10px #070707,
+                                -5px -5px 10px #1b1b1b;
+
+                    &.income {
+                        h2 {
+                            color: #198754;
+                        }
                     }
-                }
-
-                .expense {
-                    h2 {
-                        color: #dc3545;
+                    
+                    &.expense {
+                        h2 {
+                            color: #dc3545;
+                        }
                     }
-                }
-
-                h2 {
-                    font-size: 1.8em;
-                }
-
-                h3 {
-                    font-size: .9em;
-                    text-transform: uppercase;
-                    font-weight: 400;
-                    color: rgba(224, 224, 224, 0.8);
+                    
+                    h2 {
+                        font-size: 1.8em;
+                    }
+                    
+                    h3 {
+                        font-size: .9em;
+                        text-transform: uppercase;
+                        font-weight: 400;
+                        color: rgba(224, 224, 224, 0.8);
+                    }
                 }
             }
 
@@ -331,10 +371,6 @@ body {
 
                                 &.expense {
                                     color: #dc3545;
-                                }
-
-                                &.transfer {
-                                    
                                 }
 
                                 &:first-child {
