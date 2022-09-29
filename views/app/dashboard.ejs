@@ -7,10 +7,10 @@
     <title>Accountant - Dashboard</title>
 
     <link rel="stylesheet" href="/public/styles/main.css">
-    <link rel="stylesheet" href="/public/styles/app/app.css">
     <link rel="stylesheet" href="/public/styles/app/dashboard.css">
 </head>
 <body>
+    <div id="overlay" class="hidden"></div>
     <div class="dashboard-container" id="appContainer">
         <div class="background">
             <menu class="user-menu">
@@ -30,16 +30,12 @@
                     <a href="#"><li><i class="bi bi-bell-fill"></i>Notifications</li></a>
                 </ul>
                 <div class="button-wrapper">
-                    <form action="">
-                        <a href="/app/settings">
-                            <i class="bi bi-gear-fill"></i>
-                        </a>
-                    </form>
-                    <form action="">
-                        <a href="#" class="logout">
+                    <a href="/app/settings">
+                        <i class="bi bi-gear-fill"></i>
+                    </a>
+                        <a class="logout" href="/auth/signout">
                             <i class="bi bi-box-arrow-right"></i>
                         </a>
-                    </form>
                 </div>
             </menu>
         </div>
@@ -69,20 +65,20 @@
             </div>
 
             <div class="control-wrapper">
-                <button class="bt-primary">New transaction</button>
+                <button class="bt-primary" onclick="toggleModal('new-transaction-modal')">New transaction</button>
                 <form action="">
-                    <div class="input-wrapper" id="search-transactions" onclick="expandOptions(this.id)">
+                    <div class="input-wrapper" id="search-transactions">
                         <i class="bi bi-search ml-0"></i>
                         <input class="select" placeholder="Search">
                     </div>
-                    <div class="input-wrapper dropdown-wrapper" id="filter-transactions" onclick="expandOptions(this.id)">
-                        <input class="select" value="All transactions">
+                    <div class="input-wrapper dropdown-wrapper" id="filter-transactions" onclick="toggleDropdown(this.id)">
+                        <input class="select" value="All transactions" id="filter-transactions-input">
                         <i class="bi bi-chevron-down"></i>
                         
-                        <ul class="dropdown">
-                            <li>Income</li>
-                            <li>Expenses</li>
-                            <li>Transfers</li>
+                        <ul class="dropdown" onclick="toggleDropdown('filter-transactions')">
+                            <li onclick="setDropdownValue(this, 'filter-transactions-input', 'All transactions')">Income</li>
+                            <li onclick="setDropdownValue(this, 'filter-transactions-input', 'All transactions')">Expenses</li>
+                            <li onclick="setDropdownValue(this, 'filter-transactions-input', 'All transactions')">Transfers</li>
                         </ul>
                     </div>
                     <button class="bt-primary">Filter</button>
@@ -128,9 +124,160 @@
                     </tr>
                 </table>
             </div>
+
+            <form class="modal" id="new-transaction-modal" method="POST" action="">
+                <div>
+                    <div class="modal-header">
+                        <h2 class="modal-title">Add transaction</h2>
+                        <button type="button" class="bt-close" onclick="toggleModal('new-transaction-modal')">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="tab-field-wrapper">
+                            <div class="tab-field selected" id="income-tab-toggle" onclick="setTab(this.id, 'income-tab')">Income</div>
+                            <div class="tab-field" id="expense-tab-toggle" onclick="setTab(this.id, 'expense-tab')">Expense</div>
+                            <div class="tab-field" id="transfer-tab-toggle" onclick="setTab(this.id, 'transfer-tab')">Transfer</div>
+                        </div>
+                        <div class="tab selected" id="income-tab">
+                            <div class="input-wrapper dropdown-wrapper" id="income-transaction-account" onclick="toggleDropdown(this.id)">
+                                <input class="select" value="Account" id="income-transaction-account-input">
+                                <i class="bi bi-chevron-down"></i>
+                                <ul class="dropdown" onclick="toggleDropdown('income-transaction-account')">
+                                    <% user.accountGroups.forEach(accountGroup => { %>
+                                        <% Array.from(user.accountGroups).forEach(account => { %>
+                                            <li onclick="setDropdownValue(this, 'income-transaction-account-input', 'Account')"><%= account.name %></li>
+                                        <% }) %>
+                                    <% }) %>
+                                </ul>
+                            </div>
+                            <div class="input-wrapper dropdown-wrapper" id="income-transaction-category" onclick="toggleDropdown(this.id)">
+                                <input class="select" value="Category" id="income-transaction-category-input">
+                                <i class="bi bi-chevron-down"></i>
+                                <ul class="dropdown" onclick="toggleDropdown('income-transaction-category')">
+                                    <% user.incomeCategories.forEach(incomeCategory => { %>
+                                        <li onclick="setDropdownValue(this, 'income-transaction-category-input', 'Category')"><%= incomeCategory.name %></li>
+                                    <% }) %>
+                                </ul>
+                            </div>
+                            <div class="input-wrapper" id="income-transaction-amount">
+                                <i class="bi bi-currency-pound"></i>
+                                <input class="select" type="number" placeholder="Amount">
+                            </div>
+                            <div class="input-wrapper" id="income-transaction-note">
+                                <i class="bi bi-sticky"></i>
+                                <input class="select" type="text" placeholder="Note" onclick="">
+                            </div>
+                            <div class="input-wrapper dropdown-wrapper" id="income-transaction-repeat" onclick="toggleDropdown(this.id)">
+                                <input class="select" value="Don't repeat">
+                                <i class="bi bi-chevron-down"></i>
+                                <ul class="dropdown" onclick="toggleDropdown('income-transaction-repeat')">
+                                    <li>Don't Repeat</li>
+                                    <li>Every day</li>
+                                    <li>Every week</li>
+                                    <li>Every month</li>
+                                    <li>Every quarter</li>
+                                    <li>Every year</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab" id="expense-tab">
+                            <div class="input-wrapper dropdown-wrapper" id="expense-transaction-account" onclick="toggleDropdown(this.id)">
+                                <input class="select" value="Account" id="expense-transaction-account-input">
+                                <i class="bi bi-chevron-down"></i>
+                                <ul class="dropdown" onclick="toggleDropdown('expense-transaction-account')">
+                                    <% user.accountGroups.forEach(accountGroup => { %>
+                                        <% Array.from(user.accountGroups).forEach(account => { %>
+                                            <li onclick="setDropdownValue(this, 'expense-transaction-account-input', 'Account')"><%= account.name %></li>
+                                        <% }) %>
+                                    <% }) %>
+                                </ul>
+                            </div>
+                            <div class="input-wrapper dropdown-wrapper" id="expense-transaction-category" onclick="toggleDropdown(this.id)">
+                                <input class="select" value="Category" id="expense-transaction-category-input">
+                                <i class="bi bi-chevron-down"></i>
+                                <ul class="dropdown" onclick="toggleDropdown('expense-transaction-category')">
+                                    <% user.expenseCategories.forEach(expenseCategory => { %>
+                                        <li onclick="setDropdownValue(this, 'expense-transaction-category-input', 'Category')"><%= expenseCategory.name %></li>
+                                    <% }) %>
+                                </ul>
+                            </div>
+                            <div class="input-wrapper" id="expense-transaction-amount" onclick="toggleDropdown(this.id)">
+                                <i class="bi bi-currency-pound"></i>
+                                <input class="select" type="number" placeholder="Amount">
+                            </div>
+                            <div class="input-wrapper" id="expense-transaction-note" onclick="toggleDropdown(this.id)">
+                                <i class="bi bi-sticky"></i>
+                                <input class="select" type="text" placeholder="Note">
+                            </div>
+                            <div class="input-wrapper dropdown-wrapper" id="expense-transaction-repeat" onclick="toggleDropdown(this.id)">
+                                <input class="select" value="Don't repeat">
+                                <i class="bi bi-chevron-down"></i>
+                                <ul class="dropdown" onclick="toggleDropdown('expense-transaction-repeat')">
+                                    <li>Don't Repeat</li>
+                                    <li>Every day</li>
+                                    <li>Every week</li>
+                                    <li>Every month</li>
+                                    <li>Every quarter</li>
+                                    <li>Every year</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab" id="transfer-tab">
+                            <div class="input-wrapper dropdown-wrapper" id="transfer-transaction-account-from" onclick="toggleDropdown(this.id)">
+                                <input class="select" value="From">
+                                <i class="bi bi-chevron-down"></i>
+                                <ul class="dropdown" onclick="toggleDropdown('transfer-transaction-account-from')">
+                                    <% user.accountGroups.forEach(accountGroup => { %>
+                                        <% Array.from(accountGroup).forEach(account => { %>
+                                            <li><%= account.name %></li>
+                                        <% }) %>
+                                    <% }) %>
+                                </ul>
+                            </div>
+                            <div class="input-wrapper dropdown-wrapper" id="transfer-transaction-account-to" onclick="toggleDropdown(this.id)">
+                                <input class="select" value="To">
+                                <i class="bi bi-chevron-down"></i>
+                                <ul class="dropdown" onclick="toggleDropdown('income-transaction-account-to')">
+                                    <% user.accountGroups.forEach(accountGroup => { %>
+                                        <% Array.from(accountGroup).forEach(account => { %>
+                                            <li><%= account.name %></li>
+                                        <% }) %>
+                                    <% }) %>
+                                </ul>
+                            </div>
+                            <div class="input-wrapper" id="transfer-transaction-amount">
+                                <i class="bi bi-currency-pound"></i>
+                                <input class="select" type="number" placeholder="Amount">
+                            </div>
+                            <div class="input-wrapper" id="transfer-transaction-note">
+                                <i class="bi bi-sticky"></i>
+                                <input class="select" type="text" placeholder="Note" onclick="">
+                            </div>
+                            <div class="input-wrapper dropdown-wrapper" id="transfer-transaction-repeat" onclick="toggleDropdown(this.id)">
+                                <input class="select" value="Don't repeat">
+                                <i class="bi bi-chevron-down"></i>
+                                <ul class="dropdown">
+                                    <li>Don't Repeat</li>
+                                    <li>Every day</li>
+                                    <li>Every week</li>
+                                    <li>Every month</li>
+                                    <li>Every quarter</li>
+                                    <li>Every year</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="button-wrapper">
+                        <button class="bt-secondary" type="button" onclick="toggleModal('new-transaction-modal')">Cancel</button>
+                        <button class="bt-primary" type="submit">Save transaction</button>
+                    </div>
+                </div>
+            </form>
         </section>
     </div>
     <script type="text/javascript" src="/public/js/app.js"></script>
-    <script type="text/javascript" src="/public/js/main.js"></script>
 </body>
 </html>

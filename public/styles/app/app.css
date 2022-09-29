@@ -4,20 +4,6 @@ body {
   margin: 0;
   padding: 0;
 }
-body #overlay {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(17, 17, 17, 0.4);
-}
-body #overlay.hidden {
-  z-index: -100000000;
-  height: 0;
-  width: 0;
-}
 body .safari {
   transition: none !important;
   transform: none !important;
@@ -199,7 +185,6 @@ body form .select-wrapper .select {
   background-color: transparent;
 }
 body form input {
-  background-color: rgba(255, 255, 255, 0.15);
   border: none;
   width: 100%;
   margin-top: 10px;

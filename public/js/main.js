@@ -115,4 +115,5 @@ body.addEventListener('click', (e) => {
     })
     
     if(!ifTarget(e, toggleNavElements)) removeActiveElements(toggleNavElements)
+
 })
