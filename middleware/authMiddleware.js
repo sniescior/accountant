@@ -21,6 +21,11 @@ const requireAuth = (req, res, next) => {
     }
 }
 
+// If any problem with authentication occurs then 'remove' jwt auth token (e.g. user deletes their account)
+const removeToken = (res) => {
+    res.cookie('jwt', '', { maxAge: 1 })
+}
+
 const checkUser = async (req, res, next) => {
     const token = req.cookies.jwt
 
@@ -31,8 +36,15 @@ const checkUser = async (req, res, next) => {
                 next()
             } else {
                 let user = await User.findById(decodedToken.id)
-                res.locals.user = user
-                next()
+                if(user != null) {
+                    res.locals.user = user
+                    next()
+                } else {
+                    // console.log('Token exists but user doesn\'t.')
+                    res.locals.user = null
+                    removeToken(res)
+                    next()
+                }
             }
         })
     } else {

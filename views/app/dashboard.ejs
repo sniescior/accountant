@@ -145,7 +145,7 @@
                                 <i class="bi bi-chevron-down"></i>
                                 <ul class="dropdown" onclick="toggleDropdown('income-transaction-account')">
                                     <% user.accountGroups.forEach(accountGroup => { %>
-                                        <% Array.from(user.accountGroups).forEach(account => { %>
+                                        <% Array.from(accountGroup.accounts).forEach(account => { %>
                                             <li onclick="setDropdownValue(this, 'income-transaction-account-input', 'Account')"><%= account.name %></li>
                                         <% }) %>
                                     <% }) %>
@@ -187,7 +187,7 @@
                                 <i class="bi bi-chevron-down"></i>
                                 <ul class="dropdown" onclick="toggleDropdown('expense-transaction-account')">
                                     <% user.accountGroups.forEach(accountGroup => { %>
-                                        <% Array.from(user.accountGroups).forEach(account => { %>
+                                        <% Array.from(accountGroup.accounts).forEach(account => { %>
                                             <li onclick="setDropdownValue(this, 'expense-transaction-account-input', 'Account')"><%= account.name %></li>
                                         <% }) %>
                                     <% }) %>
@@ -225,23 +225,23 @@
                         </div>
                         <div class="tab" id="transfer-tab">
                             <div class="input-wrapper dropdown-wrapper" id="transfer-transaction-account-from" onclick="toggleDropdown(this.id)">
-                                <input class="select" value="From">
+                                <input class="select" value="From" id="transfer-transaction-account-from-input">
                                 <i class="bi bi-chevron-down"></i>
                                 <ul class="dropdown" onclick="toggleDropdown('transfer-transaction-account-from')">
                                     <% user.accountGroups.forEach(accountGroup => { %>
-                                        <% Array.from(accountGroup).forEach(account => { %>
-                                            <li><%= account.name %></li>
+                                        <% Array.from(accountGroup.accounts).forEach(account => { %>
+                                            <li onclick="setDropdownValue(this, 'transfer-transaction-account-from-input', 'From')"><%= account.name %></li>
                                         <% }) %>
                                     <% }) %>
                                 </ul>
                             </div>
                             <div class="input-wrapper dropdown-wrapper" id="transfer-transaction-account-to" onclick="toggleDropdown(this.id)">
-                                <input class="select" value="To">
+                                <input class="select" value="To" id="transfer-transaction-account-to-input">
                                 <i class="bi bi-chevron-down"></i>
-                                <ul class="dropdown" onclick="toggleDropdown('income-transaction-account-to')">
+                                <ul class="dropdown" onclick="toggleDropdown('transfer-transaction-account-to')">
                                     <% user.accountGroups.forEach(accountGroup => { %>
-                                        <% Array.from(accountGroup).forEach(account => { %>
-                                            <li><%= account.name %></li>
+                                        <% Array.from(accountGroup.accounts).forEach(account => { %>
+                                            <li onclick="setDropdownValue(this, 'transfer-transaction-account-to-input', 'To')"><%= account.name %></li>
                                         <% }) %>
                                     <% }) %>
                                 </ul>

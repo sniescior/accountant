@@ -75,21 +75,17 @@ const clearDropdown = () => {
 }
 
 function setDropdownValue(element, dropdownID, defaultValue) {
-    console.log(element);
-    
     const dropdownInput = document.getElementById(dropdownID)
     dropdownInput.value = element.innerHTML
     
     if(element.classList.contains('selected-value')) {
         element.classList.remove('selected-value')
         dropdownInput.value = defaultValue
-        
+        toggleDropdown(dropdownID)
     } else {
         clearDropdown()
         element.classList.add('selected-value')
-
         dropdownInput.value = element.innerHTML
-
         toggleDropdown(dropdownID)
     }
 }
