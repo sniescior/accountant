@@ -95,9 +95,22 @@ body {
                         color: rgba(238, 238, 238, 0.7);
                     }
                     
+                    &::after {
+                        content: '';
+                        display: block;
+                        margin-top: 4px;
+                        border-radius: 12px;
+                        height: 4px;
+                        width: 100%;
+                    }
+
                     &.selected {
                         color: #fff;
                         background-color: rgba(42, 42, 42, 0.8);
+
+                        &::after {
+                            background-color: $primary_color;
+                        }
                     }
                 }
             }

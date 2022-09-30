@@ -78,9 +78,20 @@ body .modal .modal-body .tab-field-wrapper .tab-field {
 body .modal .modal-body .tab-field-wrapper .tab-field:hover {
   color: rgba(238, 238, 238, 0.7);
 }
+body .modal .modal-body .tab-field-wrapper .tab-field::after {
+  content: "";
+  display: block;
+  margin-top: 4px;
+  border-radius: 12px;
+  height: 4px;
+  width: 100%;
+}
 body .modal .modal-body .tab-field-wrapper .tab-field.selected {
   color: #fff;
   background-color: rgba(42, 42, 42, 0.8);
+}
+body .modal .modal-body .tab-field-wrapper .tab-field.selected::after {
+  background-color: rgb(13, 110, 253);
 }
 body .modal .modal-body .tab {
   width: 100%;
