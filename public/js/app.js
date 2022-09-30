@@ -169,3 +169,13 @@ const setTab = (tabToggleID, tabID) => {
     tabToggle.classList.add('selected')
     tab.classList.add('selected')
 }
+
+const dropdowns = Array.from(document.getElementsByClassName('dropdown'))
+const dropdownWrappers = Array.from(document.getElementsByClassName('dropdown-wrapper'))
+
+document.body.addEventListener('click', (e) => {
+    // Close any opened dropdown when clicked outside
+    if(!e.target.classList.contains('dropdown') && !e.target.classList.contains('dropdown-wrapper') && !e.target.parentElement.classList.contains('dropdown-wrapper') ) {
+        closeAllDropdowns()
+    }
+})

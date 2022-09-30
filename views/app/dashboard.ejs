@@ -67,7 +67,7 @@
             <div class="control-wrapper">
                 <button class="bt-primary" onclick="toggleModal('new-transaction-modal')">New transaction</button>
                 <form action="">
-                    <div class="input-wrapper" id="search-transactions">
+                    <div class="input-wrapper search" id="search-transactions">
                         <i class="bi bi-search ml-0"></i>
                         <input class="select" placeholder="Search">
                     </div>
@@ -152,11 +152,11 @@
                                 </ul>
                             </div>
                             <div class="input-wrapper dropdown-wrapper" id="income-transaction-category" onclick="toggleDropdown(this.id)">
-                                <input class="select" value="Category" id="income-transaction-category-input">
+                                <input class="select" value="Income Category" id="income-transaction-category-input">
                                 <i class="bi bi-chevron-down"></i>
                                 <ul class="dropdown" onclick="toggleDropdown('income-transaction-category')">
                                     <% user.incomeCategories.forEach(incomeCategory => { %>
-                                        <li onclick="setDropdownValue(this, 'income-transaction-category-input', 'Category')"><%= incomeCategory.name %></li>
+                                        <li onclick="setDropdownValue(this, 'income-transaction-category-input', 'Income Category')"><%= incomeCategory.name %></li>
                                     <% }) %>
                                 </ul>
                             </div>
@@ -194,11 +194,11 @@
                                 </ul>
                             </div>
                             <div class="input-wrapper dropdown-wrapper" id="expense-transaction-category" onclick="toggleDropdown(this.id)">
-                                <input class="select" value="Category" id="expense-transaction-category-input">
+                                <input class="select" value="Expense Category" id="expense-transaction-category-input">
                                 <i class="bi bi-chevron-down"></i>
                                 <ul class="dropdown" onclick="toggleDropdown('expense-transaction-category')">
                                     <% user.expenseCategories.forEach(expenseCategory => { %>
-                                        <li onclick="setDropdownValue(this, 'expense-transaction-category-input', 'Category')"><%= expenseCategory.name %></li>
+                                        <li onclick="setDropdownValue(this, 'expense-transaction-category-input', 'Expense Category')"><%= expenseCategory.name %></li>
                                     <% }) %>
                                 </ul>
                             </div>

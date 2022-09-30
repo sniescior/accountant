@@ -16,6 +16,9 @@ body .input-wrapper {
   transition: 0.1s ease-in-out;
   color: #eee;
 }
+body .input-wrapper.search {
+  cursor: default;
+}
 body .input-wrapper:has(input:focus) {
   background-color: rgba(238, 238, 238, 0.1);
   border: 2px solid rgb(13, 110, 253);
@@ -68,9 +71,13 @@ body .input-wrapper .dropdown li {
   font-size: 1.1em;
   border-radius: 8px;
   cursor: pointer;
+  transition: 0.1s ease-in-out;
 }
 body .input-wrapper .dropdown li:hover {
   background-color: rgba(238, 238, 238, 0.2);
+}
+body .input-wrapper .dropdown li.selected-value {
+  background-color: rgba(238, 238, 238, 0.4);
 }
 body .input-wrapper.focus {
   background-color: rgba(238, 238, 238, 0.1);

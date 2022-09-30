@@ -18,6 +18,10 @@ body {
         transition: .1s ease-in-out;
         color: #eee;
 
+        &.search {
+            cursor: default;
+        }
+
         &:has(input:focus) {
             background-color: rgba(238, 238, 238, 0.1);
             border: 2px solid $primary_color;
@@ -71,9 +75,14 @@ body {
                 font-size: 1.1em;
                 border-radius: 8px;
                 cursor: pointer;
+                transition: .1s ease-in-out;
 
                 &:hover {
                     background-color: rgba(238, 238, 238, 0.2);
+                }
+                
+                &.selected-value {
+                    background-color: rgba(238, 238, 238, 0.4);
                 }
             }
         }
