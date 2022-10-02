@@ -4,61 +4,6 @@ body {
     margin: 0;
     padding: 0;
 
-    .safari {
-        transition: none !important;
-        transform: none !important;
-    }
-
-    .bottom-up-sheet {
-        position: fixed;
-        bottom: -100px;
-        background-color: #333;
-        color: #eee;
-        opacity: 0;
-        transition: .3s ease-in-out;
-        max-width: 700px;
-        width: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 28px 20px;
-        border-radius: 20px 20px 0 0;
-        z-index: -100000;
-        
-        &.high {
-            display: flex;
-            flex-direction: column;
-            min-height: 80%;
-            align-items: stretch;
-            justify-content: space-between;
-        }
-
-        &.up {
-            bottom: 0;
-            opacity: 1;
-            z-index: 10000;
-        }
-
-        form {
-            .bt-wrapper {
-                width: 100%;
-                
-                .bt-primary {
-                    width: 100%;
-                }
-            }
-
-            input::-webkit-outer-spin-button,
-            input::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0; 
-            }
-
-            input[type=number] {
-                -moz-appearance: textfield;
-            }
-        }
-    }
-
     .pop-up-alert {
         position: fixed;
         top: 54%;

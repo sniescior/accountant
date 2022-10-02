@@ -141,33 +141,16 @@ overlay.addEventListener('click', (e) => {
 })
 
 // Tabs
-const setTab = (tabToggleID, tabID) => {
-    const tabToggle = document.getElementById(tabToggleID)
+const setTab = (tabToggle, tabID) => {
     const tab = document.getElementById(tabID)
+    tabToggle.classList.add('active')
 
-    // Close other tabs from the same modal (tab buttons with the same parent)
-    // Starting with tabToggle elements
-    Array.from(document.getElementsByClassName('tab-field')).forEach(element => {
-        if(element.parentElement === tabToggle.parentElement && element !== tabToggle) {
-            if(element.classList.contains('selected')) {
-                element.classList.remove('selected')
-            }
+    const tabToggles = Array.from(document.querySelectorAll('[role="presentation"]'))
+    tabToggles.forEach(element => {
+        if(element.classList.contains('active') && element !== tabToggle) {
+            element.classList.remove('active')
         }
     })
-
-    // Close all other tabs
-    Array.from(document.getElementsByClassName('tab')).forEach(element => {
-        if(element.parentElement === tab.parentElement && element !== tab) {
-            if(element.classList.contains('selected')) {
-                element.classList.remove('selected')
-            }
-        }
-    })
-
-    closeAllDropdowns()
-
-    tabToggle.classList.add('selected')
-    tab.classList.add('selected')
 }
 
 const dropdowns = Array.from(document.getElementsByClassName('dropdown'))
@@ -179,3 +162,7 @@ document.body.addEventListener('click', (e) => {
         closeAllDropdowns()
     }
 })
+
+
+
+
