@@ -57,12 +57,21 @@ body {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
 
+        .calendar-control {
+            input {
+                background-color: #be0000;
+            }
+        }
+
         .month {
             padding: 20px 10px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            background-color: transparent;
+            border: none;
+            color: $white_font_color;
 
             &.active {
                 background-color: $input_background_color;
@@ -409,15 +418,11 @@ body {
                 .form-body {
                     padding: 10px 20px;
                 }
-                
-                .space-between {
+
+                .calendar-control {
                     justify-content: space-between;
                     padding: 0 20px;
                     background-color: $input_hover;
-
-                    h2 {
-                        font-size: 1.4em;
-                    }
                 }
             }
         }

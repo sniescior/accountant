@@ -46,7 +46,11 @@ const closeModals = () => {
 
 const toggleDropdown = (dropdownWrapper) => {
     removeFocus(this)
-    dropdownWrapper.classList.toggle('focus')
+    if(dropdownWrapper.classList.contains('focus')) {
+        dropdownWrapper.classList.remove('focus')
+    } else {
+        dropdownWrapper.classList.add('focus')
+    }
 }
 
 const setValue = (selectedItem, dropdownID) => {
@@ -79,21 +83,3 @@ window.addEventListener('click', (e) => {
         }
     }
 })
-
-const setDate = () => {
-    var today = new Date();
-    const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-
-    const dayElement = document.getElementById('current-date-day')
-    const weekdayElement = document.getElementById('current-date-weekday')
-    const restElement = document.getElementById('current-date-rest')
-
-    dayElement.innerHTML = String(today.getDate()).padStart(2, '0')
-    weekdayElement.innerHTML = weekdays[today.getDay()]
-
-    var month = today.getMonth()
-    var year = today.getFullYear()
-    restElement.innerHTML = month + '.' + year
-}
-
-window.addEventListener('load', setDate)

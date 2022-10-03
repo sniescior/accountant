@@ -30,12 +30,18 @@ body .calendar {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
+body .calendar .calendar-control input {
+  background-color: #be0000;
+}
 body .calendar .month {
   padding: 20px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #eee;
 }
 body .calendar .month.active {
   background-color: rgb(23, 23, 23);
@@ -338,13 +344,10 @@ body #app-container .modal .modal-header {
 body #app-container .modal .modal-body .form-body {
   padding: 10px 20px;
 }
-body #app-container .modal .modal-body .space-between {
+body #app-container .modal .modal-body .calendar-control {
   justify-content: space-between;
   padding: 0 20px;
   background-color: rgba(41, 41, 41, 0.1);
-}
-body #app-container .modal .modal-body .space-between h2 {
-  font-size: 1.4em;
 }
 body #app-container .nav-tabs-container {
   max-width: 1600px;
