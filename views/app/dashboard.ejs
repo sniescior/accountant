@@ -6,12 +6,442 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accountant - Dashboard</title>
 
-    <%- include('../partials/_global_styles.ejs') %>
+    <link rel="stylesheet" href="/public/styles/updated/main.css">
 </head>
-<body>
-    <%- include('../partials/_navbar.ejs') %>
-    <h2 class="text-center">You've successfully logged in. Welcome to your dashboard.</h2>
-    
-    <%- include('../partials/_global_scripts.ejs') %>
+<body class="dark">
+    <div id="overlay" class="" onclick="closeModals()"></div>
+    <div id="app-container">
+        <div class="user-menu-background">
+            <menu class="user-menu">
+                <div class="user-menu-header">
+                    <img class="user-menu-image" src="/public/images/defaultavatar.png" alt="">
+                    <div class="user-menu-info">
+                        <h2><%= user.username %></h2>
+                        <h3><%= user.email %></h3>
+                    </div>
+                </div>
+
+                <ul class="list">
+                    <a href="#"><li class="active"><i class="bi bi-house-fill"></i>Overview</li></a>
+                    <a href="#"><li><i class="bi bi-book-fill"></i>Transactions</li></a>
+                    <a href="#"><li><i class="bi bi-bar-chart-fill"></i>Statistics</li></a>
+                    <a href="#"><li><i class="bi bi-credit-card-2-back-fill"></i>Accounts</li></a>
+                    <a href="#"><li><i class="bi bi-bell-fill"></i>Notifications</li></a>
+                </ul>
+
+                <div class="button-wrapper icons">
+                    <a class="button-icon" href="/app/settings">
+                        <i class="bi bi-gear-fill"></i>
+                    </a>
+                    <a class="button-icon danger" href="/auth/signout">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </menu>
+        </div>
+
+        <div class="content-container">
+            <div class="nav-tabs-container">
+                <button class="button-primary" onclick="openModal('add-transaction-modal')">Add transaction</button>
+                <ul class="nav-tabs main" id="dashboard-main-tabs" role="tablist">
+                    <li class="nav-link active" role="presentation" onclick="setTab(this, 'daily')">Daily</li>
+                    <li class="nav-link" role="presentation" onclick="setTab(this, 'weekly')">Weekly</li>
+                    <li class="nav-link" role="presentation" onclick="setTab(this, 'monthly')">Monthly</li>
+                    <li class="nav-link" role="presentation" onclick="setTab(this, 'summary')">Summary</li>
+                </ul>
+                <div class="button-wrapper">
+                    <button class="button-icon secondary">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <button class="button-secondary text-default" id="main-date-select" onclick="openModal('calendar-modal')">
+                        ND
+                    </button>
+                    <button class="button-icon secondary">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="tab active" id="daily" role="tabpanel">
+                <div class="content">
+                    <div class="subcontent-title">
+                        <h2>
+                            Quick stats about your finances
+                        </h2>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="card income">
+                            <h2>£10</h2>
+                            <h3>income</h3>
+                        </div>
+                        <div class="card expense">
+                            <h2>£36</h2>
+                            <h3>expenses</h3>
+                        </div>
+                        <div class="card">
+                            <h2>£1232</h2>
+                            <h3>total</h3>
+                        </div>
+                    </div>
+                    <div class="summary-table-container">
+                        <div class="summary-table-header">
+                            <div class="date">
+                                <h2 class="day" id="current-date-day">ND</h2>
+                                <h2 class="weekday" id="current-date-weekday">ND</h2>
+                                <h2 class="rest" id="current-date-rest">ND</h2>
+                            </div>
+                            <div class="button-wrapper">
+                                <div class="input-wrapper">
+                                    <i class="bi bi-search"></i>
+                                    <input type="text" placeholder="Search">
+                                </div>
+                                <button class="button-icon">
+                                    <i class="bi bi-filter-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <table class="summary-table">
+                            <tbody>
+                                <tr>
+                                    <td class="category">
+                                        <h2>
+                                            Food
+                                        </h2>
+                                    </td>
+                                    <td>
+                                        <div class="note">    
+                                            <h2>
+                                                Franco Manca Pizza
+                                            </h2>
+                                            <h3>
+                                                Cash
+                                            </h3>
+                                        </div>
+                                    </td>
+                                    <td class="amount income">
+                                        <h2>
+                                            £10
+                                        </h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="category">
+                                        <h2>
+                                            Income
+                                        </h2>
+                                    </td>
+                                    <td>
+                                        <div class="note">    
+                                            <h2>
+                                                Salary
+                                            </h2>
+                                            <h3>
+                                                Card #1
+                                            </h3>
+                                        </div>
+                                    </td>
+                                    <td class="amount income">
+                                        <h2>
+                                            £1000
+                                        </h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="category">
+                                        <h2>
+                                            Transfer
+                                        </h2>
+                                    </td>
+                                    <td>
+                                        <div class="note">
+                                            <h3>
+                                                Cash <i class="bi bi-arrow-right-short"></i> Oyster Card
+                                            </h3>
+                                        </div>
+                                    </td>
+                                    <td class="amount">
+                                        <h2>
+                                            £10
+                                        </h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="category">
+                                        <h2>
+                                            Sport
+                                        </h2>
+                                    </td>
+                                    <td>
+                                        <div class="note">
+                                            <h2>
+                                                Swimming Session
+                                            </h2>
+                                            <h3>
+                                                Cash
+                                            </h3>
+                                        </div>
+                                    </td>
+                                    <td class="amount expense">
+                                        <h2>
+                                            £6
+                                        </h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="category">
+                                        <h2>
+                                            Food
+                                        </h2>
+                                    </td>
+                                    <td>
+                                        <div class="note">
+                                            <h2>
+                                                Groceries
+                                            </h2>
+                                            <h3>
+                                                Card #1
+                                            </h3>
+                                        </div>
+                                    </td>
+                                    <td class="amount expense">
+                                        <h2>
+                                            £30
+                                        </h2>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="summary-table-footer">
+                            <h2>
+                                Carry-over
+                            </h2>
+                            <h2>
+                                £258
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab" id="weekly" role="tabpanel">
+                <div class="content">
+                    <div class="subcontent-title">
+                        <h2>
+                            Quick stats about your week
+                        </h2>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="card income">
+                            <h2>£3270.95</h2>
+                            <h3>income</h3>
+                        </div>
+                        <div class="card expense">
+                            <h2>£95.76</h2>
+                            <h3>expenses</h3>
+                        </div>
+                        <div class="card">
+                            <h2>£3175.19</h2>
+                            <h3>total</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab" id="monthly" role="tabpanel">
+                <div class="content">
+                    <div class="subcontent-title">
+                        <h2>
+                            Quick stats about your month
+                        </h2>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="card income">
+                            <h2>£3270.95</h2>
+                            <h3>income</h3>
+                        </div>
+                        <div class="card expense">
+                            <h2>£95.76</h2>
+                            <h3>expenses</h3>
+                        </div>
+                        <div class="card">
+                            <h2>£3175.19</h2>
+                            <h3>total</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab" id="summary" role="tabpanel">
+                Summary - coming soon
+            </div>
+        </div>
+        <div class="modal" id="add-transaction-modal">
+            <div class="modal-header">
+                <h2>Add transaction</h2>
+            </div>
+            <div class="nav-tabs-container modal-tabs">
+                <ul class="nav-tabs" id="dashboard-main-tabs" role="tablist">
+                    <li class="nav-link active" role="presentation" onclick="setTab(this, 'income')">Income</li>
+                    <li class="nav-link" role="presentation" onclick="setTab(this, 'expense')">Expense</li>
+                    <li class="nav-link" role="presentation" onclick="setTab(this, 'transfer')">Transfer</li>
+                </ul>
+            </div>
+            
+            <div class="tab active" id="income" role="tabpanel">
+                <form action="" method="POST" class="modal-body">
+                    <div class="form-body">
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="Account" id="income-account-input">
+                            <i class="bi bi-chevron-down"></i>
+                            <ul class="dropdown-list">
+                                <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Cash">
+                                    Cash
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                                <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Card #1">
+                                    Card #1
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                                <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Card #2">
+                                    Card #2
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                                <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Oyster Card">
+                                    Oyster Card
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="Category" id="income-category-input">
+                            <i class="bi bi-chevron-down"></i>
+                            <ul class="dropdown-list">
+                                <li class="dropdown-item" onclick="setValue(this, 'income-category-input')" value="Salary">
+                                    Salary
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                                <li class="dropdown-item" onclick="setValue(this, 'income-category-input')" value="Allowance">
+                                    Allowance
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                                <li class="dropdown-item" onclick="setValue(this, 'income-category-input')" value="Inheritance">
+                                    Inheritance
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-currency-pound"></i>
+                            <input type="text" placeholder="Amount">
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-sticky"></i>
+                            <input type="text" placeholder="Note">
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary" type="submit">Save transaction</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab" id="expense" role="tabpanel">
+                <form action="" method="POST" class="modal-body">
+                    <div class="form-body">
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="Account">
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="Category">
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-currency-pound"></i>
+                            <input type="text" placeholder="Amount">
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-sticky"></i>
+                            <input type="text" placeholder="Note">
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary" type="submit">Save transaction</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab" id="transfer" role="tabpanel">
+                <form action="" method="POST" class="modal-body">
+                    <div class="form-body">
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="From">
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="To">
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-currency-pound"></i>
+                            <input type="text" placeholder="Amount">
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-sticky"></i>
+                            <input type="text" placeholder="Note">
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary" type="submit">Save transaction</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal" id="calendar-modal">
+            <div class="modal-header">
+                <h2>Date</h2>
+                <button class="button-secondary" onclick="setCurrentYear('modal-calendar-year-select')">This month</button>
+            </div>
+            <div class="modal-body">
+                <div class="button-wrapper calendar-control">
+                    <button class="button-icon secondary" onclick="yearBack('modal-calendar-year-select')">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <h2 id="modal-calendar-year-select">
+                        ND
+                    </h2>
+                    <button class="button-icon secondary" onclick="yearForward('modal-calendar-year-select')">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+                <form class="calendar" action="" method="POST" id="modal-calendar-form">
+                    <input type="hidden" id="modal-calendar-year-input" value="ND">
+                    <input type="hidden" id="modal-calendar-month-input" value="ND">
+                    <button class="month" id="JAN" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JAN</button>
+                    <button class="month" id="FEB" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">FEB</button>
+                    <button class="month" id="MAR" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">MAR</button>
+                    <button class="month" id="APR" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">APR</button>
+                    <button class="month" id="MAY" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">MAY</button>
+                    <button class="month" id="JUN" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JUN</button>
+                    <button class="month" id="JUL" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JUL</button>
+                    <button class="month" id="AUG" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">AUG</button>
+                    <button class="month" id="SEPT" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">SEPT</button>
+                    <button class="month" id="OCT" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">OCT</button>
+                    <button class="month" id="NOV" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">NOV</button>
+                    <button class="month" id="DEC" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">DEC</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="/public/js/updated/main.js"></script>
+    <script type="text/javascript" src="/public/js/dates.js"></script>
 </body>
 </html>

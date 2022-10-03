@@ -43,13 +43,11 @@ userSchema.post('save', function (doc, next) {
 // static method to login user
 userSchema.statics.login = async function(email, password) {
     const user = await this.findOne({ email })
-    console.log(user)
-    console.log('Takie hasełko: ', password)
 
     if(user) {
         const auth = bcrypt.compareSync(password, user.password)
 
-        if(auth) {          // password match
+        if(auth) {  // password match
             return user
         }
         throw Error('error')    // invalid password

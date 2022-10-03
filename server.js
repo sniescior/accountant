@@ -3,6 +3,7 @@ const app = express()
 const path = require('path')
 const authenticationRouter = require('./routes/authRouter')
 const appRouter = require('./routes/appRouter')
+const settingsRouter = require('./routes/settingsRouter')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const { checkUser } = require('./middleware/authMiddleware')
@@ -35,6 +36,7 @@ app.get('/', (req, res) => {
     }
 })
 
+app.use('/app/settings', settingsRouter)
 app.use('/app', appRouter)
 app.use('/auth', authenticationRouter)
 

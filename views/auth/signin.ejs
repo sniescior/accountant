@@ -18,10 +18,10 @@
             <form id="signin-form" action="/auth/signin" method="POST">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 
-                <input type="email" placeholder="Email" name="email" required>
+                <input type="email" placeholder="Email" name="email" required <% if (email) { %> value="<%= email %>" <% } %>>
                 <input type="password" placeholder="Password" name="password" required>
                 <% if (error) { %>
-                    <p class="text-danger m-0">Your password is inorrect</p>
+                    <p class="text-danger m-0">Incorrect email or password.</p>
                 <% } %>
                 <button class="bt-primary" type="submit">Login</button>
             </form>

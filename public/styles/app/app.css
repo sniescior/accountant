@@ -1,65 +1,8 @@
 body {
   position: relative;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-}
-body #overlay {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(17, 17, 17, 0.4);
-}
-body #overlay.hidden {
-  z-index: -100000000;
-  height: 0;
-  width: 0;
-}
-body .safari {
-  transition: none !important;
-  transform: none !important;
-}
-body .bottom-up-sheet {
-  position: fixed;
-  bottom: -100px;
-  background-color: #333;
-  color: #eee;
-  opacity: 0;
-  transition: 0.3s ease-in-out;
-  max-width: 700px;
-  width: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 28px 20px;
-  border-radius: 20px 20px 0 0;
-  z-index: -100000;
-}
-body .bottom-up-sheet.high {
-  display: flex;
-  flex-direction: column;
-  min-height: 80%;
-  align-items: stretch;
-  justify-content: space-between;
-}
-body .bottom-up-sheet.up {
-  bottom: 0;
-  opacity: 1;
-  z-index: 10000;
-}
-body .bottom-up-sheet form .bt-wrapper {
-  width: 100%;
-}
-body .bottom-up-sheet form .bt-wrapper .bt-primary {
-  width: 100%;
-}
-body .bottom-up-sheet form input::-webkit-outer-spin-button,
-body .bottom-up-sheet form input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
   margin: 0;
-}
-body .bottom-up-sheet form input[type=number] {
-  -moz-appearance: textfield;
+  padding: 0;
 }
 body .pop-up-alert {
   position: fixed;
@@ -197,7 +140,6 @@ body form .select-wrapper .select {
   background-color: transparent;
 }
 body form input {
-  background-color: rgba(255, 255, 255, 0.15);
   border: none;
   width: 100%;
   margin-top: 10px;

@@ -4,6 +4,49 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
 
+const startAccountGroups = [
+    {
+        'groupName': 'Cash',
+        'accounts': [
+            { 
+                'name': 'Cash',
+                "amount": 0
+            }
+        ]
+    },
+    {
+        'groupName': 'Card',
+        'accounts': [
+            { 
+                'name': 'Platinium Card',
+                "amount": 0
+            },
+            { 
+                'name': 'Golden Card',
+                "amount": 0
+            }
+        ]
+    },
+    {
+        'groupName': 'Accounts',
+        'accounts': [
+            { 
+                'name': 'Accounts',
+                "amount": 0
+            }
+        ]
+    },
+    {
+        'groupName': 'Others',
+        'accounts': [
+            { 
+                'name': 'Others',
+                "amount": 0
+            }
+        ]
+    }
+]
+
 const startExpenseCategories = [
     {'name': 'Food'},
     {'name': 'Social Life'},
@@ -101,6 +144,10 @@ module.exports.signup_post = async (req, res) => {
             startIncomeCategories.forEach(element => {
                 user.incomeCategories.push(element)
             })
+
+            startAccountGroups.forEach(accountGroup => {
+                user.accountGroups.push(accountGroup)
+            })
             
             await user.save()
 
@@ -141,6 +188,9 @@ module.exports.signin_post = async (req, res) => {
                 console.log('Wrong username or password (probably password)')
                 res.render('auth/signin', { csrfToken: req.csrfToken(), error, 'email': email })
             }
+        } else {
+            res.status(400)
+            res.render('auth/signin', { csrfToken: req.csrfToken(), error, 'email': email })
         }
     } catch (error) {
         res.status(400)
