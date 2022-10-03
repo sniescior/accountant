@@ -1,0 +1,140 @@
+<div class="modal" id="add-transaction-modal">
+    <div class="modal-header">
+        <h2>Add transaction</h2>
+    </div>
+    <div class="nav-tabs-container modal-tabs">
+        <ul class="nav-tabs" id="dashboard-main-tabs" role="tablist">
+            <li class="nav-link active" role="presentation" onclick="setTab(this, 'income')">Income</li>
+            <li class="nav-link" role="presentation" onclick="setTab(this, 'expense')">Expense</li>
+            <li class="nav-link" role="presentation" onclick="setTab(this, 'transfer')">Transfer</li>
+        </ul>
+    </div>
+    
+    <div class="tab active" id="income" role="tabpanel">
+        <form action="" method="POST" class="modal-body">
+            <div class="form-body">
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Title">
+                </div>
+                <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                    <input type="text" placeholder="Account" id="income-account-input">
+                    <i class="bi bi-chevron-down"></i>
+                    <ul class="dropdown-list">
+                        <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Cash">
+                            Cash
+                            <i class="bi bi-check-lg check"></i>
+                        </li>
+                        <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Card #1">
+                            Card #1
+                            <i class="bi bi-check-lg check"></i>
+                        </li>
+                        <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Card #2">
+                            Card #2
+                            <i class="bi bi-check-lg check"></i>
+                        </li>
+                        <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Oyster Card">
+                            Oyster Card
+                            <i class="bi bi-check-lg check"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                    <input type="text" placeholder="Category" id="income-category-input">
+                    <i class="bi bi-chevron-down"></i>
+                    <ul class="dropdown-list">
+                        <li class="dropdown-item" onclick="setValue(this, 'income-category-input')" value="Salary">
+                            Salary
+                            <i class="bi bi-check-lg check"></i>
+                        </li>
+                        <li class="dropdown-item" onclick="setValue(this, 'income-category-input')" value="Allowance">
+                            Allowance
+                            <i class="bi bi-check-lg check"></i>
+                        </li>
+                        <li class="dropdown-item" onclick="setValue(this, 'income-category-input')" value="Inheritance">
+                            Inheritance
+                            <i class="bi bi-check-lg check"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="input-wrapper">
+                    <i class="bi bi-currency-pound"></i>
+                    <input type="text" placeholder="Amount">
+                </div>
+                <div class="input-wrapper">
+                    <i class="bi bi-sticky"></i>
+                    <input type="text" placeholder="Note">
+                </div>
+            </div>
+            <div class="form-footer">
+                <div class="button-wrapper">
+                    <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                    <button class="button-primary" type="submit">Save transaction</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="tab" id="expense" role="tabpanel">
+        <form action="" method="POST" class="modal-body">
+            <div class="form-body">
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Title">
+                </div>
+                <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                    <input type="text" placeholder="Account">
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+                <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                    <input type="text" placeholder="Category">
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+                <div class="input-wrapper">
+                    <i class="bi bi-currency-pound"></i>
+                    <input type="text" placeholder="Amount">
+                </div>
+                <div class="input-wrapper">
+                    <i class="bi bi-sticky"></i>
+                    <input type="text" placeholder="Note">
+                </div>
+            </div>
+            <div class="form-footer">
+                <div class="button-wrapper">
+                    <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                    <button class="button-primary" type="submit">Save transaction</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="tab" id="transfer" role="tabpanel">
+        <form action="" method="POST" class="modal-body">
+            <div class="form-body">
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Title">
+                </div>
+                <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                    <input type="text" placeholder="From">
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+                <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                    <input type="text" placeholder="To">
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+                <div class="input-wrapper">
+                    <i class="bi bi-currency-pound"></i>
+                    <input type="text" placeholder="Amount">
+                </div>
+                <div class="input-wrapper">
+                    <i class="bi bi-sticky"></i>
+                    <input type="text" placeholder="Note">
+                </div>
+            </div>
+            <div class="form-footer">
+                <div class="button-wrapper">
+                    <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                    <button class="button-primary" type="submit">Save transaction</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

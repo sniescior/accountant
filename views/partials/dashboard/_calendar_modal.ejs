@@ -1,0 +1,35 @@
+<div class="modal" id="calendar-modal">
+    <div class="modal-header">
+        <h2>Date</h2>
+        <button class="button-secondary" onclick="setCurrentYear('modal-calendar-year-select')">This month</button>
+    </div>
+    <div class="modal-body">
+        <div class="button-wrapper calendar-control">
+            <button class="button-icon secondary" onclick="yearBack('modal-calendar-year-select')">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <h2 id="modal-calendar-year-select">
+                ND
+            </h2>
+            <button class="button-icon secondary" onclick="yearForward('modal-calendar-year-select')">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+        <form class="calendar" action="" method="POST" id="modal-calendar-form">
+            <input type="hidden" id="modal-calendar-year-input" value="ND">
+            <input type="hidden" id="modal-calendar-month-input" value="ND">
+            <button class="month" id="JAN" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JAN</button>
+            <button class="month" id="FEB" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">FEB</button>
+            <button class="month" id="MAR" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">MAR</button>
+            <button class="month" id="APR" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">APR</button>
+            <button class="month" id="MAY" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">MAY</button>
+            <button class="month" id="JUN" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JUN</button>
+            <button class="month" id="JUL" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JUL</button>
+            <button class="month" id="AUG" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">AUG</button>
+            <button class="month" id="SEPT" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">SEPT</button>
+            <button class="month" id="OCT" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">OCT</button>
+            <button class="month" id="NOV" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">NOV</button>
+            <button class="month" id="DEC" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">DEC</button>
+        </form>
+    </div>
+</div>
