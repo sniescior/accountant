@@ -179,6 +179,10 @@ body .button-secondary {
   height: -moz-fit-content;
   height: fit-content;
 }
+body .button-secondary.link {
+  font-size: initial;
+  text-decoration: none;
+}
 body .button-secondary.text-default {
   color: #eee;
 }
@@ -199,6 +203,9 @@ body .button-primary {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+}
+body .button-primary.w100 {
+  width: 100%;
 }
 body .button-primary:hover {
   background-color: rgba(13, 110, 253, 0.9);
@@ -264,6 +271,12 @@ body .button-wrapper h3 {
 body .button-wrapper .button-wrapper-form {
   margin: 0;
   width: 50px;
+}
+body .button-wrapper.end {
+  justify-content: flex-end;
+}
+body .button-wrapper.start {
+  justify-content: flex-start;
 }
 body ul.list {
   list-style-type: none;

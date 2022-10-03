@@ -6,29 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accountant - Sign in</title>
 
-    <%- include('../partials/_global_styles.ejs') %>
+    <link rel="stylesheet" href="/public/styles/updated/main.css">
     <link rel="stylesheet" href="/public/styles/auth/auth.css">
 </head>
 <body>
-    <%- include('../partials/_navbar.ejs') %>
-    <div class="wrapper">
-        <div class="form-wrapper mt-3">
-            <h2>Login</h2>
-            <h5>Welcome back! Please enter your details.</h5>
-            <form id="signin-form" action="/auth/signin" method="POST">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                
-                <input type="email" placeholder="Email" name="email" required <% if (email) { %> value="<%= email %>" <% } %>>
-                <input type="password" placeholder="Password" name="password" required>
-                <% if (error) { %>
-                    <p class="text-danger m-0">Incorrect email or password.</p>
-                <% } %>
-                <button class="bt-primary" type="submit">Login</button>
+    <div id="overlay" class="" onclick="closeModals()"></div>
+    <div id="app-container" class="auth-container">
+        <section>
+            <div class="section-header">
+                <h2>
+                    Welcome to Accountant
+                </h2>
+                <h3>
+                    Sign in
+                </h3>
+            </div>
+            <form action="">
+                <div class="input-wrapper">
+                    <i class="bi bi-at"></i>
+                    <input type="text" placeholder="Username or email">
+                </div>
+                <div class="input-wrapper">
+                    <i class="bi bi-key"></i>
+                    <input type="password" placeholder="Password">
+                </div>
+                <div class="button-wrapper end">
+                    <a href="#" class="button-secondary link">Forgot password</a>
+                </div>
+                <button class="button-primary w100">
+                    Sign In
+                </button>
             </form>
-            <p>New to Accountant? <a href="/auth/signup">Register</a></p>
-        </div>
+            <p></p>
+            <div class="button-wrapper start">
+                <h3 class="text-dimmed">
+                    Sign In with
+                </h3>
+                <a class="button-icon">
+                    <i class="bi bi-google"></i>
+                </a>
+                <a class="button-icon">
+                    <i class="bi bi-facebook"></i>
+                </a>
+            </div>
+            <h3>
+                Don't have an account? <a href="/auth/signup" class="button-secondary link">Sign Up</a>
+            </h3>
+        </section>
     </div>
-
-    <%- include('../partials/_global_scripts.ejs') %>
 </body>
 </html>

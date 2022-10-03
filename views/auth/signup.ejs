@@ -4,48 +4,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accountant - Sign up</title>
+    <title>Accountant - Sign in</title>
 
-    <%- include('../partials/_global_styles.ejs') %>
+    <link rel="stylesheet" href="/public/styles/updated/main.css">
     <link rel="stylesheet" href="/public/styles/auth/auth.css">
 </head>
 <body>
-    <%- include('../partials/_navbar.ejs') %> 
-    <div class="wrapper">
-        <div class="form-wrapper mt-3">
-            <h2>Create an account</h2>
-            <h5>Let's get you started in just a few steps.</h5>
-            <form id="signup-form" action="/auth/signup" method="POST">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-
-                <input type="text" placeholder="Username" name="username" value="<%= username %>" required class="<% if (errors.username) { %>error<% } %>">
-                <% if (errors.username) { %>
-                    <p class="text-danger m-0"> Username <b>@<%= username %></b> is already in use.</p>
-                <% } %>
-                
-                <input type="email" placeholder="Email" name="email" value="<%= email %>" required class="<% if (errors.email) { %>error<% } %>">
-                <% if (errors.email) { %>
-                    <p class="text-danger m-0">Email <b><%= email %></b> has already been registered.</p>
-                <% } %>
-
-                <input type="password" placeholder="Password" name="password" required class="<% if (errors.password || errors.confirmPassword) { %>error<% } %>">
-                <% if (errors.password) { %>
-                    <p class="text-danger m-0">Password should be at least 8 characters long.</p>
-                <% } %>
-                
-                <input type="password" placeholder="Confirm password" name="confirmPassword" required class="<% if (errors.confirmPassword) { %>error<% } %>">
-                <% if (errors.confirmPassword) { %>
-                    <p class="text-danger m-0">Password doesn't match.</p>
-                <% } %>
-                
-                <button class="bt-primary" type="submit">Continue</button>
+    <div id="overlay" class="" onclick="closeModals()"></div>
+    <div id="app-container" class="auth-container">
+        <section>
+            <div class="section-header">
+                <h2>
+                    Welcome to Accountant
+                </h2>
+                <h3>
+                    Let's get you started
+                </h3>
+            </div>
+            <form action="">
+                <div class="input-wrapper">
+                    <i class="bi bi-at"></i>
+                    <input type="text" placeholder="Username or email">
+                </div>
+                <div class="input-wrapper">
+                    <i class="bi bi-key"></i>
+                    <input type="password" placeholder="Password">
+                </div>
+                <div class="input-wrapper">
+                    <i class="bi bi-key"></i>
+                    <input type="password" placeholder="Confirm Password">
+                </div>
+                <button class="button-primary w100">
+                    Sign Up
+                </button>
             </form>
-            <p>
-                Joined us before? <a href="/auth/signin">Sign in</a>
-            </p>
-        </div>
+            <p></p>
+            <div class="button-wrapper start">
+                <h3 class="text-dimmed">
+                    Sign Up with
+                </h3>
+                <a class="button-icon">
+                    <i class="bi bi-google"></i>
+                </a>
+                <a class="button-icon">
+                    <i class="bi bi-facebook"></i>
+                </a>
+            </div>
+            <h3>
+                Already have an account? <a href="/auth/signin" class="button-secondary link">Sign In</a>
+            </h3>
+        </section>
     </div>
-
-    <%- include('../partials/_global_scripts.ejs') %>
 </body>
 </html>

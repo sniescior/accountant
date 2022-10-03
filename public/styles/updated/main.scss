@@ -225,6 +225,11 @@ body {
         padding: none;
         height: fit-content;
 
+        &.link {
+            font-size: initial;
+            text-decoration: none;
+        }
+
         &.text-default {
             color: $white_font_color;
         }
@@ -246,6 +251,10 @@ body {
         border: 2px solid $white_border_color;
         cursor: pointer;
         height: fit-content;
+
+        &.w100 {
+            width: 100%;
+        }
 
         &:hover {
             background-color: $primary_button_color_hover;
@@ -324,6 +333,14 @@ body {
         .button-wrapper-form {
             margin: 0;
             width: 50px;
+        }
+
+        &.end {
+            justify-content: flex-end;
+        }
+
+        &.start {
+            justify-content: flex-start;
         }
     }
 

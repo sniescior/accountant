@@ -2,11 +2,11 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const authenticationRouter = require('./routes/authRouter')
-const appRouter = require('./routes/appRouter')
-const settingsRouter = require('./routes/settingsRouter')
+// const appRouter = require('./routes/appRouter')
+// const settingsRouter = require('./routes/settingsRouter')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
-const { checkUser } = require('./middleware/authMiddleware')
+// const { checkUser } = require('./middleware/authMiddleware')
 const bodyParser = require('body-parser')
 
 // view engine
@@ -27,17 +27,13 @@ mongoose
     .then(() => console.log('Database connected'))
     .catch(err => console.log(err))
 
-app.get('*', checkUser)
+// app.get('*', checkUser)
 app.get('/', (req, res) => {
-    if(checkUser) {
-        res.redirect('/app/dashboard')
-    } else {
-        res.render('index')
-    }
+    res.render('index')
 })
 
-app.use('/app/settings', settingsRouter)
-app.use('/app', appRouter)
+// app.use('/app/settings', settingsRouter)
+// app.use('/app', appRouter)
 app.use('/auth', authenticationRouter)
 
 var listener = app.listen(3000, (e) => {
