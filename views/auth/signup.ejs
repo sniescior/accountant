@@ -14,35 +14,45 @@
     <div id="app-container" class="auth-container">
         <section>
             <div class="section-header">
-                <h2>
-                    Welcome to Accountant
-                </h2>
-                <h3>
-                    Let's get you started
-                </h3>
+                <h2>Welcome to Accountant</h2>
+                <h3>Let's get you started</h3>
             </div>
-            <form action="">
-                <div class="input-wrapper">
+            <form action="/auth/signup" method="POST" id="signup-form">
+
+                <div class="input-wrapper <% if (error == 'email') { %>input-error<% } %>">
                     <i class="bi bi-at"></i>
-                    <input type="text" placeholder="Username or email">
+                    <input type="text" placeholder="Email" name="email" value="<%- email %>" required>
                 </div>
-                <div class="input-wrapper">
+                <p class="error-message <% if (error == 'email') { %>error<% } %>">
+                    Email already in use.
+                </p>
+
+                <div class="input-wrapper <% if (error == 'username') { %>input-error<% } %>">
+                    <i class="bi bi-person"></i>
+                    <input type="text" placeholder="Username" name="username" value="<%- username %>" required>
+                </div>
+                <p class="error-message <% if (error == 'username') { %>error<% } %>">
+                    Username already in use.
+                </p>
+
+                <div class="input-wrapper" id="password-wrapper">
                     <i class="bi bi-key"></i>
-                    <input type="password" placeholder="Password">
+                    <input type="password" placeholder="Password" name="password" id="password" required>
                 </div>
-                <div class="input-wrapper">
+                <div class="input-wrapper" id="confirmPassword-wrapper">
                     <i class="bi bi-key"></i>
-                    <input type="password" placeholder="Confirm Password">
+                    <input type="password" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword" required>
                 </div>
-                <button class="button-primary w100">
-                    Sign Up
-                </button>
+                <p class="error-message" id="password-error">
+
+                </p>
+                <button class="button-primary w100">Sign Up</button>
+
             </form>
-            <p></p>
+            <p>
+            </p>
             <div class="button-wrapper start">
-                <h3 class="text-dimmed">
-                    Sign Up with
-                </h3>
+                <h3 class="text-dimmed">Sign Up with</h3>
                 <a class="button-icon">
                     <i class="bi bi-google"></i>
                 </a>
@@ -51,9 +61,29 @@
                 </a>
             </div>
             <h3>
-                Already have an account? <a href="/auth/signin" class="button-secondary link">Sign In</a>
+                Already have an account? <a href="/auth/login" class="button-secondary link">Sign In</a>
             </h3>
         </section>
     </div>
+
+    <script type="text/javascript">
+        const signupForm = document.getElementById('signup-form')
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const password = document.getElementById('password')
+            const confirmPassword = document.getElementById('confirmPassword')
+
+            if(password.value !== confirmPassword.value) {
+                document.getElementById('password-wrapper').classList.add('input-error')
+                document.getElementById('confirmPassword-wrapper').classList.add('input-error')
+                const errorMessage = document.getElementById('password-error')
+                errorMessage.classList.add('error')
+                errorMessage.innerHTML = 'Password doesn\'t match'
+
+            } else {
+                signupForm.submit()
+            }
+        })
+    </script>
 </body>
 </html>

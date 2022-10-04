@@ -8,6 +8,12 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+body .error-message {
+  color: #dc3545;
+}
+body .text-bold {
+  font-weight: 600;
+}
 body form .form-body {
   display: flex;
   gap: 12px;
@@ -16,6 +22,13 @@ body form .form-body {
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+}
+body form .error-message {
+  display: none;
+  color: #dc3545;
+}
+body form .error-message.error {
+  display: block;
 }
 body form .form-footer {
   background-color: rgba(25, 25, 25, 0.3);
@@ -60,6 +73,16 @@ body .input-wrapper {
   height: 45px;
   min-width: 240px;
   border-radius: 12px;
+}
+body .input-wrapper.input-error {
+  border: 2px solid #dc3545;
+}
+body .input-wrapper.input-error:has(input:focus) {
+  background-color: rgba(238, 238, 238, 0.1019607843);
+  border: 2px solid #dc3545;
+}
+body .input-wrapper.input-error:has(input:focus) i {
+  color: #eee;
 }
 body .input-wrapper i {
   margin-left: 12px;
@@ -138,7 +161,7 @@ body .input-wrapper.dropdown i {
   margin-right: 12px;
 }
 body .input-wrapper input {
-  border-radius: 12px;
+  border-radius: 0 12px 12px 0;
   width: 100%;
   height: 100%;
   background-color: transparent;
@@ -147,8 +170,14 @@ body .input-wrapper input {
   color: #eee;
   margin-left: 12px;
 }
+body .input-wrapper input:-webkit-autofill, body .input-wrapper input:-webkit-autofill:hover, body .input-wrapper input:-webkit-autofill:focus, body .input-wrapper input:-webkit-autofill:active {
+  -webkit-transition: 9999s ease-in-out 0s;
+  transition: 9999s ease-in-out 0s;
+  transition-delay: 9999s;
+  -webkit-text-fill-color: #eee !important;
+}
 body .input-wrapper:has(input:focus) {
-  background-color: rgba(238, 238, 238, 0.1);
+  background-color: rgba(238, 238, 238, 0.1019607843);
   border: 2px solid rgb(13, 110, 253);
 }
 body .input-wrapper:has(input:focus) i {
@@ -166,6 +195,14 @@ body .card h3 {
   color: rgba(238, 238, 238, 0.5);
   text-transform: uppercase;
   font-size: 0.9em;
+}
+body .button-link {
+  color: rgb(13, 110, 253);
+  text-decoration: none;
+}
+body .button-link:hover {
+  color: rgba(13, 110, 253, 0.9);
+  text-decoration: underline;
 }
 body .button-secondary {
   background-color: transparent;
@@ -325,6 +362,24 @@ body #overlay.visible {
 body #app-container {
   width: 100%;
   display: flex;
+}
+body #app-container .banner-text {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 40px;
+  font-size: 2em;
+}
+body #app-container .banner-text h2 {
+  margin: 0;
+  font-weight: 800;
+  color: #eee;
+}
+body #app-container .banner-text h4 {
+  font-weight: 400;
+  color: rgba(238, 238, 238, 0.7);
 }
 body #app-container .modal {
   position: absolute;
