@@ -22,6 +22,10 @@ router.post('/signup', async (req, res) => {
     const emailCheck = await User.findOne({ email: req.body.email })
     const usernameCheck = await User.findOne({ username: req.body.username })
 
+    if(emailCheck && usernameCheck) {
+        return res.render('auth/signup', { error: 'username-email', email: req.body.email, username: req.body.username })
+    }
+
     if(emailCheck) {
         return res.render('auth/signup', { error: 'email', email: req.body.email, username: req.body.username })
     }

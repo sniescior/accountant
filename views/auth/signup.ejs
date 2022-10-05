@@ -19,7 +19,7 @@
             </div>
             <form action="/auth/signup" method="POST" id="signup-form">
 
-                <div class="input-wrapper <% if (error == 'email') { %>input-error<% } %>">
+                <div class="input-wrapper <% if (error == 'email' || error == 'username-email') { %>input-error<% } %>">
                     <i class="bi bi-at"></i>
                     <input type="text" placeholder="Email" name="email" value="<%- email %>" required>
                 </div>
@@ -27,7 +27,7 @@
                     Email already in use.
                 </p>
 
-                <div class="input-wrapper <% if (error == 'username') { %>input-error<% } %>">
+                <div class="input-wrapper <% if (error == 'username' || error == 'username-email') { %>input-error<% } %>">
                     <i class="bi bi-person"></i>
                     <input type="text" placeholder="Username" name="username" value="<%- username %>" required>
                 </div>
