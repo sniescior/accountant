@@ -18,7 +18,7 @@ const verifyCallback = (username, password, done) => {
             return done(null, false)
         }
 
-        if(!validatePassword(password, user.password.hash, user.password.salt)) { 
+        if(!validatePassword(password, user.password.passwordHash, user.password.salt)) { 
             return done(null, false)
         }
 
