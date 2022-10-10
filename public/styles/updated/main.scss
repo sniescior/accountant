@@ -276,6 +276,10 @@ body {
         padding: none;
         height: fit-content;
 
+        &.grey {
+            color: $dimmed_white_font_color;
+        }
+
         &.link {
             font-size: initial;
             text-decoration: none;
@@ -309,6 +313,32 @@ body {
 
         &:hover {
             background-color: $primary_button_color_hover;
+        }
+
+        &.hidden {
+            visibility: hidden;
+        }
+    }
+
+    .button-outline-secondary {
+        background-color: transparent;
+        color: $dimmed_white_font_color;
+        padding: 13px 24px;
+        gap: 6px;
+        text-decoration: none;
+        border-radius: 12px;
+        transition: .2s ease-in-out;
+        font-weight: 600;
+        border: 2px solid $white_border_color;
+        cursor: pointer;
+        height: fit-content;
+        
+        &.w100 {
+            width: 100%;
+        }
+        
+        &:hover {
+            color: $dimmed_white_font_color_hover;
         }
 
         &.hidden {

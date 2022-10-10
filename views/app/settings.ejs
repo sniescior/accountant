@@ -4,138 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account settings</title>
-    <%- include('../partials/_global_styles.ejs') %>
-    <link rel="stylesheet" href="/public/styles/app/app.css">
+    <title>Accountant - Settings</title>
+
+    <link rel="stylesheet" href="/public/styles/updated/main.css">
+    <link rel="stylesheet" href="/public/styles/app/settings.css">
 </head>
-<body>
-    <div id="overlay" class="hidden"></div>
-    <div class="app-container" id="appContainer">
-        <div class="header">
-            <a href="/app/dashboard" class="back-toggle">
-                <i class="bi bi-chevron-left"></i>
-                <h2>Dashboard</h2>
-            </a>
-            <div class="title mt-3">
-                <img src="/public/images/defaultavatar.png" alt="">
-                <h2><%- user.username %></h2>
-                <h3><%- user.email %></h3>
-                <button class="bt-primary my-2">
-                    Edit profile
-                    <span class="arrow-right"></span>
-                </button>
-            </div>
+<body class="dark">
+    <div id="overlay"></div>
+    <div id="app-container">
+        <div class="section-header">
+            <h2>Settings</h2>
         </div>
-        <div class="section-divider">
-            <h6>
-                GENERAL MANAGEMENT
-            </h6>
-        </div>
-        <section class="settings-section">
-            <ul class="section-list">
-                <a class="menu-link act-as-link" href="/app/settings/configuration" id="configuration-link" data-link><li>
-                    <div>
-                        <i class="bi bi-gear me-2" width="16" height="16"></i>Configuration
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </li></a>
-                <a class="menu-link act-as-link" href="/app/settings/accounts" onclick="toggleNestedMenu('accounts')" id="accounts-link" data-link><li>
-                    <div>
-                        <i class="bi bi-credit-card-2-back me-2"></i>Accounts
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </li></a>
-                <a class="menu-link act-as-link" href="/app/settings/plan" onclick="toggleNestedMenu('plan')" id="plan-link" data-link><li>
-                    <div>
-                        <i class="bi bi-award me-2"></i>Plan
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </li></a>
-                <a class="menu-link act-as-link" href="/app/settings/security" onclick="toggleNestedMenu('security')" id="security-link" data-link><li>
-                    <div>
-                        <i class="bi bi-shield-lock me-2"></i>Security
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </li></a>
-            </ul>
-        </section>
-        <div class="section-divider">
-            <h6>
-                PREFERENCES
-            </h6>
-        </div>
-        <section class="settings-section">
-            <ul class="section-list">
-                <li>
-                    <p onclick="toggleButton('dark-mode')">
-                        <i class="bi bi-moon me-2"></i>
-                        Dark Mode
-                    </p>
-                    <button class="bt-toggle active" id="dark-mode" onclick="toggleButton(this.id)">
-                        <div class="circle"></div>
-                    </button>
-                </li>
-                <li>
-                    <p onclick="toggleButton('notifications')">
-                        <i class="bi bi-bell me-2"></i>
-                        Notifications
-                    </p>
-                    <button class="bt-toggle active" id="notifications" onclick="toggleButton(this.id)">
-                        <div class="circle"></div>
-                    </button>
-                </li>
-                <a class="menu-link act-as-link" href="/app/settings/language" onclick="toggleNestedMenu('language')" id="language-link" data-link>
-                    <li>
-                        <div>
-                            <i class="bi bi-translate me-2"></i>
-                            Language
-                        </div>
-                        <i class="bi bi-chevron-right"></i>
-                    </li>
-                </a>
-            </ul>
-        </section>
-        <div class="section-divider">
-            <h6>MORE</h6>
-        </div>
-        <section class="settings-section">
-            <ul class="section-list">
-                <a class="menu-link" href="#">
-                    <li>
-                        <div>
-                            <i class="bi bi-phone me-2"></i>
-                            Get Mobile App
-                        </div>
-                    </li>
-                </a>
-                <a class="menu-link" href="#">
-                    <li>
-                        <div>
-                            <i class="bi bi-star me-2"></i>Feedback
-                        </div>
-                    </li>
-                </a>
-                <a class="menu-link" href="#">
-                    <li>
-                        <div>
-                            <i class="bi bi-cup-hot me-2"></i>
-                            Buy me a coffee
-                        </div>
-                    </li>
-                </a>
-            </ul>
+
+        <section class="divided-section">
+            <menu class="navigation-menu">
+                <li role="presentation" class="active" onclick="setTab(this, 'profile')">Profile</li>
+                <li role="presentation" onclick="setTab(this, 'configuration')">Configuration</li>
+                <li role="presentation" onclick="setTab(this, 'general')">General</li>
+                <li>Plan</li>
+                <li>Team</li>
+                <li>Notifications</li>
+                <li>Accounts</li>
+                <li>Security</li>
+                <li>API</li>
+            </menu>
+            <%- include('../partials/_profile.ejs') %>
+            <%- include('../partials/_configuration.ejs') %>
+            <%- include('../partials/_general.ejs') %>
+            <%- include('../partials/_plan.ejs') %>
+            <%- include('../partials/_team.ejs') %>
+            <%- include('../partials/_notifications.ejs') %>
+            <%- include('../partials/_accounts.ejs') %>
+            <%- include('../partials/_security.ejs') %>
+            <%- include('../partials/_api.ejs') %>
         </section>
     </div>
-
-    <%- include('../partials/_configuration.ejs') %>
-    <%- include('../partials/_security.ejs') %>
-    <%- include('../partials/_accounts.ejs') %>
-    <%- include('../partials/_plan.ejs') %>
-    <%- include('../partials/_language.ejs') %>
-    <%- include('../partials/_repeat.ejs') %>
-    <%- include('../partials/_currency.ejs') %>
-
-    <script type="text/javascript" src="/public/js/app.js"></script>
-    <script type="text/javascript" src="/public/js/settings.js"></script>
+    <script type="text/javascript" src="/public/js/updated/main.js"></script>
 </body>
 </html>

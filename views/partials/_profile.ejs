@@ -1,0 +1,64 @@
+<div class="container image-container active" id="profile" role="tabpanel">
+
+    <div class="content-image">
+        <img src="/public/images/background.jpg" alt="">
+    </div>
+
+    <div class="content-wrapper">
+        <div class="content">
+            <img class="user-image" src="/public/images/defaultavatar.png" alt="profile picture">
+        </div>
+        <div class="content-title flex">
+            <div>
+                <h2>Profile</h2>
+                <h4>Update your photo and personal data.</h4>
+            </div>
+            <!-- <div class="button-wrapper">
+                <button class="button-outline-secondary">Cancel</button>
+                <button class="button-primary">Save</button>
+            </div> -->
+        </div>
+    </div>
+    <div class="configuration-section">
+        <div class="configuration-item">
+            <div class="configuration-item-title">
+                <h4>Username</h4>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" placeholder="Username" value="<%- user.username %>" required>
+            </div>
+        </div>
+        <span class="divider"></span>
+        <div class="configuration-item">
+            <div class="configuration-item-title">
+                <h4>Website</h4>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" placeholder="Website">
+            </div>
+        </div>
+        <span class="divider"></span>
+        <div class="configuration-item">
+            <div class="configuration-item-title">
+                <h4>Your photo</h4>
+                <h5>Will be displayed on your profile.</h5>
+            </div>
+            <div class="input-image-wrapper">
+                <img class="input-image-preview" src="/public/images/defaultavatar.png" alt="prfile picture">
+                <div class="button-wrapper">
+                    <button class="button-secondary grey">Delete</button>
+                    <button class="button-secondary grey">Update</button>
+                </div>
+            </div>
+        </div>
+        <span class="divider"></span>
+        <div class="configuration-item">
+            <div class="configuration-item-title">
+                <h4>Job title</h4>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" value="Developer">
+            </div>
+        </div>
+    </div>
+</div>
