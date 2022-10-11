@@ -12,55 +12,30 @@
     </div>
 
     <div class="configuration-section">
+        <% if (context.expenseCategories.length < 1) { %>
+            <div class="no-data-wrapper">
+                <img class="no-data-image" src="/public/images/nodata.svg" alt="No data available">
+                <h3>No categories</h3>
+            </div>
+        <% } else { %>
         <ul class="configuration-list">
             <div class="legend">
                 Name
             </div>
-            <li>
-                <h3>Food</h3>
-                <div class="context-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </li>
-            <span class="divider"></span>
-            <li>
-                <h3>Transportation</h3>
-                <div class="context-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </li>
-            <span class="divider"></span>
-            <li>
-                <h3>Social Life</h3>
-                <div class="context-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </li>
-            <span class="divider"></span>
-            <li>
-                <h3>Culture</h3>
-                <div class="context-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </li>
-            <span class="divider"></span>
-            <li>
-                <h3>Other</h3>
-                <div class="context-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </li>
+            <% context.expenseCategories.forEach(expenseCategory => { %>
+                <li>
+                    <h3><%= expenseCategory.name %></h3>
+                    <div class="context-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </li>
+                <span class="divider"></span>
+            <% }) %>
+            <div class="configuration-list-footer"></div>
         </ul>
+        <% } %>
     </div>
 </div>
 

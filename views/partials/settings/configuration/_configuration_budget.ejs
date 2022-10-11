@@ -1,4 +1,4 @@
-<div class="container active" id="configuration-budget" role="tabpanel">
+<div class="container" id="configuration-budget" role="tabpanel">
     <div class="breadcrumbs">
         <a onclick="setTab(this, 'configuration')">Configuration</a>
         <i class="bi bi-chevron-right"></i>
@@ -33,8 +33,11 @@
     
     <form action="" method="POST" class="modal-body">
         <div class="form-body">
+            <div class="input-wrapper">
+                <input type="number" placeholder="Amount" required>
+            </div>
             <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
-                <input type="text" placeholder="Category" id="budget-category-input">
+                <input type="text" placeholder="Category" id="budget-category-input" required>
                 <i class="bi bi-chevron-down"></i>
                 <ul class="dropdown-list">
                     <li class="dropdown-item" onclick="setValue(this, 'budget-category-input')" value="Transportation">

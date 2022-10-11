@@ -12,55 +12,30 @@
     </div>
 
     <div class="configuration-section">
-        <ul class="configuration-list">
-            <div class="legend">
-                Name
+        <% if (context.incomeCategories.length < 1) { %>
+            <div class="no-data-wrapper">
+                <img class="no-data-image" src="/public/images/nodata.svg" alt="No data available">
+                <h3>No categories</h3>
             </div>
-            <li>
-                <h3>Allowance</h3>
-                <div class="context-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+        <% } else { %>
+            <ul class="configuration-list">
+                <div class="legend">
+                    Name
                 </div>
-            </li>
-            <span class="divider"></span>
-            <li>
-                <h3>Salary</h3>
-                <div class="context-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </li>
-            <span class="divider"></span>
-            <li>
-                <h3>Petty Cash</h3>
-                <div class="context-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </li>
-            <span class="divider"></span>
-            <li>
-                <h3>Bonus</h3>
-                <div class="context-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </li>
-            <span class="divider"></span>
-            <li>
-                <h3>Other</h3>
-                <div class="context-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </li>
-        </ul>
+                <% context.incomeCategories.forEach(incomeCategory => { %>
+                    <li>
+                        <h3><%= incomeCategory.name %></h3>
+                        <div class="context-menu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </li>
+                    <span class="divider"></span>
+                <% }) %>
+                <div class="configuration-list-footer"></div>
+            </ul>
+        <% } %>
     </div>
 </div>
 
