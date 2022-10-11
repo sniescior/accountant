@@ -1,107 +1,20 @@
 <nav id="navbar">
-    <div class="left">
-        <div class="logo">
-            <a href="/">Accountant</a>
-            <a href="/" class="logo-image">
-                <img src="/public/images/logo.png" alt="Accountant">
-            </a>
+    <div class="navbar-content">
+        <div class="left">
+            <h2 class="logo">Accountant</h2>
+            <ul class="navigation-list">
+                <li><a href="/app/dashboard">Dashboard</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Guides</a></li>
+            </ul>
         </div>
-
-        <ul id="main-list">
-            <li class="main-list-item" id="business-toggle" onclick="toggleExtendedList(this)">
-                <a href="#" class="nav-link bt-secondary">Business banking</a>
-                <i class="nav-link bi bi-chevron-down"></i>
-                <ul class="extended-list" id="business">
-                    <li class="extended-list-item"><a href="#">Benefits</a></li>
-                    <span class="list-item-divider"></span>
-                    <li class="extended-list-item"><a href="#">Plans</a></li>
-                    <span class="list-item-divider"></span>
-                    <li class="extended-list-item"><a href="#">Features</a></li>
-                    <span class="list-item-divider"></span>
-                    <li class="extended-list-item"><a href="#">Accountant for your type of business</a></li>
-                    <span class="list-item-divider"></span>
-                    <li class="extended-list-item"><a href="#">Smart and easy to implement</a></li>
-                    <span class="list-item-divider"></span>
-                    <li class="extended-list-item"><a href="#">Guides</a></li>
-                </ul>
-            </li>
-            <li class="main-list-item" id="personal-toggle" onclick="toggleExtendedList(this)">
-                <a href="#" class="nav-link bt-secondary">Personal use</a>
-                <i class="nav-link bi bi-chevron-down"></i>
-                <ul class="extended-list" id="personal">
-                    <li class="extended-list-item">
-                        <a href="#">Guides</a>
-                    </li>
-                    <span class="list-item-divider"></span>
-                    <li class="extended-list-item">
-                        <a href="/auth/signup">Start for free</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="main-list-item" id="about-toggle" onclick="toggleExtendedList(this)">    
-                <a href="#" class="nav-link bt-secondary">About</a>
-                <i class="nav-link bi bi-chevron-down"></i>
-                <ul class="extended-list" id="about">
-                    <li class="extended-list-item">
-                        <a href="#">Contact</a>
-                    </li>
-                    <span class="list-item-divider"></span>
-                    <li class="extended-list-item">
-                        <a href="#">License</a>
-                    </li>
-                    <span class="list-item-divider"></span>
-                    <li class="extended-list-item">
-                        <a href="#">Privacy</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="main-list-item">
-                <a href="#" class="nav-link bt-secondary">Help</a>
-            </li>
-        </ul>
-    </div>
-    <div class="right">
-        <% if (!user) { %>
-            <a href="/auth/signin" class="bt-secondary bold">Log in</a>
-            <a href="/auth/signup" class="bt-primary">Get started</a>
-        <% } else { %>
-            <div class="user-info" id="user-info" onclick="toggleUserMenu()">
-                <div class="user-info-icon">
-                    <p><%- user.username %></p>
-                    <i class="bi bi-person-circle"></i>
-                </div>
-                <ul class="user-menu" id="user-menu">
-                    <li>
-                        <i class="bi bi-clipboard-data"></i>
-                        <a href="/app/dashboard">Dashboard</a>
-                    </li>
-                    <span class="list-item-divider"></span>
-                    <li>
-                        <i class="bi bi-award"></i>
-                        <a href="">Plan</a>
-                    </li>
-                    <span class="list-item-divider"></span>
-                    <li>
-                        <i class="bi bi-sliders"></i>
-                        <a href="/app/settings">Settings</a>
-                    </li>
-                    <span class="list-item-divider"></span>
-                    <li>
-                        <i class="bi bi-bell"></i>
-                        <a href="">Notifications</a>
-                    </li>
-                    <span class="list-item-divider"></span>
-                    <li>
-                        <i class="bi bi-box-arrow-right"></i>
-                        <a href="/auth/signout">Log out</a>
-                    </li>
-                </ul>
+        <div class="right">
+            <div class="button-wrapper wide">
+                <button class="button-icon secondary">
+                    <i class="bi bi-bell"></i>
+                </button>
+                <img class="user-image" src="/public/images/defaultavatar.png" alt="profile picture">
             </div>
-        <% } %>
-        <button id="side-menu-open-button" class="menu-toggle" onclick="toggleSideMenu()">
-            <i class="bi bi-list"></i>
-        </button>
+        </div>
     </div>
 </nav>
-
-<%- include('_sidemenu.ejs') %>

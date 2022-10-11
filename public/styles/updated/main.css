@@ -8,6 +8,60 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+body #navbar {
+  width: 100%;
+  border-bottom: 2px solid rgba(34, 34, 34, 0.5);
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  z-index: 100;
+}
+body #navbar .navbar-content {
+  padding: 20px 40px;
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body #navbar .navbar-content .left {
+  display: flex;
+  align-items: center;
+}
+body #navbar .navbar-content .left .logo {
+  color: #eee;
+  font-weight: 800;
+  font-size: 1.7em;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+body #navbar .navbar-content .left .navigation-list {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+body #navbar .navbar-content .left .navigation-list li a {
+  padding: 12px 16px;
+  color: rgba(238, 238, 238, 0.5);
+  text-decoration: none;
+  font-size: 1.3em;
+  border-radius: 12px;
+  transition: 0.2s ease-in-out;
+}
+body #navbar .navbar-content .left .navigation-list li a:hover {
+  color: rgba(238, 238, 238, 0.7);
+}
+body #navbar .navbar-content .right .user-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgba(34, 34, 34, 0.5);
+  cursor: pointer;
+}
 body .breadcrumbs {
   font-size: 1.1em;
   margin-bottom: 35px;
@@ -298,6 +352,9 @@ body .button-outline-secondary {
   height: -moz-fit-content;
   height: fit-content;
 }
+body .button-outline-secondary.large {
+  font-size: 1.2em;
+}
 body .button-outline-secondary.w100 {
   width: 100%;
 }
@@ -358,6 +415,9 @@ body .button-wrapper {
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+body .button-wrapper.wide {
+  gap: 18px;
 }
 body .button-wrapper h3 {
   color: #eee;

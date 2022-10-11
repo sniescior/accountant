@@ -14,11 +14,14 @@ $danger_color: #dc3545;
 
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     overflow-y: scroll;
 
     #app-container {
         padding: 20px;
+        padding-top: 90px;
         box-sizing: border-box;
         display: block;
         max-width: 1200px;
