@@ -229,7 +229,44 @@ body #app-container .divided-section .container .configuration-section .configur
   justify-content: space-between;
   align-items: center;
 }
-body #app-container .divided-section .container .configuration-section .configuration-list li button {
+body #app-container .divided-section .container .configuration-section .configuration-list li input {
+  pointer-events: none;
+  background-color: transparent;
+  color: #eee;
+  font-size: 1.2em;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  width: 100%;
+  margin-right: 20px;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li.edit {
+  background-color: rgba(51, 51, 51, 0.2);
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li.edit h3 {
+  display: none;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li.edit .context-menu-button {
+  display: none;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li.edit input {
+  pointer-events: all;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li.edit input:focus {
+  outline: none;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li.edit .button-wrapper {
+  height: 50px;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li.edit .button-wrapper .button-secondary {
+  display: initial;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li .button-secondary {
+  display: none;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li .context-menu-button {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -238,13 +275,13 @@ body #app-container .divided-section .container .configuration-section .configur
   transition: 0.1s ease-in-out;
   border-radius: 12px;
 }
-body #app-container .divided-section .container .configuration-section .configuration-list li button:hover {
+body #app-container .divided-section .container .configuration-section .configuration-list li .context-menu-button:hover {
   background-color: rgba(73, 73, 73, 0.472);
 }
-body #app-container .divided-section .container .configuration-section .configuration-list li button:hover.danger i {
+body #app-container .divided-section .container .configuration-section .configuration-list li .context-menu-button:hover.danger i {
   color: #dc3545;
 }
-body #app-container .divided-section .container .configuration-section .configuration-list li button i {
+body #app-container .divided-section .container .configuration-section .configuration-list li .context-menu-button i {
   transition: 0.1s ease-in-out;
   font-size: 1.7em;
   color: rgba(238, 238, 238, 0.5);

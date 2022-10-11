@@ -94,4 +94,27 @@ toggleContextMenu = (contextMenuElement) => {
     })
 }
 
+const editListItem = (listitemElementID) => {
+    const listitemElement = document.getElementById(listitemElementID)
+    const listitemElementInput = document.getElementById(listitemElementID + '-input')
+    const listitemElementInitialValue = document.getElementById(listitemElementID + '-initial')
 
+    Array.from(document.querySelectorAll('[role="listitem"]')).forEach(element => {
+        if(element !== listitemElement) {
+            if(element.classList.contains('edit')) {
+                const elementInput = document.getElementById(element.id + '-input')
+                const elementInitialValue = document.getElementById(element.id + '-initial')
+                elementInput.value = elementInitialValue.value
+                element.classList.remove('edit')
+            }
+        }
+    })
+
+    if(!listitemElement.classList.contains('edit')) {
+        listitemElementInput.focus()
+        listitemElement.classList.add('edit')
+    } else {
+        listitemElement.classList.remove('edit')
+        listitemElementInput.value = listitemElementInitialValue.value
+    }
+}

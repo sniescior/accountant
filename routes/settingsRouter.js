@@ -49,6 +49,40 @@ router.post('/add/expense-category', async (req, res) => {
 })
 
 /**
+ * ------------- EDIT Routes -------------
+ */
+
+router.post('/edit/income-category', async (req, res) => {
+    const body = req.body
+    
+    const categoryID = body.categoryID
+    const categoryNewName = body.categoryNewName
+    
+    const incomeCategoryToUpdate = await incomeCategory.findByIdAndUpdate({ _id: categoryID }, { name: categoryNewName })
+
+    res.redirect('/app/settings')
+})
+
+router.post('/edit/income-category', async (req, res) => {
+    const body = req.body
+    
+    const categoryID = body.categoryID
+    const categoryNewName = body.categoryNewName
+    
+    // const incomeCategoryToUpdate = await incomeCategory.findByIdAndUpdate({ _id: categoryID }, { name: categoryNewName })
+    const incomeCategoryToUpdate = incomeCategory.findById(categoryID)
+
+    if(incomeCategoryToUpdate.userID == req.user.id) {   
+        incomeCategoryToUpdate.name = categoryNewName
+        await incomeCategoryToUpdate.save()
+    }
+
+    // TODO: Check whether found category belongs to the logged in user (just like in case of deleting categories)
+
+    res.redirect('/app/settings')
+})
+
+/**
  * ------------- DELETE Routes -------------
  */
 

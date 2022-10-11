@@ -283,7 +283,52 @@ body {
                             justify-content: space-between;
                             align-items: center;
 
-                            button {
+                            input {
+                                pointer-events: none;
+                                background-color: transparent;
+                                color: $white_font_color;
+                                font-size: 1.2em;
+                                padding: 0;
+                                margin: 0;
+                                border: none;
+                                outline: none;
+                                font-weight: 600;
+                                width: 100%;
+                                margin-right: 20px;
+                            }
+
+                            &.edit {
+                                background-color: rgba(51, 51, 51, 0.2);
+                                
+                                h3 {
+                                    display: none;
+                                }
+
+                                .context-menu-button {
+                                    display: none;
+                                }
+
+                                input {
+                                    pointer-events: all;
+                                    &:focus {
+                                        outline: none;
+                                    }
+                                }
+
+                                .button-wrapper {
+                                    height: 50px;
+
+                                    .button-secondary {
+                                        display: initial;
+                                    }
+                                }
+                            }
+
+                            .button-secondary {
+                                display: none;
+                            }
+
+                            .context-menu-button {
                                 background-color: transparent;
                                 border: none;
                                 cursor: pointer;
@@ -291,7 +336,6 @@ body {
                                 height: 50px;
                                 transition: .1s ease-in-out;
                                 border-radius: 12px;
-
                                 
                                 &:hover {
                                     background-color: $dimmed_background_color;
