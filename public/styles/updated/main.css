@@ -8,6 +8,49 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+body .context-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  padding: 12px;
+  cursor: pointer;
+}
+body .context-menu:hover span {
+  background-color: rgba(238, 238, 238, 0.7);
+}
+body .context-menu span {
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(238, 238, 238, 0.5);
+  border-radius: 50%;
+  transition: 0.1s ease-in-out;
+}
+body .breadcrumbs {
+  font-size: 1.1em;
+  margin-bottom: 35px;
+}
+body .breadcrumbs i {
+  color: #eee;
+}
+body .breadcrumbs a {
+  color: rgb(13, 110, 253);
+  text-decoration: none;
+  cursor: pointer;
+}
+body .breadcrumbs a.disabled {
+  color: #eee;
+}
+body .breadcrumbs a.disabled:hover {
+  color: #eee;
+  text-decoration: none;
+  cursor: default;
+}
+body .breadcrumbs a:hover {
+  color: rgba(13, 110, 253, 0.9);
+  text-decoration: underline;
+}
 body .error-message {
   color: #dc3545;
 }

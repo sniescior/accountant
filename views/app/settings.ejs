@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/public/styles/app/settings.css">
 </head>
 <body class="dark">
-    <div id="overlay"></div>
+    <div id="overlay" onclick="closeModals()"></div>
     <div id="app-container">
         <div class="section-header">
             <h2>Settings</h2>
@@ -18,8 +18,8 @@
 
         <section class="divided-section">
             <menu class="navigation-menu">
-                <li role="presentation" class="active" onclick="setTab(this, 'profile')">Profile</li>
-                <li role="presentation" onclick="setTab(this, 'configuration')">Configuration</li>
+                <li role="presentation" class="" onclick="setTab(this, 'profile')">Profile</li>
+                <li role="presentation" class="active" onclick="setTab(this, 'configuration')">Configuration</li>
                 <li role="presentation" onclick="setTab(this, 'general')">General</li>
                 <li>Plan</li>
                 <li>Team</li>
@@ -28,15 +28,15 @@
                 <li>Security</li>
                 <li>API</li>
             </menu>
-            <%- include('../partials/_profile.ejs') %>
-            <%- include('../partials/_configuration.ejs') %>
-            <%- include('../partials/_general.ejs') %>
-            <%- include('../partials/_plan.ejs') %>
-            <%- include('../partials/_team.ejs') %>
-            <%- include('../partials/_notifications.ejs') %>
-            <%- include('../partials/_accounts.ejs') %>
-            <%- include('../partials/_security.ejs') %>
-            <%- include('../partials/_api.ejs') %>
+            <%- include('../partials/settings/_profile.ejs') %>
+            <%- include('../partials/settings/configuration/_configuration.ejs') %>
+            <%- include('../partials/settings/_general.ejs') %>
+            <%- include('../partials/settings/_plan.ejs') %>
+            <%- include('../partials/settings/_team.ejs') %>
+            <%- include('../partials/settings/_notifications.ejs') %>
+            <%- include('../partials/settings/_accounts.ejs') %>
+            <%- include('../partials/settings/_security.ejs') %>
+            <%- include('../partials/settings/_api.ejs') %>
         </section>
     </div>
     <script type="text/javascript" src="/public/js/updated/main.js"></script>
