@@ -10,6 +10,7 @@ $main_theme_color: rgb(13, 110, 253);
 $dropdown_item_hover: rgba(61, 61, 61, 0.1);
 $primary_button_color_hover: rgb(13, 110, 253, 0.9);
 $input_hover: rgba(41, 41, 41, 0.1);
+$danger_color: #dc3545;
 
 body {
     display: flex;
@@ -281,6 +282,33 @@ body {
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
+
+                            button {
+                                background-color: transparent;
+                                border: none;
+                                cursor: pointer;
+                                width: 50px;
+                                height: 50px;
+                                transition: .1s ease-in-out;
+                                border-radius: 12px;
+
+                                
+                                &:hover {
+                                    background-color: $dimmed_background_color;
+                                    
+                                    &.danger {
+                                        i {
+                                            color: $danger_color;
+                                        }
+                                    }
+                                }
+   
+                                i {
+                                    transition: .1s ease-in-out;
+                                    font-size: 1.7em;
+                                    color: $dimmed_white_font_color;
+                                }
+                            }
                             
                             h3 {
                                 margin: 0;

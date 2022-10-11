@@ -15,14 +15,65 @@ router.get('/', async (req, res) => {
         expenseCategories: expenseCategories
     }
 
-    // const newIncomeCategory = new incomeCategory({
-    //     userID: req.user.id,
-    //     name: 'New Income Category'
-    // })
-
-    // await newIncomeCategory.save()
-
     res.render('app/settings', { user: req.user, context: context })
+})
+
+/**
+ * ------------- ADD Routes -------------
+ */
+
+router.post('/add/income-category', async (req, res) => {
+    const body = req.body
+
+    const newIncomeCategory = new incomeCategory({
+        userID: req.user.id,
+        name: body.categoryName
+    })
+
+    await newIncomeCategory.save()
+    
+    res.redirect('/app/settings')
+})
+
+router.post('/add/expense-category', async (req, res) => {
+    const body = req.body
+
+    const newExpenseCategory = new expenseCategory({
+        userID: req.user.id,
+        name: body.categoryName
+    })
+
+    await newExpenseCategory.save()
+    
+    res.redirect('/app/settings')
+})
+
+/**
+ * ------------- DELETE Routes -------------
+ */
+
+router.post('/delete/income-category', async (req, res) => {
+    const body = req.body
+
+    // await incomeCategory.findByIdAndDelete(body.categoryID)
+
+    const incomeCategoryToDelete = await incomeCategory.findById(body.categoryID)
+    if(incomeCategoryToDelete.userID == req.user.id) {
+        await incomeCategory.findByIdAndDelete(body.categoryID)
+    }
+    
+    res.redirect('/app/settings')
+})
+
+router.post('/delete/expense-category', async (req, res) => {
+    const body = req.body
+
+    const expenseCategoryToDelete = await expenseCategory.findById(body.categoryID)
+    if(expenseCategoryToDelete.userID == req.user.id) {
+        await expenseCategory.findByIdAndDelete(body.categoryID)
+    }
+    
+    res.redirect('/app/settings')
 })
 
 module.exports = router

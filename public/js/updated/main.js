@@ -83,3 +83,15 @@ window.addEventListener('click', (e) => {
         }
     }
 })
+
+toggleContextMenu = (contextMenuElement) => {
+    contextMenuElement.classList.toggle('active')
+
+    Array.from(document.getElementsByClassName('context-menu')).forEach(element => {
+        if(element !== contextMenuElement) {
+            element.classList.remove('active')
+        }
+    })
+}
+
+

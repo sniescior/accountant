@@ -25,10 +25,9 @@
             <% context.expenseCategories.forEach(expenseCategory => { %>
                 <li>
                     <h3><%= expenseCategory.name %></h3>
-                    <div class="context-menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <div class="button-wrapper">
+                        <button class="context-menu-button"><i class="bi bi-pencil"></i></button>
+                        <button class="context-menu-button danger" onclick="openModal('delete-<%= expenseCategory.id %>')"><i class="bi bi-trash3"></i></button>
                     </div>
                 </li>
                 <span class="divider"></span>
@@ -39,15 +38,34 @@
     </div>
 </div>
 
+<% context.expenseCategories.forEach(expenseCategory => { %>
+    <div class="modal" id="delete-<%= expenseCategory.id %>">
+        <div class="modal-header flex-column">
+            <h2>Delete category? <%= expenseCategory.name %></h2>
+            <h3>And every transactions associated with it?</h3>
+        </div>
+        
+        <form action="/app/settings/delete/expense-category" method="POST" class="modal-body">
+            <input type="hidden" value="<%= expenseCategory.id %>" name="categoryID">
+            <div class="form-footer">
+                <div class="button-wrapper">
+                    <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                    <button class="button-primary button-danger" type="submit">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+<% }) %>
+
 <div class="modal" id="add-expense-category-modal">
     <div class="modal-header">
         <h2>Add expense category</h2>
     </div>
     
-    <form action="" method="POST" class="modal-body">
+    <form action="/app/settings/add/expense-category" method="POST" class="modal-body">
         <div class="form-body">
             <div class="input-wrapper">
-                <input type="text" placeholder="Category name">
+                <input type="text" placeholder="Category name" name="categoryName">
             </div>
         </div>
         <div class="form-footer">

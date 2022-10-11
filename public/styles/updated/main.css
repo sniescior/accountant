@@ -8,25 +8,6 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-body .context-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3px;
-  padding: 12px;
-  cursor: pointer;
-}
-body .context-menu:hover span {
-  background-color: rgba(238, 238, 238, 0.7);
-}
-body .context-menu span {
-  display: block;
-  width: 6px;
-  height: 6px;
-  background-color: rgba(238, 238, 238, 0.5);
-  border-radius: 50%;
-  transition: 0.1s ease-in-out;
-}
 body .breadcrumbs {
   font-size: 1.1em;
   margin-bottom: 35px;
@@ -287,6 +268,12 @@ body .button-primary {
   height: -moz-fit-content;
   height: fit-content;
 }
+body .button-primary.button-danger {
+  background-color: #dc3545;
+}
+body .button-primary.button-danger:hover {
+  background-color: #dc3545;
+}
 body .button-primary.w100 {
   width: 100%;
 }
@@ -478,6 +465,15 @@ body #app-container .modal .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+body #app-container .modal .modal-header h3 {
+  color: rgba(238, 238, 238, 0.5);
+  margin: 0;
+}
+body #app-container .modal .modal-header.flex-column {
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
 }
 body #app-container .modal .modal-body .form-body {
   padding: 10px 20px;

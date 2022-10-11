@@ -30,30 +30,6 @@ body {
     height: 100vh;
     overflow: hidden;
 
-    .context-menu {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 3px;
-        padding: 12px;
-        cursor: pointer;
-
-        &:hover {
-            span {
-                background-color: $dimmed_white_font_color_hover;
-            }
-        }
-        
-        span {
-            display: block;
-            width: 6px;
-            height: 6px;
-            background-color: $dimmed_white_font_color;
-            border-radius: 50%;
-            transition: .1s ease-in-out;
-        }
-    }
-
     .breadcrumbs {
         font-size: 1.1em;
         margin-bottom: 35px;
@@ -361,6 +337,14 @@ body {
         cursor: pointer;
         height: fit-content;
 
+        &.button-danger {
+            background-color: $danger_color;
+            
+            &:hover {
+                background-color: $danger_color;
+            }
+        }
+
         &.w100 {
             width: 100%;
         }
@@ -584,6 +568,17 @@ body {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+
+                h3 {
+                    color: $dimmed_white_font_color;
+                    margin: 0;
+                }
+
+                &.flex-column {
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    flex-direction: column;
+                }
             }
 
             .modal-body {
