@@ -221,6 +221,15 @@ body #app-container .divided-section .container .configuration-section .configur
   padding: 12px;
   border-bottom: 2px solid rgba(238, 238, 238, 0.1);
   color: #eee;
+  display: flex;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list .legend h4 {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list .legend h4.name {
+  width: 400px;
 }
 body #app-container .divided-section .container .configuration-section .configuration-list .divider {
   padding: 0;
@@ -245,6 +254,24 @@ body #app-container .divided-section .container .configuration-section .configur
   width: 100%;
   margin-right: 20px;
 }
+body #app-container .divided-section .container .configuration-section .configuration-list li .inputs-formatter {
+  display: flex;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li .inputs-formatter input {
+  pointer-events: none;
+  background-color: transparent;
+  color: #eee;
+  font-size: 1.2em;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  font-weight: 600;
+}
+body #app-container .divided-section .container .configuration-section .configuration-list li .inputs-formatter input.input-name {
+  min-width: 400px;
+  max-width: 400px;
+}
 body #app-container .divided-section .container .configuration-section .configuration-list li.edit {
   background-color: rgba(51, 51, 51, 0.2);
 }
@@ -254,10 +281,10 @@ body #app-container .divided-section .container .configuration-section .configur
 body #app-container .divided-section .container .configuration-section .configuration-list li.edit .context-menu-button {
   display: none;
 }
-body #app-container .divided-section .container .configuration-section .configuration-list li.edit input {
+body #app-container .divided-section .container .configuration-section .configuration-list li.edit .editable-input {
   pointer-events: all;
 }
-body #app-container .divided-section .container .configuration-section .configuration-list li.edit input:focus {
+body #app-container .divided-section .container .configuration-section .configuration-list li.edit .editable-input:focus {
   outline: none;
 }
 body #app-container .divided-section .container .configuration-section .configuration-list li.edit .button-wrapper {

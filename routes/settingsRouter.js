@@ -9,10 +9,17 @@ router.get('/', async (req, res) => {
     const userID = mongoose.Types.ObjectId(req.user.id)
     const incomeCategories = await incomeCategory.find({ userID: userID })
     const expenseCategories = await expenseCategory.find({ userID: userID })
+    const budgetSetCategories = []
+    expenseCategories.forEach(expenseCategory => {
+        if(expenseCategory.budget != null) {
+            budgetSetCategories.push(expenseCategory)
+        }
+    })
 
     const context = {
         incomeCategories: incomeCategories,
-        expenseCategories: expenseCategories
+        expenseCategories: expenseCategories,
+        budgetSetCategories: budgetSetCategories
     }
 
     res.render('app/settings', { user: req.user, context: context })
@@ -44,6 +51,24 @@ router.post('/add/expense-category', async (req, res) => {
     })
 
     await newExpenseCategory.save()
+    
+    res.redirect('/app/settings')
+})
+
+router.post('/add/budget', async (req, res) => {
+    const body = req.body
+
+    const categoryName = req.body.categoryName
+    const budgetAmount = req.body.budgetAmount
+
+    const expenseCategoryToUpdate = await expenseCategory.findOne({ name: categoryName })
+    if(expenseCategoryToUpdate) {
+        if(expenseCategoryToUpdate.userID == req.user.id) {
+            console.log(expenseCategoryToUpdate)
+            expenseCategoryToUpdate.budget = budgetAmount
+            await expenseCategoryToUpdate.save()
+        }
+    }
     
     res.redirect('/app/settings')
 })

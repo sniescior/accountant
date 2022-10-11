@@ -27,7 +27,7 @@
                         <li id="listitem-<%= incomeCategory.id %>" role="listitem">
                             <input type="hidden" value="<%= incomeCategory.name %>" id="listitem-<%= incomeCategory.id %>-initial">
                             <input type="hidden" value="<%= incomeCategory.id %>" name="categoryID">
-                            <input id="listitem-<%= incomeCategory.id %>-input" value="<%= incomeCategory.name %>" name="categoryNewName">
+                            <input class="editable-input" id="listitem-<%= incomeCategory.id %>-input" value="<%= incomeCategory.name %>" name="categoryNewName">
                             <div class="button-wrapper">
                                 <button type="button" class="button-secondary grey" onclick="editListItem('listitem-<%= incomeCategory.id %>')">Cancel</button>
                                 <button type="submit" class="button-secondary">Save</button>

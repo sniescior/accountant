@@ -15,14 +15,39 @@
     </div>
 
     <div class="configuration-section">
-        <div class="no-data-wrapper">
-            <img class="no-data-image" src="/public/images/nodata.svg" alt="No data available">
-            <h3>There is no budget set yet. Just click</h3>
-            <div class="button-wrapper">
-                <button class="button-primary link" onclick="openModal('add-budget-modal')">Add budget</button>
-                <h3>and go ahead.</h3>
+        <% if (context.budgetSetCategories.length < 1) { %>
+            <div class="no-data-wrapper">
+                <img class="no-data-image" src="/public/images/nodata.svg" alt="No data available">
+                <h3>There is no budget set yet.</h3>
             </div>
-        </div>
+        <% } else { %>
+            <ul class="configuration-list">
+                <div class="legend">
+                    <h4 class="name">Name</h4>
+                    <h4>Budget amount</h4>
+                </div>
+                <% context.budgetSetCategories.forEach(expenseCategory => { %>
+                    <form action="/app/settings/edit/income-category" method="POST">
+                        <li id="budget-listitem-<%= expenseCategory.id %>" role="listitem">
+                            <div class="inputs-formatter">
+                                <input type="hidden" value="<%= expenseCategory.name %>" id="budget-listitem-<%= expenseCategory.id %>-initial">
+                                <input type="hidden" value="<%= expenseCategory.id %>" name="categoryID">
+                                <input value="<%= expenseCategory.name %>" name="categoryNewName" class="input-name">
+                                <input class="editable-input" id="budget-listitem-<%= expenseCategory.id %>-input" value="<%= expenseCategory.budget %>" name="categoryNewName">
+                            </div>
+                            <div class="button-wrapper">
+                                <button type="button" class="button-secondary grey" onclick="editListItem('budget-listitem-<%= expenseCategory.id %>')">Cancel</button>
+                                <button type="submit" class="button-secondary">Save</button>
+                                <button type="button" class="context-menu-button" onclick="editListItem('budget-listitem-<%= expenseCategory.id %>')"><i class="bi bi-pencil"></i></button>
+                                <button type="button" class="context-menu-button danger" onclick="openModal('budget-delete-<%= expenseCategory.id %>')"><i class="bi bi-trash3"></i></button>
+                            </div>
+                        </li>
+                    </form>
+                    <span class="divider"></span>
+                <% }) %>
+                <div class="configuration-list-footer"></div>
+            </ul>
+        <% } %> 
     </div>
 </div>
 
@@ -31,13 +56,13 @@
         <h2>Add budget</h2>
     </div>
     
-    <form action="" method="POST" class="modal-body">
+    <form action="/app/settings/add/budget" method="POST" class="modal-body">
         <div class="form-body">
             <div class="input-wrapper">
-                <input type="number" placeholder="Amount" required>
+                <input type="number" placeholder="Amount" name="budgetAmount" required>
             </div>
             <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
-                <input type="text" placeholder="Category" id="budget-category-input" required>
+                <input type="text" placeholder="Category" id="budget-category-input" name="categoryName" required>
                 <i class="bi bi-chevron-down"></i>
                 <ul class="dropdown-list">
                     <li class="dropdown-item" onclick="setValue(this, 'budget-category-input')" value="Transportation">
