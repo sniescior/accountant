@@ -138,6 +138,20 @@ body #app-container .divided-section .container .content .user-image {
 body #app-container .divided-section .container .configuration-section {
   margin-top: 30px;
 }
+body #app-container .divided-section .container .configuration-section .no-data-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+body #app-container .divided-section .container .configuration-section .no-data-wrapper .no-data-image {
+  width: 200px;
+  height: 100%;
+}
+body #app-container .divided-section .container .configuration-section .no-data-wrapper h3,
+body #app-container .divided-section .container .configuration-section .no-data-wrapper h2 {
+  color: rgba(238, 238, 238, 0.7);
+}
 body #app-container .divided-section .container .configuration-section .configuration-item {
   display: flex;
   justify-content: space-between;

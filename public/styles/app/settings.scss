@@ -2,6 +2,7 @@
 
 $white_font_color: #eee;
 $dimmed_white_font_color: rgba(238, 238, 238, 0.5);
+$dimmed_white_font_color_hover: rgba(238, 238, 238, 0.7);
 $dimmed_background_color: rgba(73, 73, 73, 0.472);
 $white_border_color: rgba(238, 238, 238, 0.1);
 $dimmed_white_border_color: rgba(127, 127, 127, 0.1);
@@ -170,6 +171,23 @@ body {
 
                 .configuration-section {
                     margin-top: 30px;
+
+                    .no-data-wrapper {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+
+                        .no-data-image {
+                            width: 200px;
+                            height: 100%;
+                        }
+
+                        h3,
+                        h2 {
+                            color: $dimmed_white_font_color_hover;
+                        }
+                    }
 
                     .configuration-item {
                         display: flex;
