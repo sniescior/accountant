@@ -52,13 +52,18 @@ router.post('/add/expense-category', async (req, res) => {
  * ------------- EDIT Routes -------------
  */
 
-router.post('/edit/income-category', async (req, res) => {
+router.post('/edit/expense-category', async (req, res) => {
     const body = req.body
     
     const categoryID = body.categoryID
     const categoryNewName = body.categoryNewName
     
-    const incomeCategoryToUpdate = await incomeCategory.findByIdAndUpdate({ _id: categoryID }, { name: categoryNewName })
+    const expenseCategoryToUpdate = await expenseCategory.findById(categoryID)
+
+    if(expenseCategoryToUpdate.userID == req.user.id) {
+        expenseCategoryToUpdate.name = categoryNewName
+        await expenseCategoryToUpdate.save()
+    }
 
     res.redirect('/app/settings')
 })
@@ -69,15 +74,12 @@ router.post('/edit/income-category', async (req, res) => {
     const categoryID = body.categoryID
     const categoryNewName = body.categoryNewName
     
-    // const incomeCategoryToUpdate = await incomeCategory.findByIdAndUpdate({ _id: categoryID }, { name: categoryNewName })
-    const incomeCategoryToUpdate = incomeCategory.findById(categoryID)
+    const incomeCategoryToUpdate = await incomeCategory.findById(categoryID)
 
-    if(incomeCategoryToUpdate.userID == req.user.id) {   
+    if(incomeCategoryToUpdate.userID == req.user.id) {
         incomeCategoryToUpdate.name = categoryNewName
         await incomeCategoryToUpdate.save()
     }
-
-    // TODO: Check whether found category belongs to the logged in user (just like in case of deleting categories)
 
     res.redirect('/app/settings')
 })
@@ -88,8 +90,6 @@ router.post('/edit/income-category', async (req, res) => {
 
 router.post('/delete/income-category', async (req, res) => {
     const body = req.body
-
-    // await incomeCategory.findByIdAndDelete(body.categoryID)
 
     const incomeCategoryToDelete = await incomeCategory.findById(body.categoryID)
     if(incomeCategoryToDelete.userID == req.user.id) {
