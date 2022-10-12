@@ -1,4 +1,4 @@
-<div class="container image-container" id="profile" role="tabpanel">
+<div class="container image-container active" id="profile" role="tabpanel">
 
     <div class="content-image">
         <img src="/public/images/background.jpg" alt="">
@@ -13,10 +13,13 @@
                 <h2>Profile</h2>
                 <h4>Update your photo and personal data.</h4>
             </div>
-            <!-- <div class="button-wrapper">
-                <button class="button-outline-secondary">Cancel</button>
-                <button class="button-primary">Save</button>
-            </div> -->
+            <form action="/app/settings/edit/username" method="POST">
+                <input type="hidden" name="newUsername" id="username-input-final" value="<%- user.username %>" required>
+                <div class="button-wrapper edit-buttons" id="profile-update-button">
+                    <button class="button-outline-secondary">Cancel</button>
+                    <button class="button-primary">Save</button>
+                </div>
+            </form>
         </div>
     </div>
     <div class="configuration-section">
@@ -25,16 +28,8 @@
                 <h4>Username</h4>
             </div>
             <div class="input-wrapper">
-                <input type="text" placeholder="Username" value="<%- user.username %>" required>
-            </div>
-        </div>
-        <span class="divider"></span>
-        <div class="configuration-item">
-            <div class="configuration-item-title">
-                <h4>Website</h4>
-            </div>
-            <div class="input-wrapper">
-                <input type="text" placeholder="Website">
+                <input type="hidden" value="<%- user.username %>" id="username-input-initial">
+                <input type="text" placeholder="Username" value="<%- user.username %>" id="username-input" data-input="profile">
             </div>
         </div>
         <span class="divider"></span>
@@ -45,19 +40,12 @@
             </div>
             <div class="input-image-wrapper">
                 <img class="input-image-preview" src="/public/images/defaultavatar.png" alt="prfile picture">
-                <div class="button-wrapper">
-                    <button class="button-secondary grey">Delete</button>
-                    <button class="button-secondary grey">Update</button>
-                </div>
-            </div>
-        </div>
-        <span class="divider"></span>
-        <div class="configuration-item">
-            <div class="configuration-item-title">
-                <h4>Job title</h4>
-            </div>
-            <div class="input-wrapper">
-                <input type="text" value="Developer">
+                <form action="">
+                    <div class="button-wrapper">
+                        <button class="button-secondary grey">Delete</button>
+                        <button class="button-secondary grey">Update</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

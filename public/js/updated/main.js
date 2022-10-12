@@ -118,3 +118,28 @@ const editListItem = (listitemElementID) => {
         listitemElementInput.value = listitemElementInitialValue.value
     }
 }
+
+// const formFilloutInProgress = (inputID, submitButtonWrapperID) => {
+//     const input = document.getElementById(inputID)
+//     input.addE
+// }
+
+// User has changed some input's initial value
+
+const dataUpdateInputs = document.querySelectorAll('[data-input]')
+dataUpdateInputs.forEach(dataUpdateInput => {
+    dataUpdateInput.addEventListener('keyup', (e) => {
+        const inputElement = document.getElementById(e.target.id)
+        const inputElementInitial = document.getElementById(e.target.id + '-initial')
+        const inputElementFinal = document.getElementById(e.target.id + '-final')
+        const buttonWrapper = document.getElementById(e.target.dataset.input + '-update-button')
+
+        if(inputElement.value != inputElementInitial.value) {
+            buttonWrapper.classList.add('editing-in-progress')
+        } else {
+            buttonWrapper.classList.remove('editing-in-progress')
+        }
+
+        inputElementFinal.value = inputElement.value
+    })
+})
