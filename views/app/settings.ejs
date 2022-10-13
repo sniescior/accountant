@@ -19,13 +19,13 @@
 
         <section class="divided-section">
             <menu class="navigation-menu">
-                <li role="presentation" class="active" onclick="setTab(this, 'profile')">Profile</li>
+                <li role="presentation" onclick="setTab(this, 'profile')">Profile</li>
                 <li role="presentation" onclick="setTab(this, 'configuration')">Configuration</li>
                 <li role="presentation" onclick="setTab(this, 'general')">General</li>
                 <li>Plan</li>
                 <li>Team</li>
                 <li>Notifications</li>
-                <li>Accounts</li>
+                <li role="presentation" class="active" onclick="setTab(this, 'accounts')">Accounts</li>
                 <li>Security</li>
                 <li>API</li>
             </menu>
@@ -35,7 +35,7 @@
             <%- include('../partials/settings/_plan.ejs') %>
             <%- include('../partials/settings/_team.ejs') %>
             <%- include('../partials/settings/_notifications.ejs') %>
-            <%- include('../partials/settings/_accounts.ejs') %>
+            <%- include('../partials/settings/accounts/_accounts.ejs') %>
             <%- include('../partials/settings/_security.ejs') %>
             <%- include('../partials/settings/_api.ejs') %>
         </section>

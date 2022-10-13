@@ -2,15 +2,26 @@ const express = require('express')
 const router = express.Router()
 const incomeCategory = require('../models/incomeCategory')
 const expenseCategory = require('../models/expenseCategory')
+const accountGroup = require('../models/accountGroup')
+const Account = require('../models/Account')
 const User = require('../models/User')
 const { default: mongoose } = require('mongoose')
 
-router.get('/', async (req, res) => {
+const ownershipCheck = (userRefID, currentUserID) => {
+    if(userRefID == currentUserID) {
+        return true
+    } else {
+        return false
+    }
+}
+
+router.get('/*', async (req, res) => {
     
     try {
         const userID = mongoose.Types.ObjectId(req.user.id)
         const incomeCategories = await incomeCategory.find({ userID: userID })
         const expenseCategories = await expenseCategory.find({ userID: userID })
+        const accountGroups = await accountGroup.find({ userID: userID })
         
         // Categories that have a set budget
         const budgetSetCategories = []
@@ -23,7 +34,8 @@ router.get('/', async (req, res) => {
         const context = {
             incomeCategories: incomeCategories,
             expenseCategories: expenseCategories,
-            budgetSetCategories: budgetSetCategories
+            budgetSetCategories: budgetSetCategories,
+            accountGroups: accountGroups
         }
         
         res.render('app/settings', { user: req.user, context: context })
@@ -74,19 +86,52 @@ router.post('/add/budget', async (req, res) => {
     const body = req.body
 
     try {
-        const categoryName = req.body.categoryName
-        const budgetAmount = req.body.budgetAmount
+        const categoryName = body.categoryName
+        const budgetAmount = body.budgetAmount
 
-        const expenseCategoryToUpdate = await expenseCategory.findOne({ name: categoryName })
-
-        if(expenseCategoryToUpdate.userID == req.user.id) {
-            console.log(expenseCategoryToUpdate)
-            expenseCategoryToUpdate.budget = budgetAmount
-            await expenseCategoryToUpdate.save()
-        }
+        await expenseCategory.findOneAndUpdate({ 
+            name: categoryName,
+            userID: req.user.id
+        }, {
+            budget: budgetAmount
+        })
 
         res.redirect('/app/settings')
     } catch (error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/add/account-group', async (req, res) => {
+    const body = req.body
+
+    try {
+        const newGroupName = body.groupName
+        const newAccountGroup = new accountGroup({
+            userID: req.user.id,
+            groupName: newGroupName
+        })
+
+        await newAccountGroup.save()
+        res.redirect('/app/settings')
+    } catch (error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/add/account', async (req, res) => {
+    const body = req.body
+
+    try {
+        const newAccount = new Account({
+            userID: req.user.id,
+            name: body.newAccountName,
+            amount: body.amount
+        })
+
+        await newAccount.save()
+        res.redirect('/app/settings')
+    } catch(error) {
         res.redirect('/app/settings')
     }
 })
@@ -102,12 +147,12 @@ router.post('/edit/expense-category', async (req, res) => {
         const categoryID = body.categoryID
         const categoryNewName = body.categoryNewName
 
-        const expenseCategoryToUpdate = await expenseCategory.findById(categoryID)
-        
-        if(expenseCategoryToUpdate.userID == req.user.id) {
-            expenseCategoryToUpdate.name = categoryNewName
-            await expenseCategoryToUpdate.save()
-        }
+        await expenseCategory.findOneAndUpdate({
+            _id: categoryID,
+            userID: req.user.id,
+        }, {
+            name: categoryNewName
+        })
 
         res.redirect('/app/settings')
     } catch(error) {
@@ -118,18 +163,38 @@ router.post('/edit/expense-category', async (req, res) => {
 router.post('/edit/income-category', async (req, res) => {
     const body = req.body
     
-    const categoryID = body.categoryID
-    const categoryNewName = body.categoryNewName
-    
     try {
-        const incomeCategoryToUpdate = await incomeCategory.findById(categoryID)
+        const categoryID = body.categoryID
+        const categoryNewName = body.categoryNewName
 
-        if(incomeCategoryToUpdate.userID == req.user.id) {
-            incomeCategoryToUpdate.name = categoryNewName
-            await incomeCategoryToUpdate.save()
-        }
+        await incomeCategory.findOneAndUpdate({
+            _id: categoryID,
+            userID: req.user.id
+        }, {
+            name: categoryNewName
+        })
 
-        res.redirect('/app/settings')        
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/edit/budget', async (req, res) => {
+    const body = req.body
+
+    try {
+        const newAmount = body.newBudgetAmount
+        const categoryID = body.categoryID
+
+        await expenseCategory.findOneAndUpdate({
+            _id: categoryID,
+            userID: req.user.id
+        }, {
+            budget: newAmount
+        })
+
+        res.redirect('/app/settings')
     } catch(error) {
         res.redirect('/app/settings')
     }
@@ -138,11 +203,8 @@ router.post('/edit/income-category', async (req, res) => {
 router.post('/edit/username', async (req, res) => {
     const body = req.body
 
-    const newUsername = body.newUsername
-
-    console.log(newUsername);
-
     try {
+        const newUsername = body.newUsername
         const userCheck = await User.findOne({ username: newUsername })
         
         if(!userCheck) {
@@ -161,6 +223,26 @@ router.post('/edit/username', async (req, res) => {
     }
 })
 
+router.post('/edit/account-group', async (req, res) => {
+    const body = req.body
+
+    try {
+        const groupID = body.groupID
+        const groupNewName = body.groupNewName
+        
+        await accountGroup.findOneAndUpdate({
+            _id: groupID,
+            userID: req.user.id
+        }, {
+            groupName: groupNewName
+        })
+
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
 /**
  * ------------- DELETE Routes -------------
  */
@@ -169,11 +251,12 @@ router.post('/delete/income-category', async (req, res) => {
     const body = req.body
 
     try {
-        const incomeCategoryToDelete = await incomeCategory.findById(body.categoryID)
+        const categoryID = body.categoryID
 
-        if(incomeCategoryToDelete.userID == req.user.id) {
-            await incomeCategory.findByIdAndDelete(body.categoryID)
-        }
+        await incomeCategory.findOneAndDelete({
+            _id: categoryID,
+            userID: req.user.id
+        })
 
         res.redirect('/app/settings')
     } catch(error) {
@@ -185,15 +268,35 @@ router.post('/delete/expense-category', async (req, res) => {
     const body = req.body
 
     try {
-        const expenseCategoryToDelete = await expenseCategory.findById(body.categoryID)
+        const categoryID = body.categoryID
 
-        if(expenseCategoryToDelete.userID == req.user.id) {
-            await expenseCategory.findByIdAndDelete(body.categoryID)
-        }
+        await expenseCategory.findOneAndDelete({
+            _id: categoryID,
+            userID: req.user.id
+        })
         
         res.redirect('/app/settings')
     } catch(error) {
         res.redirect('/app/settings')
+    }
+})
+
+router.post('/delete/budget', async (req, res) => {
+    const body = req.body
+
+    try {
+        const categoryID = body.categoryID
+
+        await expenseCategory.findOneAndUpdate({
+            _id: categoryID,
+            userID: req.user.id
+        }, {
+            budget: null
+        })
+
+        res.redirect('app/settings')
+    } catch(error) {
+        res.redirect('app/settings')
     }
 })
 
