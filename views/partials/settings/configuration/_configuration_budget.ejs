@@ -54,7 +54,7 @@
 <% context.budgetSetCategories.forEach(expenseCategory => { %>
     <div class="modal" id="budget-delete-<%= expenseCategory.id %>">
         <div class="modal-header flex-column">
-            <h2>Delete budget for <%= expenseCategory.name %> ? </h2>
+            <h2>Delete budget for <%= expenseCategory.name %>?</h2>
         </div>
         
         <form action="/app/settings/delete/budget" method="POST" class="modal-body">
@@ -83,26 +83,12 @@
                 <input type="text" placeholder="Category" id="budget-category-input" name="categoryName" required>
                 <i class="bi bi-chevron-down"></i>
                 <ul class="dropdown-list">
-                    <li class="dropdown-item" onclick="setValue(this, 'budget-category-input')" value="Transportation">
-                        Transportation
-                        <i class="bi bi-check-lg check"></i>
-                    </li>
-                    <li class="dropdown-item" onclick="setValue(this, 'budget-category-input')" value="Culture">
-                        Culture
-                        <i class="bi bi-check-lg check"></i>
-                    </li>
-                    <li class="dropdown-item" onclick="setValue(this, 'budget-category-input')" value="Fast Food">
-                        Fast Food
-                        <i class="bi bi-check-lg check"></i>
-                    </li>
-                    <li class="dropdown-item" onclick="setValue(this, 'budget-category-input')" value="Social Life">
-                        Social Life
-                        <i class="bi bi-check-lg check"></i>
-                    </li>
-                    <li class="dropdown-item" onclick="setValue(this, 'budget-category-input')" value="Other">
-                        Other
-                        <i class="bi bi-check-lg check"></i>
-                    </li>
+                    <% context.expenseCategories.forEach(expenseCategory => { %>
+                        <li class="dropdown-item" onclick="setValue(this, 'budget-category-input')" value="<%= expenseCategory.name %>">
+                            <%= expenseCategory.name %>
+                            <i class="bi bi-check-lg check"></i>
+                        </li>
+                    <% }) %>
                 </ul>
             </div>
         </div>
