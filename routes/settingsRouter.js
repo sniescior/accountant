@@ -7,14 +7,6 @@ const Account = require('../models/Account')
 const User = require('../models/User')
 const { default: mongoose } = require('mongoose')
 
-const ownershipCheck = (userRefID, currentUserID) => {
-    if(userRefID == currentUserID) {
-        return true
-    } else {
-        return false
-    }
-}
-
 router.get('/*', async (req, res) => {
     
     try {
@@ -22,6 +14,7 @@ router.get('/*', async (req, res) => {
         const incomeCategories = await incomeCategory.find({ userID: userID })
         const expenseCategories = await expenseCategory.find({ userID: userID })
         const accountGroups = await accountGroup.find({ userID: userID })
+        const accounts = await Account.find({ userID: req.user.id })
         
         // Categories that have a set budget
         const budgetSetCategories = []
@@ -35,7 +28,8 @@ router.get('/*', async (req, res) => {
             incomeCategories: incomeCategories,
             expenseCategories: expenseCategories,
             budgetSetCategories: budgetSetCategories,
-            accountGroups: accountGroups
+            accountGroups: accountGroups,
+            accounts: accounts
         }
         
         res.render('app/settings', { user: req.user, context: context })
@@ -126,7 +120,7 @@ router.post('/add/account', async (req, res) => {
         const newAccount = new Account({
             userID: req.user.id,
             name: body.newAccountName,
-            amount: body.amount
+            amount: body.newAccountBalance
         })
 
         await newAccount.save()
@@ -243,6 +237,28 @@ router.post('/edit/account-group', async (req, res) => {
     }
 })
 
+router.post('/edit/account', async (req, res) => {
+    const body = req.body
+
+    try {
+        const accountID = body.accountID
+        const accountNewName = body.accountNewName
+        const accountNewBalance = body.accountNewBalance
+
+        await Account.findOneAndUpdate({
+            _id: accountID,
+            userID: req.user.id,
+        }, {
+            name: accountNewName, 
+            amount: accountNewBalance
+        })
+
+        res.redirect('app/settings')
+    } catch(error) {
+        res.redirect('app/settings')
+    }
+})
+
 /**
  * ------------- DELETE Routes -------------
  */
@@ -292,6 +308,22 @@ router.post('/delete/budget', async (req, res) => {
             userID: req.user.id
         }, {
             budget: null
+        })
+
+        res.redirect('app/settings')
+    } catch(error) {
+        res.redirect('app/settings')
+    }
+})
+
+router.post('/delete/account', async (req, res) => {
+    const body = req.body
+
+    try {
+        const accountID = body.accountID
+        await Account.findOneAndDelete({
+            _id: accountID,
+            userID: req.user.id
         })
 
         res.redirect('app/settings')
