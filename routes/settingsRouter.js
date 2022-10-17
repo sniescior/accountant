@@ -194,21 +194,40 @@ router.post('/edit/budget', async (req, res) => {
     }
 })
 
-router.post('/edit/username', async (req, res) => {
+router.post('/edit/profile', async (req, res) => {
     const body = req.body
 
     try {
         const newUsername = body.newUsername
-        const userCheck = await User.findOne({ username: newUsername })
+        const currentUser = await User.findById(req.user.id)
         
-        if(!userCheck) {
-            const currentUser = await User.findById(req.user.id)
-            console.log(currentUser);
-            currentUser.username = newUsername
-
-            req.user.username = newUsername
-
-            await currentUser.save()
+        // If current users's username is no different than one that's submitted then there is no need for doing anything
+        if(newUsername != req.user.username) {
+            const userCheckUsername = await User.findOne({ username: newUsername })
+            
+            if(!userCheckUsername) {
+                console.log(currentUser);
+                currentUser.username = newUsername
+                
+                req.user.username = newUsername
+                
+                await currentUser.save()
+            }
+        }
+        
+        const newEmail = body.newEmail
+        
+        // Same as with username
+        if(newEmail != req.user.email) {
+            const userCheckEmail = await User.findOne({ email: newEmail })
+            
+            if(!userCheckEmail) {
+                currentUser.email = newEmail
+                
+                req.user.email = newEmail
+                
+                await currentUser.save()
+            }
         }
 
         res.redirect('/app/settings')
