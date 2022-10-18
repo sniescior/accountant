@@ -1,5 +1,22 @@
-<div class="container" id="security">
+<div class="container active" id="security" role="tabpanel">
     <div class="content-title">
-        <h2>Security</h2>
+        <h2>Change password</h2>
+    </div>
+    <div class="configuration-section">
+        <form action="/app/settings/edit/password" method="POST" class="configuration-form">
+            <div class="input-wrapper">
+                <input type="password" placeholder="Old password" name="oldPassword">
+            </div>
+            <div class="input-wrapper">
+                <input type="password" placeholder="New password" name="newPassword">
+            </div>
+            <div class="input-wrapper">
+                <input type="password" placeholder="Confirm new password" name="confirmNewPassword">
+            </div>
+            <div class="button-wrapper">
+                <button class="button-primary" type="submit">Update password</button>
+                <a href="#" class="button-link">Forgot password?</a>
+            </div>
+        </form>
     </div>
 </div>

@@ -441,6 +441,10 @@ body .button-wrapper.end {
 body .button-wrapper.start {
   justify-content: flex-start;
 }
+body .button-wrapper.column {
+  flex-direction: column;
+  gap: 10px;
+}
 body ul.list {
   list-style-type: none;
   margin: 0;

@@ -6,6 +6,8 @@ const accountGroup = require('../models/accountGroup')
 const Account = require('../models/Account')
 const User = require('../models/User')
 const { default: mongoose } = require('mongoose')
+const validatePassword = require('../lib/passwordUtils').validatePassword
+const genPassword = require('../lib/passwordUtils').genPassword
 
 router.get('/*', async (req, res) => {
     
@@ -228,6 +230,26 @@ router.post('/edit/profile', async (req, res) => {
                 
                 await currentUser.save()
             }
+        }
+
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/edit/password', async (req, res) => {
+    const body = req.body
+    const currentUser = await User.findById(req.user.id)
+
+    try {
+        const passwordCheck = validatePassword(body.oldPassword, currentUser.password.passwordHash, currentUser.password.salt)
+
+        if(passwordCheck) {
+            currentUser.password = genPassword(body.newPassword)
+            await currentUser.save()
+        } else {
+            // Old password doesn't match
         }
 
         res.redirect('/app/settings')

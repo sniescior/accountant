@@ -103,6 +103,9 @@ body #app-container .divided-section .container .content-title {
   justify-content: space-between;
   align-items: center;
 }
+body #app-container .divided-section .container .content-title.mt {
+  padding-top: 12px;
+}
 body #app-container .divided-section .container .content-title .text-wrapper {
   display: flex;
   flex-direction: column;
@@ -138,8 +141,49 @@ body #app-container .divided-section .container .content .user-image {
   border-radius: 50%;
   box-shadow: 0 0 20px 2px rgba(46, 46, 46, 0.7);
 }
+body #app-container .divided-section .container .divider {
+  margin: 12px 8px;
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: rgba(238, 238, 238, 0.1);
+}
 body #app-container .divided-section .container .configuration-section {
   margin-top: 30px;
+}
+body #app-container .divided-section .container .configuration-section .configuration-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+body #app-container .divided-section .container .configuration-section.outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #eee;
+  padding-bottom: 12px;
+}
+body #app-container .divided-section .container .configuration-section.outer.left {
+  align-items: flex-start;
+  gap: 20px;
+}
+body #app-container .divided-section .container .configuration-section.outer.left h4 {
+  margin-bottom: 0;
+}
+body #app-container .divided-section .container .configuration-section.outer h2 {
+  margin: 8px 0;
+}
+body #app-container .divided-section .container .configuration-section.outer h4 {
+  color: rgba(238, 238, 238, 0.7);
+  margin: 8px 0 16px 0;
+  line-height: 22px;
+  margin-bottom: 26px;
+}
+body #app-container .divided-section .container .configuration-section.outer i {
+  font-size: 3em;
+  color: rgba(238, 238, 238, 0.7);
 }
 body #app-container .divided-section .container .configuration-section .no-data-wrapper {
   display: flex;
@@ -202,13 +246,6 @@ body #app-container .divided-section .container .configuration-section .configur
 }
 body #app-container .divided-section .container .configuration-section .input-wrapper {
   max-width: 400px;
-}
-body #app-container .divided-section .container .configuration-section .divider {
-  margin: 12px 8px;
-  display: block;
-  height: 2px;
-  width: 100%;
-  background-color: rgba(238, 238, 238, 0.1);
 }
 body #app-container .divided-section .container .configuration-section .configuration-list {
   border: 2px solid rgba(238, 238, 238, 0.1);

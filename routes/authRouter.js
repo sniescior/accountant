@@ -37,7 +37,7 @@ router.post('/signup', async (req, res) => {
     const saltHash = genPassword(req.body.password)
 
     const salt = saltHash.salt
-    const hash = saltHash.hash
+    const hash = saltHash.passwordHash
 
     const newUser = new User({
         username: req.body.username,

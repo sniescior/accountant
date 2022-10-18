@@ -130,6 +130,10 @@ body {
                     justify-content: space-between;
                     align-items: center;
 
+                    &.mt {
+                        padding-top: 12px;
+                    }
+
                     .text-wrapper {
                         display: flex;
                         flex-direction: column;
@@ -173,8 +177,57 @@ body {
                     }
                 }
 
+                .divider {
+                    margin: 12px 8px;
+                    display: block;
+                    height: 2px;
+                    width: 100%;
+                    background-color: $white_border_color;
+                }
+
                 .configuration-section {
                     margin-top: 30px;
+
+                    .configuration-form {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 24px;
+                    }
+                    
+                    &.outer {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        text-align: center;
+                        color: $white_font_color;
+                        padding-bottom: 12px;
+
+                        &.left {
+                            align-items: flex-start;
+                            gap: 20px;
+
+                            h4 {
+                                margin-bottom: 0;
+                            }
+                        }
+
+                        h2 {
+                            margin: 8px 0;
+                        }
+
+                        h4 {
+                            color: $dimmed_white_font_color_hover;
+                            margin: 8px 0 16px 0;
+                            line-height: 22px;
+                            margin-bottom: 26px;
+                        }
+                        
+                        i {
+                            font-size: 3em;
+                            color: $dimmed_white_font_color_hover;
+                        }
+                    }
 
                     .no-data-wrapper {
                         display: flex;
@@ -252,14 +305,6 @@ body {
 
                     .input-wrapper {
                         max-width: 400px;
-                    }
-
-                    .divider {
-                        margin: 12px 8px;
-                        display: block;
-                        height: 2px;
-                        width: 100%;
-                        background-color: $white_border_color;
                     }
 
                     .configuration-list {
