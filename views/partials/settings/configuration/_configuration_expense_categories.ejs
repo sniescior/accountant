@@ -1,0 +1,84 @@
+<div class="container" id="configuration-expense-categories" role="tabpanel">
+    <div class="breadcrumbs">
+        <a onclick="setTab(this, 'configuration')">Configuration</a>
+        <i class="bi bi-chevron-right"></i>
+        <a class="disabled">
+            Expense Categories
+        </a>
+    </div>
+    <div class="content-title">
+        <h2>Expense Categories</h2>
+        <button class="button-primary" onclick="openModal('add-expense-category-modal')">Add expense category</button>
+    </div>
+
+    <div class="configuration-section">
+        <% if (context.expenseCategories.length < 1) { %>
+            <div class="no-data-wrapper">
+                <img class="no-data-image" src="/public/images/nodata.svg" alt="No data available">
+                <h3>No categories</h3>
+            </div>
+        <% } else { %>
+        <ul class="configuration-list">
+            <div class="legend">
+                Name
+            </div>
+            <% context.expenseCategories.forEach(expenseCategory => { %>
+                <form action="/app/settings/edit/expense-category" method="POST">
+                    <li id="listitem-<%= expenseCategory.id %>" role="listitem">
+                        <input type="hidden" value="<%= expenseCategory.name %>" id="listitem-<%= expenseCategory.id %>-initial">
+                        <input type="hidden" value="<%= expenseCategory.id %>" name="categoryID">
+                        <input class="editable-input" id="listitem-<%= expenseCategory.id %>-input" value="<%= expenseCategory.name %>" name="categoryNewName">
+                        <div class="button-wrapper">
+                            <button type="button" class="button-secondary grey" onclick="editListItem('listitem-<%= expenseCategory.id %>')">Cancel</button>
+                            <button type="submit" class="button-secondary">Save</button>
+                            <button type="button" class="context-menu-button" onclick="editListItem('listitem-<%= expenseCategory.id %>')"><i class="bi bi-pencil"></i></button>
+                            <button type="button" class="context-menu-button danger" onclick="openModal('delete-<%= expenseCategory.id %>')"><i class="bi bi-trash3"></i></button>
+                        </div>
+                    </li>
+                </form>
+                <span class="divider"></span>
+            <% }) %>
+            <div class="configuration-list-footer"></div>
+        </ul>
+        <% } %>
+    </div>
+</div>
+
+<% context.expenseCategories.forEach(expenseCategory => { %>
+    <div class="modal" id="delete-<%= expenseCategory.id %>">
+        <div class="modal-header flex-column">
+            <h2>Delete category? <%= expenseCategory.name %></h2>
+            <h3>And every transactions associated with it?</h3>
+        </div>
+        
+        <form action="/app/settings/delete/expense-category" method="POST" class="modal-body">
+            <input type="hidden" value="<%= expenseCategory.id %>" name="categoryID">
+            <div class="form-footer">
+                <div class="button-wrapper">
+                    <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                    <button class="button-primary button-danger" type="submit">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+<% }) %>
+
+<div class="modal" id="add-expense-category-modal">
+    <div class="modal-header">
+        <h2>Add expense category</h2>
+    </div>
+    
+    <form action="/app/settings/add/expense-category" method="POST" class="modal-body">
+        <div class="form-body">
+            <div class="input-wrapper">
+                <input type="text" placeholder="Category name" name="categoryName">
+            </div>
+        </div>
+        <div class="form-footer">
+            <div class="button-wrapper">
+                <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                <button class="button-primary" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

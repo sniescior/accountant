@@ -1,0 +1,38 @@
+
+<div class="container" id="accounts" role="tabpanel">
+    <div class="content-title">
+        <h2>Accounts</h2>
+    </div>
+    <div class="configuration-section">
+        <div class="configuration-item interactive" onclick="setTab(this, 'accounts-groups')" role="presentation">
+            <div class="configuration-item-title">
+                <h4>Accounts groups</h4>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+        </div>
+        <span class="divider"></span>
+        <div class="configuration-item interactive" onclick="setTab(this, 'accounts-configuration')" role="presentation">
+            <div class="configuration-item-title">
+                <h4>Accounts configuration</h4>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+        </div>
+        <span class="divider"></span>
+        <div class="configuration-item interactive" onclick="setTab(this, 'accounts-transfer-expense')" role="presentation">
+            <div class="configuration-item-title">
+                <h4>Transfer as expense</h4>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+        </div>
+        <span class="divider"></span>
+        <div class="configuration-item interactive" onclick="setTab(this, 'accounts-deleted')" role="presentation">
+            <div class="configuration-item-title">
+                <h4>Deleted accounts and groups</h4>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+        </div>
+    </div>
+</div>
+
+<%- include('_accounts_groups.ejs') %>
+<%- include('_accounts_configuration.ejs') %>

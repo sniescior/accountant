@@ -10,6 +10,7 @@ $white_table_row_hover: rgba(238, 238, 238, 0.1);
 $white_border_color: rgba(34, 34, 34, 0.5);
 
 $main_theme_color: rgb(13, 110, 253);
+$dimmed_main_theme_color: rgb(13, 110, 253, 0.4);
 
 $primary_button_color:  rgb(13, 110, 253);
 $primary_button_color_hover: rgb(13, 110, 253, 0.9);
@@ -30,6 +31,110 @@ body {
     height: 100vh;
     overflow: hidden;
 
+    #navbar {
+        width: 100%;
+        border-bottom: 2px solid $white_border_color;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        z-index: 100;
+
+        .navbar-content {
+            padding: 20px 40px;
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .left {
+                display: flex;
+                align-items: center;
+
+                .logo {
+                    color: $white_font_color;
+                    font-weight: 800;
+                    font-size: 1.7em;
+                    margin: 0;
+                    padding: 0;
+                    text-transform: uppercase;
+                }
+
+                .navigation-list {
+                    list-style-type: none;
+                    display: flex;
+                    align-items: center;
+
+                    li {
+                        a {
+                            padding: 12px 16px;
+                            color: $dimmed_white_font_color;
+                            text-decoration: none;
+                            font-size: 1.3em;
+                            border-radius: 12px;
+                            transition: .2s ease-in-out;
+
+                            &:hover {
+                                color: $dimmed_white_font_color_hover;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .right {
+                .user-image {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    border: 2px solid $white_border_color;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .breadcrumbs {
+        font-size: 1.1em;
+        margin-bottom: 35px;
+
+        i {
+            color: $white_font_color;
+        }
+
+        a {
+            color: $main_theme_color;
+            text-decoration: none;
+            cursor: pointer;
+
+            &.disabled {
+                color: $white_font_color;
+
+                &:hover {
+                    color: $white_font_color;
+                    text-decoration: none;
+                    cursor: default;
+                }
+            }
+            
+            &:hover {
+                color: $primary_button_color_hover;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .error-message {
+        color: $danger_color;
+    }
+
+    .text-bold {
+        font-weight: 600;
+    }
+
     form {
         .form-body {
             display: flex;
@@ -39,6 +144,15 @@ body {
             max-width: 500px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .error-message {
+            display: none;
+            color: $danger_color;
+            
+            &.error {
+                display: block;
+            }
         }
         
         .form-footer {
@@ -94,6 +208,21 @@ body {
         height: 45px;
         min-width: 240px;
         border-radius: 12px;
+        
+
+        &.input-error {
+            border: 2px solid $danger_color;
+            
+            &:has(input:focus) {
+                background-color: #eeeeee1a;
+                border: 2px solid $danger_color;
+                
+    
+                i {
+                    color: $white_font_color;
+                }
+            }
+        }
 
         i {
             margin-left: 12px;
@@ -180,7 +309,7 @@ body {
         }
         
         input {
-            border-radius: 12px;
+            border-radius: 0 12px 12px 0;
             width: 100%;
             height: 100%;
             background-color: transparent;
@@ -188,10 +317,19 @@ body {
             border: none;
             color: $white_font_color;
             margin-left: 12px;
+
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover, 
+            &:-webkit-autofill:focus, 
+            &:-webkit-autofill:active {
+                transition: 9999s ease-in-out 0s;
+                transition-delay: 9999s;
+                -webkit-text-fill-color: #eee !important;
+            }
         }
 
         &:has(input:focus) {
-            background-color: rgba(238, 238, 238, 0.1);
+            background-color: #eeeeee1a;
             border: 2px solid $main_theme_color;
 
             i {
@@ -215,6 +353,16 @@ body {
         }
     }
 
+    .button-link {
+        color: $main_theme_color;
+        text-decoration: none;
+        
+        &:hover {
+            color: $primary_button_color_hover;
+            text-decoration: underline;
+        }
+    }
+
     .button-secondary {
         background-color: transparent;
         border: none;
@@ -224,6 +372,15 @@ body {
         cursor: pointer;
         padding: none;
         height: fit-content;
+
+        &.grey {
+            color: $dimmed_white_font_color;
+        }
+
+        &.link {
+            font-size: initial;
+            text-decoration: none;
+        }
 
         &.text-default {
             color: $white_font_color;
@@ -247,8 +404,50 @@ body {
         cursor: pointer;
         height: fit-content;
 
+        &.button-danger {
+            background-color: $danger_color;
+            
+            &:hover {
+                background-color: $danger_color;
+            }
+        }
+
+        &.w100 {
+            width: 100%;
+        }
+
         &:hover {
             background-color: $primary_button_color_hover;
+        }
+
+        &.hidden {
+            visibility: hidden;
+        }
+    }
+
+    .button-outline-secondary {
+        background-color: transparent;
+        color: $dimmed_white_font_color;
+        padding: 13px 24px;
+        gap: 6px;
+        text-decoration: none;
+        border-radius: 12px;
+        transition: .2s ease-in-out;
+        font-weight: 600;
+        border: 2px solid $white_border_color;
+        cursor: pointer;
+        height: fit-content;
+
+        &.large {
+            font-size: 1.2em;
+        }
+        
+        &.w100 {
+            width: 100%;
+        }
+        
+        &:hover {
+            color: $dimmed_white_font_color_hover;
         }
 
         &.hidden {
@@ -316,6 +515,21 @@ body {
         justify-content: center;
         align-items: center;
         gap: 10px;
+        transition: .1s ease-in-out;
+
+        &.edit-buttons {
+            opacity: 0;
+            pointer-events: none;
+            
+            &.editing-in-progress {
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+
+        &.wide {
+            gap: 18px;
+        }
 
         h3 {
             color: $white_font_color;
@@ -324,6 +538,19 @@ body {
         .button-wrapper-form {
             margin: 0;
             width: 50px;
+        }
+
+        &.end {
+            justify-content: flex-end;
+        }
+
+        &.start {
+            justify-content: flex-start;
+        }
+
+        &.column {
+            flex-direction: column;
+            gap: 10px;
         }
     }
 
@@ -381,6 +608,27 @@ body {
     #app-container {
         width: 100%;
         display: flex;
+        
+        .banner-text {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 0 40px;
+            font-size: 2em;
+            
+            h2 {
+                margin: 0;
+                font-weight: 800;
+                color: $white_font_color;
+            }
+
+            h4 {
+                font-weight: 400;
+                color: $dimmed_white_font_color_hover;
+            }
+        }
 
         .modal {
             position: absolute;
@@ -411,6 +659,17 @@ body {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+
+                h3 {
+                    color: $dimmed_white_font_color;
+                    margin: 0;
+                }
+
+                &.flex-column {
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    flex-direction: column;
+                }
             }
 
             .modal-body {

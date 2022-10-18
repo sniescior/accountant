@@ -83,3 +83,63 @@ window.addEventListener('click', (e) => {
         }
     }
 })
+
+toggleContextMenu = (contextMenuElement) => {
+    contextMenuElement.classList.toggle('active')
+
+    Array.from(document.getElementsByClassName('context-menu')).forEach(element => {
+        if(element !== contextMenuElement) {
+            element.classList.remove('active')
+        }
+    })
+}
+
+const editListItem = (listitemElementID) => {
+    const listitemElement = document.getElementById(listitemElementID)
+    const listitemElementInput = document.getElementById(listitemElementID + '-input')
+    const listitemElementInitialValue = document.getElementById(listitemElementID + '-initial')
+
+    Array.from(document.querySelectorAll('[role="listitem"]')).forEach(element => {
+        if(element !== listitemElement) {
+            if(element.classList.contains('edit')) {
+                const elementInput = document.getElementById(element.id + '-input')
+                const elementInitialValue = document.getElementById(element.id + '-initial')
+                elementInput.value = elementInitialValue.value
+                element.classList.remove('edit')
+            }
+        }
+    })
+
+    if(!listitemElement.classList.contains('edit')) {
+        listitemElementInput.focus()
+        listitemElement.classList.add('edit')
+    } else {
+        listitemElement.classList.remove('edit')
+        listitemElementInput.value = listitemElementInitialValue.value
+    }
+}
+
+// const formFilloutInProgress = (inputID, submitButtonWrapperID) => {
+//     const input = document.getElementById(inputID)
+//     input.addE
+// }
+
+// User has changed some input's initial value
+
+const dataUpdateInputs = document.querySelectorAll('[data-input]')
+dataUpdateInputs.forEach(dataUpdateInput => {
+    dataUpdateInput.addEventListener('keyup', (e) => {
+        const inputElement = document.getElementById(e.target.id)
+        const inputElementInitial = document.getElementById(e.target.id + '-initial')
+        const inputElementFinal = document.getElementById(e.target.id + '-final')
+        const buttonWrapper = document.getElementById(e.target.dataset.input + '-update-button')
+
+        if(inputElement.value != inputElementInitial.value) {
+            buttonWrapper.classList.add('editing-in-progress')
+        } else {
+            buttonWrapper.classList.remove('editing-in-progress')
+        }
+
+        inputElementFinal.value = inputElement.value
+    })
+})

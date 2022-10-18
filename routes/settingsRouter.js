@@ -1,145 +1,376 @@
-const bodyParser = require('body-parser')
 const express = require('express')
 const router = express.Router()
-const appController = require('../controllers/appController')
-const { requireAuth, checkUser } = require('../middleware/authMiddleware')
+const incomeCategory = require('../models/incomeCategory')
+const expenseCategory = require('../models/expenseCategory')
+const accountGroup = require('../models/accountGroup')
+const Account = require('../models/Account')
 const User = require('../models/User')
+const { default: mongoose } = require('mongoose')
+const validatePassword = require('../lib/passwordUtils').validatePassword
+const genPassword = require('../lib/passwordUtils').genPassword
 
-router.post('/income-cat-add', requireAuth, checkUser, async (req, res) => {
-    const { incomeCatName } = req.body
-    let user = res.locals.user
-    user.incomeCategories.push({ 'name': incomeCatName })
-    await user.save()
-    res.redirect('/app/settings/configuration')
-})
-
-router.post('/expense-cat-add', requireAuth, checkUser, async (req, res) => {
-    const { expenseCatName } = req.body
-    let user = res.locals.user
-    user.expenseCategories.push({ 'name': expenseCatName })
-    await user.save()
-    res.redirect('/app/settings/configuration')
-})
-
-router.post('/expense-cat-delete', requireAuth, checkUser, async (req, res) => {
-    const { expenseCatID } = req.body
-    let user = res.locals.user
-    user.expenseCategories.pull({_id: expenseCatID})
-    await user.save()
-    res.redirect('/app/settings/configuration')
-})
-
-router.post('/income-cat-delete', requireAuth, checkUser, async (req, res) => {
-    const { incomeCatID } = req.body
-    let user = res.locals.user
-    user.incomeCategories.pull({_id: incomeCatID})
-    await user.save()
-    res.redirect('/app/settings/configuration')
-})
-
-router.post('/budget-delete', requireAuth, checkUser, async (req, res) => {
-    const { budgetCatID } = req.body
-    let user = res.locals.user
-    Array.from(user.expenseCategories).forEach(element => {
-        if(element.id == budgetCatID) {
-            element.budget = null
-            return
-        }
-    })
-    await user.save()
-    res.redirect('/app/settings/configuration')
-})
-
-router.post('/budget-add', requireAuth, checkUser, async (req, res) => {
-    const { budgetAddCategory, budgetAddValue } = req.body
-    const user = res.locals.user
-    const expenseCategories = await user.expenseCategories
-    Array.from(expenseCategories).forEach(element => {
-        if(element.name == budgetAddCategory) {
-            element.budget = budgetAddValue
-            return
-        }
-    })
-    await user.save()
-    res.redirect('/app/settings/configuration')
-})
-
-router.post('/group-add', requireAuth, checkUser, async (req, res) => {
-    const { groupNameValue } = req.body
-    const user = res.locals.user
-    user.accountGroups.push({ 'groupName': groupNameValue })
-    await user.save()
-    res.redirect('/app/settings/accounts')
-})
-
-router.post('/acc-group-delete', requireAuth, checkUser, async (req, res) => {
-    const { groupNameID } = req.body
-    const user = res.locals.user
-    user.accountGroups.pull({ '_id': groupNameID })
-    await user.save()
-    res.redirect('/app/settings/accounts')
-})
-
-router.post('/acc-add', requireAuth, checkUser, async (req, res) => {
-    const { accAddName, accAddValue, accAddGroup } = req.body
-    const user = res.locals.user
-
-    Array.from(user.accountGroups).forEach(group => {
-        if(group.groupName == accAddGroup) {
-            group.accounts.push({ 'name': accAddName, 'amount': accAddValue })
-            return
-        }
-    })
-
-    await user.save()
-    res.redirect('/app/settings/accounts')
-})
-
-router.post('/acc-delete', requireAuth, checkUser, async (req, res) => {
-    const { accountID, accountGroupID } = req.body
-    const user = res.locals.user
-    console.log(accountID, accountGroupID)
-
-    // Array.from(user.accountGroups).forEach(group => {
-    //     if(accountGroupID == group._id) {
-    //         group.accounts.pull({ '_id': accountID })
-    //         return
-    //     }
-    // })
-
-    // await user.save()
-    res.redirect('/app/settings/accounts')
-})
-
-router.post('/acc-update', requireAuth, checkUser, async (req, res) => {
-    const { accID, accEditGroup, accEditName, accEditValue } = req.body
-    const user = res.locals.user
-    console.log(accID, accEditGroup, accEditName, accEditValue);
-    let updatedAccount = {
-        'name': accEditName,
-        'amount': accEditValue
-    }
+router.get('/*', async (req, res) => {
     
-    Array.from(user.accountGroups).forEach(group => {
-        Array.from(group.accounts).forEach(account => {
-            if(account.id == accID) {
-                group.accounts.pull({_id: account.id})
-                return
+    try {
+        const userID = mongoose.Types.ObjectId(req.user.id)
+        const incomeCategories = await incomeCategory.find({ userID: userID })
+        const expenseCategories = await expenseCategory.find({ userID: userID })
+        const accountGroups = await accountGroup.find({ userID: userID })
+        const accounts = await Account.find({ userID: req.user.id })
+        
+        // Categories that have a set budget
+        const budgetSetCategories = []
+        expenseCategories.forEach(expenseCategory => {
+            if(expenseCategory.budget != null) {
+                budgetSetCategories.push(expenseCategory)
             }
         })
-    })
-    Array.from(user.accountGroups).forEach(group => {
-        if(group.groupName == accEditGroup) {
-            group.accounts.push({ 'name': updatedAccount.name, 'amount': updatedAccount.amount })
-            return
+        
+        const context = {
+            incomeCategories: incomeCategories,
+            expenseCategories: expenseCategories,
+            budgetSetCategories: budgetSetCategories,
+            accountGroups: accountGroups,
+            accounts: accounts
         }
-    })
-    
-    await user.save()
-
-    res.redirect('/app/settings/accounts')
+        
+        res.render('app/settings', { user: req.user, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
 })
 
-router.get('/*', requireAuth, appController.settings_get)
+/**
+ * ------------- ADD Routes -------------
+ */
+
+router.post('/add/income-category', async (req, res) => {
+    const body = req.body
+
+    try {
+        const newIncomeCategory = new incomeCategory({
+            userID: req.user.id,
+            name: body.categoryName
+        })
+        
+        await newIncomeCategory.save()
+        
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/add/expense-category', async (req, res) => {
+    const body = req.body
+
+    try {
+        const newExpenseCategory = new expenseCategory({
+            userID: req.user.id,
+            name: body.categoryName
+        })
+        
+        await newExpenseCategory.save()
+        
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/add/budget', async (req, res) => {
+    const body = req.body
+
+    try {
+        const categoryName = body.categoryName
+        const budgetAmount = body.budgetAmount
+
+        await expenseCategory.findOneAndUpdate({ 
+            name: categoryName,
+            userID: req.user.id
+        }, {
+            budget: budgetAmount
+        })
+
+        res.redirect('/app/settings')
+    } catch (error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/add/account-group', async (req, res) => {
+    const body = req.body
+
+    try {
+        const newGroupName = body.groupName
+        const newAccountGroup = new accountGroup({
+            userID: req.user.id,
+            groupName: newGroupName
+        })
+
+        await newAccountGroup.save()
+        res.redirect('/app/settings')
+    } catch (error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/add/account', async (req, res) => {
+    const body = req.body
+
+    try {
+        const newAccount = new Account({
+            userID: req.user.id,
+            name: body.newAccountName,
+            amount: body.newAccountBalance
+        })
+
+        await newAccount.save()
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+/**
+ * ------------- EDIT Routes -------------
+ */
+
+router.post('/edit/expense-category', async (req, res) => {
+    const body = req.body
+    
+    try {
+        const categoryID = body.categoryID
+        const categoryNewName = body.categoryNewName
+
+        await expenseCategory.findOneAndUpdate({
+            _id: categoryID,
+            userID: req.user.id,
+        }, {
+            name: categoryNewName
+        })
+
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/edit/income-category', async (req, res) => {
+    const body = req.body
+    
+    try {
+        const categoryID = body.categoryID
+        const categoryNewName = body.categoryNewName
+
+        await incomeCategory.findOneAndUpdate({
+            _id: categoryID,
+            userID: req.user.id
+        }, {
+            name: categoryNewName
+        })
+
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/edit/budget', async (req, res) => {
+    const body = req.body
+
+    try {
+        const newAmount = body.newBudgetAmount
+        const categoryID = body.categoryID
+
+        await expenseCategory.findOneAndUpdate({
+            _id: categoryID,
+            userID: req.user.id
+        }, {
+            budget: newAmount
+        })
+
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/edit/profile', async (req, res) => {
+    const body = req.body
+
+    try {
+        const newUsername = body.newUsername
+        const currentUser = await User.findById(req.user.id)
+        
+        // If current users's username is no different than one that's submitted then there is no need for doing anything
+        if(newUsername != req.user.username) {
+            const userCheckUsername = await User.findOne({ username: newUsername })
+            
+            if(!userCheckUsername) {
+                console.log(currentUser);
+                currentUser.username = newUsername
+                
+                req.user.username = newUsername
+                
+                await currentUser.save()
+            }
+        }
+        
+        const newEmail = body.newEmail
+        
+        // Same as with username
+        if(newEmail != req.user.email) {
+            const userCheckEmail = await User.findOne({ email: newEmail })
+            
+            if(!userCheckEmail) {
+                currentUser.email = newEmail
+                
+                req.user.email = newEmail
+                
+                await currentUser.save()
+            }
+        }
+
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/edit/password', async (req, res) => {
+    const body = req.body
+    const currentUser = await User.findById(req.user.id)
+
+    try {
+        const passwordCheck = validatePassword(body.oldPassword, currentUser.password.passwordHash, currentUser.password.salt)
+
+        if(passwordCheck) {
+            currentUser.password = genPassword(body.newPassword)
+            await currentUser.save()
+        } else {
+            // Old password doesn't match
+        }
+
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/edit/account-group', async (req, res) => {
+    const body = req.body
+
+    try {
+        const groupID = body.groupID
+        const groupNewName = body.groupNewName
+        
+        await accountGroup.findOneAndUpdate({
+            _id: groupID,
+            userID: req.user.id
+        }, {
+            groupName: groupNewName
+        })
+
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/edit/account', async (req, res) => {
+    const body = req.body
+
+    try {
+        const accountID = body.accountID
+        const accountNewName = body.accountNewName
+        const accountNewBalance = body.accountNewBalance
+
+        await Account.findOneAndUpdate({
+            _id: accountID,
+            userID: req.user.id,
+        }, {
+            name: accountNewName, 
+            amount: accountNewBalance
+        })
+
+        res.redirect('app/settings')
+    } catch(error) {
+        res.redirect('app/settings')
+    }
+})
+
+/**
+ * ------------- DELETE Routes -------------
+ */
+
+router.post('/delete/income-category', async (req, res) => {
+    const body = req.body
+
+    try {
+        const categoryID = body.categoryID
+
+        await incomeCategory.findOneAndDelete({
+            _id: categoryID,
+            userID: req.user.id
+        })
+
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/delete/expense-category', async (req, res) => {
+    const body = req.body
+
+    try {
+        const categoryID = body.categoryID
+
+        await expenseCategory.findOneAndDelete({
+            _id: categoryID,
+            userID: req.user.id
+        })
+        
+        res.redirect('/app/settings')
+    } catch(error) {
+        res.redirect('/app/settings')
+    }
+})
+
+router.post('/delete/budget', async (req, res) => {
+    const body = req.body
+
+    try {
+        const categoryID = body.categoryID
+
+        await expenseCategory.findOneAndUpdate({
+            _id: categoryID,
+            userID: req.user.id
+        }, {
+            budget: null
+        })
+
+        res.redirect('app/settings')
+    } catch(error) {
+        res.redirect('app/settings')
+    }
+})
+
+router.post('/delete/account', async (req, res) => {
+    const body = req.body
+
+    try {
+        const accountID = body.accountID
+        await Account.findOneAndDelete({
+            _id: accountID,
+            userID: req.user.id
+        })
+
+        res.redirect('app/settings')
+    } catch(error) {
+        res.redirect('app/settings')
+    }
+})
 
 module.exports = router
