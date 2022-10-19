@@ -62,16 +62,24 @@ body {
                     padding: 10px 8px;
                     cursor: pointer;
                     transition: .2s ease-in-out;
+                    pointer-events: none;
 
                     &:hover {
                         color: $white_font_color;
                     }
 
+                }
+
+                a {
+                    text-decoration: none;
+                    
                     &.active {
-                        color: $white_font_color;
-                        color: $main_theme_color;
-                        font-weight: 600;
                         position: relative;
+                        
+                        li {
+                            color: $main_theme_color;
+                            font-weight: 600;
+                        }
 
                         &::before {
                             content: '';
@@ -252,6 +260,7 @@ body {
                         align-items: center;
                         gap: 40px;
                         padding: 20px 30px;
+                        text-decoration: none;
 
                         &.interactive {
                             cursor: pointer;
@@ -287,7 +296,13 @@ body {
                             }
                         }
 
+                        i {
+                            pointer-events: none;
+                        }
+
                         .configuration-item-title {
+                            pointer-events: none;
+
                             h4 {
                                 color: $white_font_color;
                                 font-weight: 400;

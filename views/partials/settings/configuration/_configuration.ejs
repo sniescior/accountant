@@ -3,26 +3,26 @@
         <h2>Configuration</h2>
     </div>
     <div class="configuration-section">
-        <div class="configuration-item interactive" onclick="setTab(this, 'configuration-income-categories')" role="presentation">
+        <a href="/app/settings/configuration/income-categories" class="configuration-item interactive" id="configuration-income-categories-link" role="presentation">
             <div class="configuration-item-title">
                 <h4>Income Categories</h4>
             </div>
             <i class="bi bi-chevron-right"></i>
-        </div>
+        </a>
         <span class="divider"></span>
-        <div class="configuration-item interactive" onclick="setTab(this, 'configuration-expense-categories')" role="presentation">
+        <a href="/app/settings/configuration/expense-categories" class="configuration-item interactive" id="configuration-expense-categories-link" role="presentation">
             <div class="configuration-item-title">
                 <h4>Expense Categories</h4>
             </div>
             <i class="bi bi-chevron-right"></i>
-        </div>
+        </a>
         <span class="divider"></span>
-        <div class="configuration-item interactive" onclick="setTab(this, 'configuration-budget')" role="presentation">
+        <a href="/app/settings/configuration/budget" class="configuration-item interactive" id="configuration-budget-link" role="presentation">
             <div class="configuration-item-title">
                 <h4>Budget</h4>
             </div>
             <i class="bi bi-chevron-right"></i>
-        </div>
+        </a>
     </div>
 </div>
 <%- include('_configuration_income_categories.ejs') %>

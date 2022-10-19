@@ -19,11 +19,21 @@
 
         <section class="divided-section">
             <menu class="navigation-menu">
-                <li role="presentation" onclick="setTab(this, 'profile')">Profile</li>
-                <li role="presentation" onclick="setTab(this, 'configuration')">Configuration</li>
-                <li role="presentation" onclick="setTab(this, 'accounts')">Accounts</li>
-                <li role="presentation" onclick="setTab(this, 'general')">General</li>
-                <li role="presentation" class="active" onclick="setTab(this, 'security')">Security</li>
+                <a class="active" href="/app/settings/profile" id="profile-link" data-link role="presentation">
+                    <li>Profile</li>
+                </a>
+                <a href="/app/settings/configuration" id="configuration-link" data-link role="presentation">
+                    <li>Configuration</li>
+                </a>
+                <a href="/app/settings/accounts" id="accounts-link" data-link role="presentation">
+                    <li>Accounts</li>
+                </a>
+                <a href="/app/settings/general" id="general-link" data-link role="presentation">
+                    <li>General</li>
+                </a>
+                <a href="/app/settings/security" id="security-link" data-link role="presentation">
+                    <li>Security</li>
+                </a>
                 <li>Plan</li>
                 <li>Team</li>
                 <li>Notifications</li>
@@ -41,5 +51,6 @@
         </section>
     </div>
     <script type="text/javascript" src="/public/js/updated/main.js"></script>
+    <script type="text/javascript" src="/public/js/updated/settingsClientRouter.js"></script>
 </body>
 </html>

@@ -1,10 +1,8 @@
 <div class="container" id="accounts-configuration" role="tabpanel">
     <div class="breadcrumbs">
-        <a onclick="setTab(this, 'accounts')">Accounts</a>
+        <a href="/app/settings/accounts" class="interactive" role="presentation">Accounts</a>
         <i class="bi bi-chevron-right"></i>
-        <a class="disabled">
-            Accounts configuration
-        </a>
+        <a class="disabled">Accounts configuration</a>
     </div>
     <div class="content-title">
         <div>
@@ -31,7 +29,7 @@
                         <div class="inputs-formatter">
                             <input type="hidden" value="<%= account.name %>" id="accounts-configuration-listitem-<%= account.id %>-initial">
                             <input type="hidden" value="<%= account.id %>" name="accountID">
-                            <input value="<%= account.name %>" name="accountNewName" class="input-name editable-input" id="accounts-configuration-listitem-<%= account.id %>-input">
+                            <input class="input-name editable-input" value="<%= account.name %>" name="accountNewName" id="accounts-configuration-listitem-<%= account.id %>-input">
                             <input class="editable-input" id="accounts-configuration-listitem-<%= account.id %>-input" value="<%= account.amount %>" name="accountNewBalance">
                         </div>
                         <div class="button-wrapper">
