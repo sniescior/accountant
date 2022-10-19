@@ -12,6 +12,12 @@ router.get('/signup', (req, res) => {
     res.render('auth/signup', { error: null, email: null, username: null })
 })
 
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/auth/login')
+    })
+})
+
 router.post('/login', passport.authenticate('local', {
     failureRedirect: '/auth/login',
     successRedirect: '/app/dashboard',
