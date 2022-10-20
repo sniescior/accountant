@@ -28,7 +28,7 @@
                     <form action="/app/settings/edit/budget" method="POST">
                         <li id="budget-listitem-<%= expenseCategory.id %>" role="listitem">
                             <div class="inputs-formatter">
-                                <input type="hidden" value="<%= expenseCategory.name %>" id="budget-listitem-<%= expenseCategory.id %>-initial">
+                                <input type="hidden" value="<%= expenseCategory.budget %>" id="budget-listitem-<%= expenseCategory.id %>-initial">
                                 <input type="hidden" value="<%= expenseCategory.id %>" name="categoryID">
                                 <input value="<%= expenseCategory.name %>" name="categoryNewName" class="input-name">
                                 <input class="editable-input" id="budget-listitem-<%= expenseCategory.id %>-input" value="<%= expenseCategory.budget %>" name="newBudgetAmount">
