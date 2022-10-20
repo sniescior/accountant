@@ -9,8 +9,11 @@ const { default: mongoose } = require('mongoose')
 const validatePassword = require('../lib/passwordUtils').validatePassword
 const genPassword = require('../lib/passwordUtils').genPassword
 
-router.get('/*', async (req, res) => {
-    
+router.get('/', (req, res) => {
+    res.redirect('/app/settings/profile')
+})
+
+router.get('/profile', async (req, res) => {
     try {
         const userID = mongoose.Types.ObjectId(req.user.id)
         const incomeCategories = await incomeCategory.find({ userID: userID })
@@ -55,9 +58,9 @@ router.post('/add/income-category', async (req, res) => {
         
         await newIncomeCategory.save()
         
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     }
 })
 
@@ -72,9 +75,9 @@ router.post('/add/expense-category', async (req, res) => {
         
         await newExpenseCategory.save()
         
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     }
 })
 
@@ -92,9 +95,9 @@ router.post('/add/budget', async (req, res) => {
             budget: budgetAmount
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/budget')
     } catch (error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/budget')
     }
 })
 
@@ -109,9 +112,9 @@ router.post('/add/account-group', async (req, res) => {
         })
 
         await newAccountGroup.save()
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/groups')
     } catch (error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/groups')
     }
 })
 
@@ -126,9 +129,9 @@ router.post('/add/account', async (req, res) => {
         })
 
         await newAccount.save()
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     }
 })
 
@@ -150,9 +153,9 @@ router.post('/edit/expense-category', async (req, res) => {
             name: categoryNewName
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     }
 })
 
@@ -170,9 +173,9 @@ router.post('/edit/income-category', async (req, res) => {
             name: categoryNewName
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     }
 })
 
@@ -190,9 +193,9 @@ router.post('/edit/budget', async (req, res) => {
             budget: newAmount
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/budget')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/budget')
     }
 })
 
@@ -232,9 +235,9 @@ router.post('/edit/profile', async (req, res) => {
             }
         }
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/profile')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/profile')
     }
 })
 
@@ -252,9 +255,9 @@ router.post('/edit/password', async (req, res) => {
             // Old password doesn't match
         }
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/security')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/security')
     }
 })
 
@@ -272,9 +275,9 @@ router.post('/edit/account-group', async (req, res) => {
             groupName: groupNewName
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/groups')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/groups')
     }
 })
 
@@ -294,9 +297,9 @@ router.post('/edit/account', async (req, res) => {
             amount: accountNewBalance
         })
 
-        res.redirect('app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     } catch(error) {
-        res.redirect('app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     }
 })
 
@@ -315,9 +318,9 @@ router.post('/delete/income-category', async (req, res) => {
             userID: req.user.id
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     }
 })
 
@@ -332,9 +335,9 @@ router.post('/delete/expense-category', async (req, res) => {
             userID: req.user.id
         })
         
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     }
 })
 
@@ -351,9 +354,9 @@ router.post('/delete/budget', async (req, res) => {
             budget: null
         })
 
-        res.redirect('app/settings')
+        res.redirect('/app/settings/configuration/budget')
     } catch(error) {
-        res.redirect('app/settings')
+        res.redirect('/app/settings/configuration/budget')
     }
 })
 
@@ -367,10 +370,15 @@ router.post('/delete/account', async (req, res) => {
             userID: req.user.id
         })
 
-        res.redirect('app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     } catch(error) {
-        res.redirect('app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     }
+})
+
+// If url string doesn't match any of the above
+router.get('/*', (req, res) => {
+    res.redirect('/app/settings/profile')
 })
 
 module.exports = router
