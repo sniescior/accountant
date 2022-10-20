@@ -1,5 +1,10 @@
 const express = require('express')
 const passport = require('passport')
+const starterData = require('../models/starterData')
+const incomeCategory = require('../models/incomeCategory')
+const expenseCategory = require('../models/expenseCategory')
+const accountGroup = require('../models/accountGroup')
+const Account = require('../models/Account')
 const User = require('../models/User')
 const router = express.Router()
 const genPassword = require('../lib/passwordUtils').genPassword
@@ -10,6 +15,12 @@ router.get('/login', (req, res) => {
 
 router.get('/signup', (req, res) => {
     res.render('auth/signup', { error: null, email: null, username: null })
+})
+
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/auth/login')
+    })
 })
 
 router.post('/login', passport.authenticate('local', {
@@ -46,6 +57,56 @@ router.post('/signup', async (req, res) => {
             passwordHash: hash,
             salt: salt
         }
+    })
+
+    /**
+    * ------------- DEFAULT DATA SETUP -------------
+    */
+
+    const starterObject = await starterData.findById(process.env.DB_STARTER_DATA_OBJECT_ID)
+
+    // Income categories
+    Array.from(starterObject.incomecategories).forEach(async category => {
+        const newIncomeCategory = new incomeCategory({
+            userID: newUser.id,
+            name: category.name
+        })
+
+        await newIncomeCategory.save()
+    })
+
+    // Expense categories
+    Array.from(starterObject.expensecategories).forEach(async category => {
+        const newExpenseCategory = new expenseCategory({
+            userID: newUser.id,
+            name: category.name
+        })
+
+        await newExpenseCategory.save()
+    })
+
+    // Account groups
+    Array.from(starterObject.accountgroups).forEach(async accountgroup => {
+        const newAccountGroup = new accountGroup({
+            userID: newUser.id,
+            groupName: accountgroup.name
+        })
+
+        await newAccountGroup.save()
+
+        Array.from(accountgroup.accounts).forEach(async account => {
+            const newAccount = Account({
+                userID: newUser.id,
+                name: account.name,
+                amount: account.amount
+            })
+
+            await newAccount.save()
+
+            newAccountGroup.accounts.push({ accountID: newAccount.id })
+
+            await newAccountGroup.save()
+        })
     })
 
     await newUser.save()
