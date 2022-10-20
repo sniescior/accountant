@@ -36,8 +36,10 @@ router.get('/profile', async (req, res) => {
             accountGroups: accountGroups,
             accounts: accounts
         }
+
+        const currentUser = await User.findById(req.user.id)
         
-        res.render('app/settings', { user: req.user, context: context })
+        res.render('app/settings', { user: currentUser, context: context })
     } catch(error) {
         res.redirect('/404')
     }
