@@ -5,11 +5,11 @@ body {
   margin: 0;
   padding: 0;
   background-color: #111;
-  height: 100vh;
-  overflow: hidden;
+  width: 100vw;
+  overflow-x: hidden;
 }
 body #navbar {
-  width: 100%;
+  width: 100vw;
   border-bottom: 2px solid rgba(34, 34, 34, 0.5);
   display: flex;
   justify-content: center;
@@ -61,6 +61,45 @@ body #navbar .navbar-content .right .user-image {
   border-radius: 50%;
   border: 2px solid rgba(34, 34, 34, 0.5);
   cursor: pointer;
+}
+body #navbar .logo.mobile {
+  color: #eee;
+  font-weight: 800;
+  font-size: 1.7em;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  display: none;
+}
+body #navbar .button.hamburger {
+  display: none;
+}
+@media screen and (max-width: 700px) {
+  body #navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    box-sizing: border-box;
+  }
+  body #navbar .navbar-content {
+    display: none;
+  }
+  body #navbar .logo.mobile {
+    display: initial;
+  }
+  body #navbar .button.hamburger {
+    display: initial;
+    background-color: transparent;
+    border: none;
+    color: rgba(238, 238, 238, 0.7);
+    font-size: 3em;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+  }
+  body #navbar .button.hamburger:hover {
+    color: #eee;
+  }
 }
 body .breadcrumbs {
   font-size: 1.1em;
@@ -476,7 +515,7 @@ body ul.list a li:hover {
 }
 body #overlay {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   position: absolute;
   background-color: rgba(17, 17, 17, 0.9);
   opacity: 0;
@@ -555,6 +594,15 @@ body #app-container .modal .modal-body .calendar-control {
   justify-content: space-between;
   padding: 0 20px;
   background-color: rgba(41, 41, 41, 0.1);
+}
+@media screen and (max-width: 620px) {
+  body #app-container .modal {
+    min-width: unset;
+    width: 100%;
+    max-width: 100%;
+    top: unset;
+    bottom: 50px;
+  }
 }
 body #app-container .nav-tabs-container {
   max-width: 1600px;

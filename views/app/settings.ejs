@@ -15,6 +15,32 @@
     <div id="app-container">
         <div class="section-header">
             <h2>Settings</h2>
+            <div class="input-wrapper dropdown mobile-menu-dropdown" id="mobile-menu-dropdown" onclick="toggleDropdown(this)">
+                <input type="text" id="mobile-menu-input" name="categoryName" value="Profile">
+                <i class="bi bi-chevron-down"></i>
+                <ul class="dropdown-list">
+                    <a class="dropdown-item radio-type" href="/app/settings/profile" onclick="setValue(this, 'mobile-menu-input')" value="Profile" data-link role="presentation">
+                        Profile
+                        <i class="bi bi-check-lg check"></i>
+                    </a>
+                    <a class="dropdown-item radio-type" href="/app/settings/configuration" onclick="setValue(this, 'mobile-menu-input')" value="Configuration" data-link role="presentation">
+                        Configuration
+                        <i class="bi bi-check-lg check"></i>
+                    </a>
+                    <a class="dropdown-item radio-type" href="/app/settings/accounts" onclick="setValue(this, 'mobile-menu-input')" value="Accounts" data-link role="presentation">
+                        Accounts
+                        <i class="bi bi-check-lg check"></i>
+                    </a>
+                    <a class="dropdown-item radio-type" href="/app/settings/general" onclick="setValue(this, 'mobile-menu-input')" value="General" data-link role="presentation">
+                        General
+                        <i class="bi bi-check-lg check"></i>
+                    </a>
+                    <a class="dropdown-item radio-type" href="/app/settings/security" onclick="setValue(this, 'mobile-menu-input')" value="Security" data-link role="presentation">
+                        Security
+                        <i class="bi bi-check-lg check"></i>
+                    </a>
+                </ul>
+            </div>
         </div>
 
         <section class="divided-section">
@@ -39,6 +65,7 @@
                 <li>Notifications</li>
                 <li>API</li>
             </menu>
+
             <%- include('../partials/settings/_profile.ejs') %>
             <%- include('../partials/settings/configuration/_configuration.ejs') %>
             <%- include('../partials/settings/_general.ejs') %>

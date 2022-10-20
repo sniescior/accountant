@@ -13,31 +13,99 @@ router.get('/', (req, res) => {
     res.redirect('/app/settings/profile')
 })
 
+const getContext = async (req, res) => {
+    const userID = mongoose.Types.ObjectId(req.user.id)
+    const incomeCategories = await incomeCategory.find({ userID: userID })
+    const expenseCategories = await expenseCategory.find({ userID: userID })
+    const accountGroups = await accountGroup.find({ userID: userID })
+    const accounts = await Account.find({ userID: req.user.id })
+    
+    // Categories that have a set budget
+    const budgetSetCategories = []
+    expenseCategories.forEach(expenseCategory => {
+        if(expenseCategory.budget != null) {
+            budgetSetCategories.push(expenseCategory)
+        }
+    })
+    
+    const context = {
+        incomeCategories: incomeCategories,
+        expenseCategories: expenseCategories,
+        budgetSetCategories: budgetSetCategories,
+        accountGroups: accountGroups,
+        accounts: accounts
+    }
+
+    const currentUser = await User.findById(req.user.id)
+
+    return {
+        context, currentUser
+    }
+}
+
 router.get('/profile', async (req, res) => {
     try {
-        const userID = mongoose.Types.ObjectId(req.user.id)
-        const incomeCategories = await incomeCategory.find({ userID: userID })
-        const expenseCategories = await expenseCategory.find({ userID: userID })
-        const accountGroups = await accountGroup.find({ userID: userID })
-        const accounts = await Account.find({ userID: req.user.id })
+        const { context, currentUser } = await getContext(req, res)
         
-        // Categories that have a set budget
-        const budgetSetCategories = []
-        expenseCategories.forEach(expenseCategory => {
-            if(expenseCategory.budget != null) {
-                budgetSetCategories.push(expenseCategory)
-            }
-        })
-        
-        const context = {
-            incomeCategories: incomeCategories,
-            expenseCategories: expenseCategories,
-            budgetSetCategories: budgetSetCategories,
-            accountGroups: accountGroups,
-            accounts: accounts
-        }
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
 
-        const currentUser = await User.findById(req.user.id)
+router.get('/configuration', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/configuration/income-categories', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/configuration/expense-categories', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/configuration/budget', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/accounts/groups', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/accounts/accounts-configuration', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
         
         res.render('app/settings', { user: currentUser, context: context })
     } catch(error) {
@@ -376,11 +444,6 @@ router.post('/delete/account', async (req, res) => {
     } catch(error) {
         res.redirect('/app/settings/accounts/accounts-configuration')
     }
-})
-
-// If url string doesn't match any of the above
-router.get('/*', (req, res) => {
-    res.redirect('/app/settings/profile')
 })
 
 module.exports = router

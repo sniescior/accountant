@@ -28,11 +28,11 @@ body {
     margin: 0;
     padding: 0;
     background-color: #111;
-    height: 100vh;
-    overflow: hidden;
+    width: 100vw;
+    overflow-x: hidden;
 
     #navbar {
-        width: 100%;
+        width: 100vw;
         border-bottom: 2px solid $white_border_color;
         display: flex;
         justify-content: center;
@@ -92,6 +92,52 @@ body {
                     border-radius: 50%;
                     border: 2px solid $white_border_color;
                     cursor: pointer;
+                }
+            }
+        }
+
+        .logo.mobile {
+            color: $white_font_color;
+            font-weight: 800;
+            font-size: 1.7em;
+            margin: 0;
+            padding: 0;
+            text-transform: uppercase;
+            display: none;
+        }
+
+        .button.hamburger {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 700px) {
+        #navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            box-sizing: border-box;
+
+            .navbar-content {
+                display: none;
+            }
+
+            .logo.mobile {
+                display: initial;
+            }
+
+            .button.hamburger {
+                display: initial;
+                background-color: transparent;
+                border: none;
+                color: $dimmed_white_font_color_hover;
+                font-size: 3em;
+                cursor: pointer;
+                transition: .2s ease-in-out;
+
+                &:hover {
+                    color: $white_font_color;
                 }
             }
         }
@@ -591,7 +637,7 @@ body {
 
     #overlay {
         width: 100vw;
-        height: 100vh;
+        height: 100%;
         position: absolute;
         background-color: rgba(17, 17, 17, 0.9);
         opacity: 0;
@@ -683,6 +729,16 @@ body {
                     padding: 0 20px;
                     background-color: $input_hover;
                 }
+            }
+        }
+
+        @media screen and (max-width: 620px) {
+            .modal {
+                min-width: unset;
+                width: 100%;
+                max-width: 100%;
+                top: unset;
+                bottom: 50px;
             }
         }
 
