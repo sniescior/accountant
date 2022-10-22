@@ -1,0 +1,50 @@
+<div class="container" id="configuration-budget" role="tabpanel">
+    <div class="breadcrumbs">
+        <a href="/app/settings/configuration" role="presentation" class="interactive">Configuration</a>
+        <i class="bi bi-chevron-right"></i>
+        <a class="disabled">Budget</a>
+    </div>
+    <div class="content-title">
+        <div>
+            <h2>Budget</h2>
+            <h4>You can see the budget status in Transaction page</h4>
+        </div>
+        <button class="button-primary" onclick="openModal('add-budget-modal')">Add budget</button>
+    </div>
+
+    <div class="configuration-section">
+        <% if (context.budgetSetCategories.length < 1) { %>
+            <div class="no-data-wrapper">
+                <img class="no-data-image" src="/public/images/nodata.svg" alt="No data available">
+                <h3>There is no budget set yet.</h3>
+            </div>
+        <% } else { %>
+            <ul class="configuration-list">
+                <div class="legend">
+                    <h4 class="name">Name</h4>
+                    <h4 class="amount">Budget amount</h4>
+                </div>
+                <% context.budgetSetCategories.forEach(expenseCategory => { %>
+                    <form action="/app/settings/edit/budget" method="POST">
+                        <li id="budget-listitem-<%= expenseCategory.id %>" role="listitem">
+                            <div class="inputs-formatter">
+                                <input type="hidden" value="<%= expenseCategory.budget %>" id="budget-listitem-<%= expenseCategory.id %>-initial">
+                                <input type="hidden" value="<%= expenseCategory.id %>" name="categoryID">
+                                <input value="<%= expenseCategory.name %>" name="categoryNewName" class="input-name">
+                                <input class="editable-input" id="budget-listitem-<%= expenseCategory.id %>-input" value="<%= expenseCategory.budget %>" name="newBudgetAmount">
+                            </div>
+                            <div class="button-wrapper">
+                                <button type="button" class="button-secondary grey" onclick="editListItem('budget-listitem-<%= expenseCategory.id %>')">Cancel</button>
+                                <button type="submit" class="button-secondary">Save</button>
+                                <button type="button" class="context-menu-button" onclick="editListItem('budget-listitem-<%= expenseCategory.id %>')"><i class="bi bi-pencil"></i></button>
+                                <button type="button" class="context-menu-button danger" onclick="openModal('budget-delete-<%= expenseCategory.id %>')"><i class="bi bi-trash3"></i></button>
+                            </div>
+                        </li>
+                    </form>
+                    <span class="divider"></span>
+                <% }) %>
+                <div class="configuration-list-footer"></div>
+            </ul>
+        <% } %> 
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accountant - Sign in</title>
+
+    <link rel="stylesheet" href="/public/styles/updated/main.css">
+    <link rel="stylesheet" href="/public/styles/auth/auth.css">
+</head>
+<body>
+    <div id="overlay" class="" onclick="closeModals()"></div>
+    <div id="app-container" class="auth-container">
+        <section>
+            <div class="section-header">
+                <h2>Welcome to Accountant</h2>
+                <h3>Sign in</h3>
+            </div>
+            <form action="/auth/login" method="POST">
+                <div class="input-wrapper">
+                    <i class="bi bi-at"></i>
+                    <input type="text" placeholder="Email or username" name="username" required>
+                </div>
+                <div class="input-wrapper">
+                    <i class="bi bi-key"></i>
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+                <div class="button-wrapper end">
+                    <a href="#" class="button-secondary link">Forgot password</a>
+                </div>
+                <button class="button-primary w100">Sign In</button>
+            </form>
+            <p></p>
+            <div class="button-wrapper start">
+                <h3 class="text-dimmed">Sign In with</h3>
+                <a class="button-icon">
+                    <i class="bi bi-google"></i>
+                </a>
+                <a class="button-icon">
+                    <i class="bi bi-facebook"></i>
+                </a>
+            </div>
+            <h3>
+                Don't have an account? <a href="/auth/signup" class="button-secondary link">Sign Up</a>
+            </h3>
+        </section>
+    </div>
+</body>
+</html>

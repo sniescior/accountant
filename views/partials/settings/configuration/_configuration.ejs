@@ -1,0 +1,30 @@
+<div class="container" id="configuration" role="tabpanel">
+    <div class="content-title">
+        <h2>Configuration</h2>
+    </div>
+    <div class="configuration-section">
+        <a href="/app/settings/configuration/income-categories" class="configuration-item interactive" id="configuration-income-categories-link" role="presentation">
+            <div class="configuration-item-title">
+                <h4>Income Categories</h4>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+        </a>
+        <span class="divider"></span>
+        <a href="/app/settings/configuration/expense-categories" class="configuration-item interactive" id="configuration-expense-categories-link" role="presentation">
+            <div class="configuration-item-title">
+                <h4>Expense Categories</h4>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+        </a>
+        <span class="divider"></span>
+        <a href="/app/settings/configuration/budget" class="configuration-item interactive" id="configuration-budget-link" role="presentation">
+            <div class="configuration-item-title">
+                <h4>Budget</h4>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+        </a>
+    </div>
+</div>
+<%- include('_configuration_income_categories.ejs') %>
+<%- include('_configuration_expense_categories.ejs') %>
+<%- include('_configuration_budget.ejs') %>

@@ -1,0 +1,40 @@
+<div class="container" id="accounts-groups" role="tabpanel">
+    <div class="breadcrumbs">
+        <a href="/app/settings/accounts" class="interactive" role="presentation">Accounts</a>
+        <i class="bi bi-chevron-right"></i>
+        <a class="disabled">Account groups</a>
+    </div>
+    <div class="content-title">
+        <div>
+            <h2>Accounts groups</h2>
+        </div>
+        <button class="button-primary" onclick="openModal('add-group-modal')">Add group</button>
+    </div>
+
+    <div class="configuration-section">
+        <ul class="configuration-list">
+            <div class="legend">
+                <h4 class="name">Name</h4>
+            </div>
+            <% context.accountGroups.forEach(group => { %>
+                <form action="/app/settings/edit/account-group" method="POST">
+                    <li id="accounts-listitem-<%= group.id %>" role="listitem">
+                        <div class="inputs-formatter">
+                            <input type="hidden" value="<%= group.groupName %>" id="accounts-listitem-<%= group.id %>-initial">
+                            <input type="hidden" value="<%= group.id %>" name="groupID">
+                            <input value="<%= group.groupName %>" name="groupNewName" class="input-name editable-input" id="accounts-listitem-<%= group.id %>-input">
+                        </div>
+                        <div class="button-wrapper">
+                            <button type="button" class="button-secondary grey" onclick="editListItem('accounts-listitem-<%= group.id %>')">Cancel</button>
+                            <button type="submit" class="button-secondary">Save</button>
+                            <button type="button" class="context-menu-button" onclick="editListItem('accounts-listitem-<%= group.id %>')"><i class="bi bi-pencil"></i></button>
+                            <button type="button" class="context-menu-button danger" onclick="openModal('accounts-configuration-delete-group-<%= group.id %>')"><i class="bi bi-trash3"></i></button>
+                        </div>
+                    </li>
+                </form>
+                <span class="divider"></span>
+            <% }) %>
+            <div class="configuration-list-footer"></div>
+        </ul>
+    </div>
+</div>

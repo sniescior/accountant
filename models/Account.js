@@ -1,14 +1,18 @@
 const mongoose = require('mongoose')
+const dbConnection = require('../config/database')
 
 const accountSchema = new mongoose.Schema({
-    "name": {
-        type: String,
-        required: true
+    userID: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User'
     },
-    "amount": {
-        type: Number,
-        required: false
-    }
+    name: String,
+    amount: Number
 })
 
-module.exports = accountSchema
+accountSchema.post('remove', (doc) => {
+    console.log('Removed: ', doc);
+})
+
+const Account = dbConnection.model('Account', accountSchema)
+module.exports = Account

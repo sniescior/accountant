@@ -1,0 +1,43 @@
+<div class="container" id="configuration-income-categories" role="tabpanel">
+    <div class="breadcrumbs">
+        <a href="/app/settings/configuration" class="interactive" role="presentation">Configuration</a>
+        <i class="bi bi-chevron-right"></i>
+        <a class="disabled">Income Categories</a>
+    </div>
+    <div class="content-title">
+        <h2>Income Categories</h2>
+        <button class="button-primary" onclick="openModal('add-income-category-modal')">Add income category</button>
+    </div>
+
+    <div class="configuration-section">
+        <% if (context.incomeCategories.length < 1) { %>
+            <div class="no-data-wrapper">
+                <img class="no-data-image" src="/public/images/nodata.svg" alt="No data available">
+                <h3>No categories</h3>
+            </div>
+        <% } else { %>
+            <ul class="configuration-list">
+                <div class="legend">
+                    Name
+                </div>
+                <% context.incomeCategories.forEach(incomeCategory => { %>
+                    <form action="/app/settings/edit/income-category" method="POST">
+                        <li id="listitem-<%= incomeCategory.id %>" role="listitem">
+                            <input type="hidden" value="<%= incomeCategory.name %>" id="listitem-<%= incomeCategory.id %>-initial">
+                            <input type="hidden" value="<%= incomeCategory.id %>" name="categoryID">
+                            <input class="editable-input" id="listitem-<%= incomeCategory.id %>-input" value="<%= incomeCategory.name %>" name="categoryNewName">
+                            <div class="button-wrapper">
+                                <button type="button" class="button-secondary grey" onclick="editListItem('listitem-<%= incomeCategory.id %>')">Cancel</button>
+                                <button type="submit" class="button-secondary">Save</button>
+                                <button type="button" class="context-menu-button" onclick="editListItem('listitem-<%= incomeCategory.id %>')"><i class="bi bi-pencil"></i></button>
+                                <button type="button" class="context-menu-button danger" onclick="openModal('delete-<%= incomeCategory.id %>')"><i class="bi bi-trash3"></i></button>
+                            </div>
+                        </li>
+                    </form>
+                    <span class="divider"></span>
+                <% }) %>
+                <div class="configuration-list-footer"></div>
+            </ul>
+        <% } %>
+    </div>
+</div>

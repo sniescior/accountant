@@ -4,138 +4,320 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account settings</title>
-    <%- include('../partials/_global_styles.ejs') %>
-    <link rel="stylesheet" href="/public/styles/app/app.css">
+    <title>Accountant - Settings</title>
+
+    <link rel="stylesheet" href="/public/styles/updated/main.css">
+    <link rel="stylesheet" href="/public/styles/app/settings.css">
 </head>
-<body>
-    <div id="overlay" class="hidden"></div>
-    <div class="app-container" id="appContainer">
-        <div class="header">
-            <a href="/app/dashboard" class="back-toggle">
-                <i class="bi bi-chevron-left"></i>
-                <h2>Dashboard</h2>
-            </a>
-            <div class="title mt-3">
-                <img src="/public/images/defaultavatar.png" alt="">
-                <h2><%- user.username %></h2>
-                <h3><%- user.email %></h3>
-                <button class="bt-primary my-2">
-                    Edit profile
-                    <span class="arrow-right"></span>
-                </button>
+<body class="dark">
+    <%- include('../partials/_navbar.ejs') %>
+    <div id="overlay">
+
+        <!-- Configuration Modals -->
+        
+        <div class="modal" id="add-expense-category-modal">
+            <div class="modal-header">
+                <h2>Add expense category</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            
+            <form action="/app/settings/add/expense-category" method="POST" class="modal-body">
+                <div class="form-body">
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Category name" name="categoryName">
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="button-wrapper">
+                        <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                        <button class="button-primary" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <% context.expenseCategories.forEach(expenseCategory => { %>
+            <div class="modal" id="delete-<%= expenseCategory.id %>">
+                <div class="modal-header">
+                    <div class="flex-column">
+                        <h2>Delete category? <%= expenseCategory.name %></h2>
+                        <h3>And every transactions associated with it?</h3>
+                    </div>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+                
+                <form action="/app/settings/delete/expense-category" method="POST" class="modal-body">
+                    <input type="hidden" value="<%= expenseCategory.id %>" name="categoryID">
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary button-danger" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% }) %>
+
+        <div class="modal" id="add-income-category-modal">
+            <div class="modal-header">
+                <h2>Add income category</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            
+            <form action="/app/settings/add/income-category" method="POST" class="modal-body">
+                <div class="form-body">
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Category name" name="categoryName" required>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="button-wrapper">
+                        <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                        <button class="button-primary" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <% context.incomeCategories.forEach(incomeCategory => { %>
+            <div class="modal" id="delete-<%= incomeCategory.id %>">
+                <div class="modal-header">
+                    <div class="flex-column">
+                        <h2>Delete category? <%= incomeCategory.name %></h2>
+                        <h3>And every transactions associated with it?</h3>
+                    </div>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+                
+                <form action="/app/settings/delete/income-category" method="POST" class="modal-body">
+                    <input type="hidden" value="<%= incomeCategory.id %>" name="categoryID">
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary button-danger" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% }) %>
+
+        <div class="modal" id="add-budget-modal">
+            <div class="modal-header">
+                <h2>Add budget</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            
+            <form action="/app/settings/add/budget" method="POST" class="modal-body">
+                <div class="form-body">
+                    <div class="input-wrapper">
+                        <input type="number" placeholder="Amount" name="budgetAmount" required>
+                    </div>
+                    <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                        <input type="text" placeholder="Category" id="budget-category-input" name="categoryName" required>
+                        <i class="bi bi-chevron-down"></i>
+                        <ul class="dropdown-list">
+                            <% context.expenseCategories.forEach(expenseCategory => { %>
+                                <li class="dropdown-item" onclick="setValue(this, 'budget-category-input')" value="<%= expenseCategory.name %>">
+                                    <%= expenseCategory.name %>
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="button-wrapper">
+                        <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                        <button class="button-primary" type="submit">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <% context.budgetSetCategories.forEach(expenseCategory => { %>
+            <div class="modal" id="budget-delete-<%= expenseCategory.id %>">
+                <div class="modal-header flex-column">
+                    <h2>Delete budget for <%= expenseCategory.name %>?</h2>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+                
+                <form action="/app/settings/delete/budget" method="POST" class="modal-body">
+                    <input type="hidden" value="<%= expenseCategory.id %>" name="categoryID">
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary button-danger" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% }) %>
+
+        <!-- Accounts Modals -->
+        <div class="modal" id="add-group-modal">
+            <div class="modal-header">
+                <h2>Add accounts group</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            
+            <form action="/app/settings/add/account-group" method="POST" class="modal-body">
+                <div class="form-body">
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Group name" name="groupName" required>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="button-wrapper">
+                        <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                        <button class="button-primary" type="submit">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal" id="add-account-modal">
+            <div class="modal-header">
+                <h2>Add account</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            
+            <form action="/app/settings/add/account" method="POST" class="modal-body">
+                <div class="form-body">
+                    <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                        <input type="text" placeholder="Account group" id="account-group-accountAdd-input" name="accountGroupName" required>
+                        <i class="bi bi-chevron-down"></i>
+                        <ul class="dropdown-list">
+                            <% context.accountGroups.forEach(accountGroup => { %>
+                                <li class="dropdown-item" onclick="setValue(this, 'account-group-accountAdd-input')" value="<%= accountGroup.groupName %>">
+                                    <%= accountGroup.groupName %>
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Account name" name="newAccountName" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="number" placeholder="Account balance" name="newAccountBalance" required>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="button-wrapper">
+                        <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                        <button class="button-primary" type="submit">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <% context.accounts.forEach(account => { %>
+            <div class="modal" id="accounts-configuration-delete-<%= account.id %>">
+                <div class="modal-header flex-column">
+                    <h2>Delete this account? <%= account.name %></h2>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+                
+                <form action="/app/settings/delete/account" method="POST" class="modal-body">
+                    <input type="hidden" value="<%= account.id %>" name="accountID">
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary button-danger" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% }) %>
+
+        <% context.accountGroups.forEach(accountGroup => { %>
+            <div class="modal" id="accounts-configuration-delete-group-<%= accountGroup.id %>">
+                <div class="modal-header flex-column">
+                    <h2>Delete this group? <%= accountGroup.groupName %></h2>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+                
+                <form action="/app/settings/delete/account-group" method="POST" class="modal-body">
+                    <input type="hidden" value="<%= accountGroup.id %>" name="accountGroupID">
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary button-danger" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% }) %>
+
+        <!-- Modals end -->
+
+    </div>
+    <div id="app-container">
+        <div class="section-header">
+            <h2>Settings</h2>
+            <div class="input-wrapper dropdown mobile-menu-dropdown" id="mobile-menu-dropdown" onclick="toggleDropdown(this)">
+                <input type="text" id="mobile-menu-input" name="categoryName" value="Profile">
+                <i class="bi bi-chevron-down"></i>
+                <ul class="dropdown-list">
+                    <a class="dropdown-item radio-type" href="/app/settings/profile" onclick="setValue(this, 'mobile-menu-input')" value="Profile" data-link role="presentation">
+                        Profile
+                        <i class="bi bi-check-lg check"></i>
+                    </a>
+                    <a class="dropdown-item radio-type" href="/app/settings/configuration" onclick="setValue(this, 'mobile-menu-input')" value="Configuration" data-link role="presentation">
+                        Configuration
+                        <i class="bi bi-check-lg check"></i>
+                    </a>
+                    <a class="dropdown-item radio-type" href="/app/settings/accounts" onclick="setValue(this, 'mobile-menu-input')" value="Accounts" data-link role="presentation">
+                        Accounts
+                        <i class="bi bi-check-lg check"></i>
+                    </a>
+                    <a class="dropdown-item radio-type" href="/app/settings/general" onclick="setValue(this, 'mobile-menu-input')" value="General" data-link role="presentation">
+                        General
+                        <i class="bi bi-check-lg check"></i>
+                    </a>
+                    <a class="dropdown-item radio-type" href="/app/settings/security" onclick="setValue(this, 'mobile-menu-input')" value="Security" data-link role="presentation">
+                        Security
+                        <i class="bi bi-check-lg check"></i>
+                    </a>
+                </ul>
             </div>
         </div>
-        <div class="section-divider">
-            <h6>
-                GENERAL MANAGEMENT
-            </h6>
-        </div>
-        <section class="settings-section">
-            <ul class="section-list">
-                <a class="menu-link act-as-link" href="/app/settings/configuration" id="configuration-link" data-link><li>
-                    <div>
-                        <i class="bi bi-gear me-2" width="16" height="16"></i>Configuration
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </li></a>
-                <a class="menu-link act-as-link" href="/app/settings/accounts" onclick="toggleNestedMenu('accounts')" id="accounts-link" data-link><li>
-                    <div>
-                        <i class="bi bi-credit-card-2-back me-2"></i>Accounts
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </li></a>
-                <a class="menu-link act-as-link" href="/app/settings/plan" onclick="toggleNestedMenu('plan')" id="plan-link" data-link><li>
-                    <div>
-                        <i class="bi bi-award me-2"></i>Plan
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </li></a>
-                <a class="menu-link act-as-link" href="/app/settings/security" onclick="toggleNestedMenu('security')" id="security-link" data-link><li>
-                    <div>
-                        <i class="bi bi-shield-lock me-2"></i>Security
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </li></a>
-            </ul>
-        </section>
-        <div class="section-divider">
-            <h6>
-                PREFERENCES
-            </h6>
-        </div>
-        <section class="settings-section">
-            <ul class="section-list">
-                <li>
-                    <p onclick="toggleButton('dark-mode')">
-                        <i class="bi bi-moon me-2"></i>
-                        Dark Mode
-                    </p>
-                    <button class="bt-toggle active" id="dark-mode" onclick="toggleButton(this.id)">
-                        <div class="circle"></div>
-                    </button>
-                </li>
-                <li>
-                    <p onclick="toggleButton('notifications')">
-                        <i class="bi bi-bell me-2"></i>
-                        Notifications
-                    </p>
-                    <button class="bt-toggle active" id="notifications" onclick="toggleButton(this.id)">
-                        <div class="circle"></div>
-                    </button>
-                </li>
-                <a class="menu-link act-as-link" href="/app/settings/language" onclick="toggleNestedMenu('language')" id="language-link" data-link>
-                    <li>
-                        <div>
-                            <i class="bi bi-translate me-2"></i>
-                            Language
-                        </div>
-                        <i class="bi bi-chevron-right"></i>
-                    </li>
+
+        <section class="divided-section">
+            <menu class="navigation-menu">
+                <a class="active" href="/app/settings/profile" id="profile-link" data-link role="presentation">
+                    <li>Profile</li>
                 </a>
-            </ul>
-        </section>
-        <div class="section-divider">
-            <h6>MORE</h6>
-        </div>
-        <section class="settings-section">
-            <ul class="section-list">
-                <a class="menu-link" href="#">
-                    <li>
-                        <div>
-                            <i class="bi bi-phone me-2"></i>
-                            Get Mobile App
-                        </div>
-                    </li>
+                <a href="/app/settings/configuration" id="configuration-link" data-link role="presentation">
+                    <li>Configuration</li>
                 </a>
-                <a class="menu-link" href="#">
-                    <li>
-                        <div>
-                            <i class="bi bi-star me-2"></i>Feedback
-                        </div>
-                    </li>
+                <a href="/app/settings/accounts" id="accounts-link" data-link role="presentation">
+                    <li>Accounts</li>
                 </a>
-                <a class="menu-link" href="#">
-                    <li>
-                        <div>
-                            <i class="bi bi-cup-hot me-2"></i>
-                            Buy me a coffee
-                        </div>
-                    </li>
+                <a href="/app/settings/general" id="general-link" data-link role="presentation">
+                    <li>General</li>
                 </a>
-            </ul>
+                <a href="/app/settings/security" id="security-link" data-link role="presentation">
+                    <li>Security</li>
+                </a>
+                <li>Plan</li>
+                <li>Team</li>
+                <li>Notifications</li>
+                <li>API</li>
+            </menu>
+
+            <%- include('../partials/settings/_profile.ejs') %>
+            <%- include('../partials/settings/configuration/_configuration.ejs') %>
+            <%- include('../partials/settings/_general.ejs') %>
+            <%- include('../partials/settings/_plan.ejs') %>
+            <%- include('../partials/settings/_team.ejs') %>
+            <%- include('../partials/settings/_notifications.ejs') %>
+            <%- include('../partials/settings/accounts/_accounts.ejs') %>
+            <%- include('../partials/settings/_security.ejs') %>
+            <%- include('../partials/settings/_api.ejs') %>
         </section>
     </div>
-
-    <%- include('../partials/_configuration.ejs') %>
-    <%- include('../partials/_security.ejs') %>
-    <%- include('../partials/_accounts.ejs') %>
-    <%- include('../partials/_plan.ejs') %>
-    <%- include('../partials/_language.ejs') %>
-    <%- include('../partials/_repeat.ejs') %>
-    <%- include('../partials/_currency.ejs') %>
-
-    <script type="text/javascript" src="/public/js/app.js"></script>
-    <script type="text/javascript" src="/public/js/settings.js"></script>
+    <script type="text/javascript" src="/public/js/updated/main.js"></script>
+    <script type="text/javascript" src="/public/js/updated/settingsClientRouter.js"></script>
 </body>
 </html>

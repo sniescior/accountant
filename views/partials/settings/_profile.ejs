@@ -1,0 +1,63 @@
+<div class="container image-container active" id="profile" role="tabpanel">
+
+    <div class="content-image">
+        <img src="/public/images/background.jpg" alt="">
+    </div>
+
+    <div class="content-wrapper">
+        <div class="content">
+            <img class="user-image" src="/public/images/defaultavatar.png" alt="profile picture">
+        </div>
+        <div class="content-title flex">
+            <div>
+                <h2>Profile</h2>
+                <h4>Update your photo and personal data.</h4>
+            </div>
+            <form action="/app/settings/edit/profile" method="POST">
+                <input type="hidden" name="newUsername" id="username-input-final" value="<%- user.username %>" required>
+                <input type="hidden" name="newEmail" id="email-input-final" value="<%- user.email %>" required>
+                <div class="button-wrapper edit-buttons" id="profile-update-button">
+                    <button class="button-outline-secondary">Cancel</button>
+                    <button class="button-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="configuration-section">
+        <div class="configuration-item">
+            <div class="configuration-item-title">
+                <h4>Username</h4>
+            </div>
+            <div class="input-wrapper">
+                <input type="hidden" value="<%- user.username %>" id="username-input-initial">
+                <input type="text" placeholder="Username" value="<%- user.username %>" id="username-input" data-input="profile">
+            </div>
+        </div>
+        <span class="divider"></span>
+        <div class="configuration-item">
+            <div class="configuration-item-title">
+                <h4>Email</h4>
+            </div>
+            <div class="input-wrapper">
+                <input type="hidden" value="<%- user.email %>" id="email-input-initial">
+                <input type="text" placeholder="E-mail" value="<%- user.email %>" id="email-input" data-input="profile">
+            </div>
+        </div>
+        <span class="divider"></span>
+        <div class="configuration-item">
+            <div class="configuration-item-title wide">
+                <h4>Your photo</h4>
+                <h5>Will be displayed on your profile.</h5>
+            </div>
+            <div class="input-image-wrapper">
+                <img class="input-image-preview" src="/public/images/defaultavatar.png" alt="prfile picture">
+                <form action="">
+                    <div class="button-wrapper">
+                        <button class="button-secondary grey">Delete</button>
+                        <button class="button-secondary grey">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

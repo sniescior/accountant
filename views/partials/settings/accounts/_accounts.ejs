@@ -1,0 +1,24 @@
+
+<div class="container" id="accounts" role="tabpanel">
+    <div class="content-title">
+        <h2>Accounts</h2>
+    </div>
+    <div class="configuration-section">
+        <a href="/app/settings/accounts/groups" class="configuration-item interactive" id="accounts-groups-link" data-link role="presentation">
+            <div class="configuration-item-title">
+                <h4>Accounts groups</h4>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+        </a>
+        <span class="divider"></span>
+        <a href="/app/settings/accounts/accounts-configuration" class="configuration-item interactive" id="accounts-configuration-link" data-link role="presentation">
+            <div class="configuration-item-title">
+                <h4>Accounts configuration</h4>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+        </a>
+    </div>
+</div>
+
+<%- include('_accounts_groups.ejs') %>
+<%- include('_accounts_configuration.ejs') %>
