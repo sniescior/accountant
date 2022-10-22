@@ -13,7 +13,7 @@ settingsClientRoutes = [
     { path: '/app/settings/accounts', view: 'accounts', linkItem: 'accounts-link' },
     { path: '/app/settings/accounts/groups', view: 'accounts-groups', linkItem: 'accounts-link' },
     { path: '/app/settings/accounts/accounts-configuration', view: 'accounts-configuration', linkItem: 'accounts-link' },
-    { path: '/app/settings/general', view: 'general', linkItem: 'general-link"' },
+    { path: '/app/settings/general', view: 'general', linkItem: 'general-link' },
     { path: '/app/settings/security', view: 'security', linkItem: 'security-link' }
 ]
 

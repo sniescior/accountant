@@ -169,15 +169,18 @@ body {
                 height: 3px;
             }
         }
+
         @media screen and (max-width: 700px) {
             #mobile-menu {
                 display: block;
                 opacity: 0;
                 bottom: 30px;
-                z-index: -100;
+                z-index: -100000;
                 transition: .2s ease-in-out;
+                pointer-events: none;
                 
                 &.open {
+                    pointer-events: all;
                     bottom: 0;
                     opacity: 1;
                     z-index: 1;
