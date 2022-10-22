@@ -93,6 +93,16 @@ router.get('/configuration/budget', async (req, res) => {
     }
 })
 
+router.get('/accounts', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
 router.get('/accounts/groups', async (req, res) => {
     try {
         const { context, currentUser } = await getContext(req, res)
@@ -104,6 +114,26 @@ router.get('/accounts/groups', async (req, res) => {
 })
 
 router.get('/accounts/accounts-configuration', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/general', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/security', async (req, res) => {
     try {
         const { context, currentUser } = await getContext(req, res)
         
@@ -191,11 +221,7 @@ router.post('/add/account-group', async (req, res) => {
 router.post('/add/account', async (req, res) => {
     const body = req.body
 
-    console.log('Adding account')
-    console.log(body)
-
     try {
-        console.log('Adding account try succeeded')
         const newAccount = new Account({
             userID: req.user.id,
             name: body.newAccountName,
@@ -212,9 +238,6 @@ router.post('/add/account', async (req, res) => {
         selectedAccountGroup.accounts.push({
             accountID: newAccount._id
         })
-        
-        console.log('New Account created: ', newAccount)
-        console.log('New Group created', selectedAccountGroup)
 
         await selectedAccountGroup.save()
 
