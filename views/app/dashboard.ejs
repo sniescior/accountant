@@ -9,15 +9,196 @@
     <link rel="stylesheet" href="/public/styles/updated/main.css">
 </head>
 <body class="dark">
-    <div id="overlay" class="" onclick="closeModals()"></div>
+    <div id="overlay">
+        <div class="modal" id="add-transaction-modal">
+            <div class="modal-header">
+                <h2>Add transaction</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="nav-tabs-container modal-tabs">
+                <ul class="nav-tabs" id="dashboard-main-tabs" role="tablist">
+                    <li class="nav-link active" role="presentation" onclick="setTab(this, 'income')">Income</li>
+                    <li class="nav-link" role="presentation" onclick="setTab(this, 'expense')">Expense</li>
+                    <li class="nav-link" role="presentation" onclick="setTab(this, 'transfer')">Transfer</li>
+                </ul>
+            </div>
+            
+            <div class="tab active" id="income" role="tabpanel">
+                <form action="/app/dashboard/add/income-transaction" method="POST" class="modal-body">
+                    <div class="form-body">
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="Account" id="income-account-input" name="accountName">
+                            <i class="bi bi-chevron-down"></i>
+                            <ul class="dropdown-list">
+                                <% context.accounts.forEach(account => { %>
+                                    <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="<%= account.name %>">
+                                        <%= account.name %>
+                                        <i class="bi bi-check-lg check"></i>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </div>
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="Category" id="income-category-input" name="incomeCategoryName">
+                            <i class="bi bi-chevron-down"></i>
+                            <ul class="dropdown-list">
+                                <% context.incomeCategories.forEach(incomeCategory => { %>
+                                    <li class="dropdown-item" onclick="setValue(this, 'income-category-input')" value="<%= incomeCategory.name %>">
+                                        <%= incomeCategory.name %>
+                                        <i class="bi bi-check-lg check"></i>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-type-h1"></i>
+                            <input type="text" placeholder="Title" name="title">
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-currency-pound"></i>
+                            <input type="text" placeholder="Amount" name="amount">
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-sticky"></i>
+                            <input type="text" placeholder="Note" name="note">
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary" type="submit">Save transaction</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab" id="expense" role="tabpanel">
+                <form action="/app/dashboard/add/expense-transaction" method="POST" class="modal-body">
+                    <div class="form-body">
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="Account" id="expense-account-input" name="accountName">
+                            <i class="bi bi-chevron-down"></i>
+                            <ul class="dropdown-list">
+                                <% context.accounts.forEach(account => { %>
+                                    <li class="dropdown-item" onclick="setValue(this, 'expense-account-input')" value="<%= account.name %>">
+                                        <%= account.name %>
+                                        <i class="bi bi-check-lg check"></i>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </div>
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="Category" id="expense-category-input" name="expenseCategoryName">
+                            <i class="bi bi-chevron-down"></i>
+                            <ul class="dropdown-list">
+                                <% context.expenseCategories.forEach(expenseCategory => { %>
+                                    <li class="dropdown-item" onclick="setValue(this, 'expense-category-input')" value="<%= expenseCategory.name %>">
+                                        <%= expenseCategory.name %>
+                                        <i class="bi bi-check-lg check"></i>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-type-h1"></i>
+                            <input type="text" placeholder="Title" name="title">
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-currency-pound"></i>
+                            <input type="text" placeholder="Amount" name="amount">
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-sticky"></i>
+                            <input type="text" placeholder="Note" name="note">
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary" type="submit">Save transaction</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab" id="transfer" role="tabpanel">
+                <form action="" method="POST" class="modal-body">
+                    <div class="form-body">
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="From">
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                            <input type="text" placeholder="To">
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-currency-pound"></i>
+                            <input type="text" placeholder="Amount">
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="bi bi-sticky"></i>
+                            <input type="text" placeholder="Note">
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary" type="submit">Save transaction</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal" id="calendar-modal">
+            <div class="modal-header">
+                <h2>Date</h2>
+                <div class="button-wrapper">
+                    <button class="button-secondary" onclick="setCurrentYear('modal-calendar-year-select')">This month</button>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="button-wrapper calendar-control">
+                    <button class="button-icon secondary" onclick="yearBack('modal-calendar-year-select')">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <h2 id="modal-calendar-year-select">
+                        ND
+                    </h2>
+                    <button class="button-icon secondary" onclick="yearForward('modal-calendar-year-select')">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+                <form class="calendar" action="" method="POST" id="modal-calendar-form">
+                    <input type="hidden" id="modal-calendar-year-input" value="ND">
+                    <input type="hidden" id="modal-calendar-month-input" value="ND">
+                    <button class="month" id="JAN" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JAN</button>
+                    <button class="month" id="FEB" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">FEB</button>
+                    <button class="month" id="MAR" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">MAR</button>
+                    <button class="month" id="APR" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">APR</button>
+                    <button class="month" id="MAY" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">MAY</button>
+                    <button class="month" id="JUN" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JUN</button>
+                    <button class="month" id="JUL" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JUL</button>
+                    <button class="month" id="AUG" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">AUG</button>
+                    <button class="month" id="SEPT" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">SEPT</button>
+                    <button class="month" id="OCT" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">OCT</button>
+                    <button class="month" id="NOV" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">NOV</button>
+                    <button class="month" id="DEC" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">DEC</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
     <div id="app-container">
         <div class="user-menu-background">
             <menu class="user-menu">
                 <div class="user-menu-header">
                     <img class="user-menu-image" src="/public/images/defaultavatar.png" alt="">
                     <div class="user-menu-info">
-                        <h2><%= user.username %></h2>
-                        <h3><%= user.email %></h3>
+                        <h2><%- user.username %></h2>
+                        <h3><%- user.email %></h3>
                     </div>
                 </div>
 
@@ -270,173 +451,6 @@
             </div>
             <div class="tab" id="summary" role="tabpanel">
                 Summary - coming soon
-            </div>
-        </div>
-        <div class="modal" id="add-transaction-modal">
-            <div class="modal-header">
-                <h2>Add transaction</h2>
-            </div>
-            <div class="nav-tabs-container modal-tabs">
-                <ul class="nav-tabs" id="dashboard-main-tabs" role="tablist">
-                    <li class="nav-link active" role="presentation" onclick="setTab(this, 'income')">Income</li>
-                    <li class="nav-link" role="presentation" onclick="setTab(this, 'expense')">Expense</li>
-                    <li class="nav-link" role="presentation" onclick="setTab(this, 'transfer')">Transfer</li>
-                </ul>
-            </div>
-            
-            <div class="tab active" id="income" role="tabpanel">
-                <form action="" method="POST" class="modal-body">
-                    <div class="form-body">
-                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
-                            <input type="text" placeholder="Account" id="income-account-input">
-                            <i class="bi bi-chevron-down"></i>
-                            <ul class="dropdown-list">
-                                <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Cash">
-                                    Cash
-                                    <i class="bi bi-check-lg check"></i>
-                                </li>
-                                <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Card #1">
-                                    Card #1
-                                    <i class="bi bi-check-lg check"></i>
-                                </li>
-                                <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Card #2">
-                                    Card #2
-                                    <i class="bi bi-check-lg check"></i>
-                                </li>
-                                <li class="dropdown-item" onclick="setValue(this, 'income-account-input')" value="Oyster Card">
-                                    Oyster Card
-                                    <i class="bi bi-check-lg check"></i>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
-                            <input type="text" placeholder="Category" id="income-category-input">
-                            <i class="bi bi-chevron-down"></i>
-                            <ul class="dropdown-list">
-                                <li class="dropdown-item" onclick="setValue(this, 'income-category-input')" value="Salary">
-                                    Salary
-                                    <i class="bi bi-check-lg check"></i>
-                                </li>
-                                <li class="dropdown-item" onclick="setValue(this, 'income-category-input')" value="Allowance">
-                                    Allowance
-                                    <i class="bi bi-check-lg check"></i>
-                                </li>
-                                <li class="dropdown-item" onclick="setValue(this, 'income-category-input')" value="Inheritance">
-                                    Inheritance
-                                    <i class="bi bi-check-lg check"></i>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="input-wrapper">
-                            <i class="bi bi-currency-pound"></i>
-                            <input type="text" placeholder="Amount">
-                        </div>
-                        <div class="input-wrapper">
-                            <i class="bi bi-sticky"></i>
-                            <input type="text" placeholder="Note">
-                        </div>
-                    </div>
-                    <div class="form-footer">
-                        <div class="button-wrapper">
-                            <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
-                            <button class="button-primary" type="submit">Save transaction</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="tab" id="expense" role="tabpanel">
-                <form action="" method="POST" class="modal-body">
-                    <div class="form-body">
-                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
-                            <input type="text" placeholder="Account">
-                            <i class="bi bi-chevron-down"></i>
-                        </div>
-                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
-                            <input type="text" placeholder="Category">
-                            <i class="bi bi-chevron-down"></i>
-                        </div>
-                        <div class="input-wrapper">
-                            <i class="bi bi-currency-pound"></i>
-                            <input type="text" placeholder="Amount">
-                        </div>
-                        <div class="input-wrapper">
-                            <i class="bi bi-sticky"></i>
-                            <input type="text" placeholder="Note">
-                        </div>
-                    </div>
-                    <div class="form-footer">
-                        <div class="button-wrapper">
-                            <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
-                            <button class="button-primary" type="submit">Save transaction</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="tab" id="transfer" role="tabpanel">
-                <form action="" method="POST" class="modal-body">
-                    <div class="form-body">
-                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
-                            <input type="text" placeholder="From">
-                            <i class="bi bi-chevron-down"></i>
-                        </div>
-                        <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
-                            <input type="text" placeholder="To">
-                            <i class="bi bi-chevron-down"></i>
-                        </div>
-                        <div class="input-wrapper">
-                            <i class="bi bi-currency-pound"></i>
-                            <input type="text" placeholder="Amount">
-                        </div>
-                        <div class="input-wrapper">
-                            <i class="bi bi-sticky"></i>
-                            <input type="text" placeholder="Note">
-                        </div>
-                    </div>
-                    <div class="form-footer">
-                        <div class="button-wrapper">
-                            <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
-                            <button class="button-primary" type="submit">Save transaction</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="modal" id="calendar-modal">
-            <div class="modal-header">
-                <h2>Date</h2>
-                <button class="button-secondary" onclick="setCurrentYear('modal-calendar-year-select')">This month</button>
-            </div>
-            <div class="modal-body">
-                <div class="button-wrapper calendar-control">
-                    <button class="button-icon secondary" onclick="yearBack('modal-calendar-year-select')">
-                        <i class="bi bi-chevron-left"></i>
-                    </button>
-                    <h2 id="modal-calendar-year-select">
-                        ND
-                    </h2>
-                    <button class="button-icon secondary" onclick="yearForward('modal-calendar-year-select')">
-                        <i class="bi bi-chevron-right"></i>
-                    </button>
-                </div>
-                <form class="calendar" action="" method="POST" id="modal-calendar-form">
-                    <input type="hidden" id="modal-calendar-year-input" value="ND">
-                    <input type="hidden" id="modal-calendar-month-input" value="ND">
-                    <button class="month" id="JAN" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JAN</button>
-                    <button class="month" id="FEB" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">FEB</button>
-                    <button class="month" id="MAR" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">MAR</button>
-                    <button class="month" id="APR" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">APR</button>
-                    <button class="month" id="MAY" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">MAY</button>
-                    <button class="month" id="JUN" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JUN</button>
-                    <button class="month" id="JUL" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">JUL</button>
-                    <button class="month" id="AUG" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">AUG</button>
-                    <button class="month" id="SEPT" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">SEPT</button>
-                    <button class="month" id="OCT" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">OCT</button>
-                    <button class="month" id="NOV" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">NOV</button>
-                    <button class="month" id="DEC" onclick="sendCalendarForm(this, 'modal-calendar-year-input', 'modal-calendar-month-input', 'modal-calendar-form')" type="button">DEC</button>
-                </form>
             </div>
         </div>
 
