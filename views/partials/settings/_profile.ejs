@@ -1,4 +1,4 @@
-<div class="container image-container" id="profile" role="tabpanel">
+<div class="container image-container active" id="profile" role="tabpanel">
 
     <div class="content-image">
         <img src="/public/images/background.jpg" alt="">
@@ -40,12 +40,12 @@
             </div>
             <div class="input-wrapper">
                 <input type="hidden" value="<%- user.email %>" id="email-input-initial">
-                <input type="email" placeholder="e-mail" value="<%- user.email %>" id="email-input" data-input="profile">
+                <input type="text" placeholder="E-mail" value="<%- user.email %>" id="email-input" data-input="profile">
             </div>
         </div>
         <span class="divider"></span>
         <div class="configuration-item">
-            <div class="configuration-item-title">
+            <div class="configuration-item-title wide">
                 <h4>Your photo</h4>
                 <h5>Will be displayed on your profile.</h5>
             </div>

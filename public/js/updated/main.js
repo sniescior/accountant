@@ -56,7 +56,8 @@ const toggleDropdown = (dropdownWrapper) => {
 const setValue = (selectedItem, dropdownID) => {
     const dropdown = document.getElementById(dropdownID)
     
-    if(selectedItem.classList.contains('selected')) {
+    // radio-type -> means at least one element has to be selected all the time
+    if(selectedItem.classList.contains('selected') && !selectedItem.classList.contains('radio-type')) {
         selectedItem.classList.remove('selected')
         dropdown.value = null
     } else {
@@ -143,3 +144,8 @@ dataUpdateInputs.forEach(dataUpdateInput => {
         inputElementFinal.value = inputElement.value
     })
 })
+
+const mobileMenu = document.getElementById('mobile-menu')
+const toggleMobileMenu = () => {
+    mobileMenu.classList.toggle('open')
+}

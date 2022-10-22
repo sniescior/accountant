@@ -9,32 +9,105 @@ const { default: mongoose } = require('mongoose')
 const validatePassword = require('../lib/passwordUtils').validatePassword
 const genPassword = require('../lib/passwordUtils').genPassword
 
-router.get('/*', async (req, res) => {
+router.get('/', (req, res) => {
+    res.redirect('/app/settings/profile')
+})
+
+const getContext = async (req, res) => {
+    const userID = mongoose.Types.ObjectId(req.user.id)
+    const incomeCategories = await incomeCategory.find({ userID: userID })
+    const expenseCategories = await expenseCategory.find({ userID: userID })
+    const accountGroups = await accountGroup.find({ userID: userID })
+    const accounts = await Account.find({ userID: req.user.id })
     
-    try {
-        const userID = mongoose.Types.ObjectId(req.user.id)
-        const incomeCategories = await incomeCategory.find({ userID: userID })
-        const expenseCategories = await expenseCategory.find({ userID: userID })
-        const accountGroups = await accountGroup.find({ userID: userID })
-        const accounts = await Account.find({ userID: req.user.id })
-        
-        // Categories that have a set budget
-        const budgetSetCategories = []
-        expenseCategories.forEach(expenseCategory => {
-            if(expenseCategory.budget != null) {
-                budgetSetCategories.push(expenseCategory)
-            }
-        })
-        
-        const context = {
-            incomeCategories: incomeCategories,
-            expenseCategories: expenseCategories,
-            budgetSetCategories: budgetSetCategories,
-            accountGroups: accountGroups,
-            accounts: accounts
+    // Categories that have a set budget
+    const budgetSetCategories = []
+    expenseCategories.forEach(expenseCategory => {
+        if(expenseCategory.budget != null) {
+            budgetSetCategories.push(expenseCategory)
         }
+    })
+    
+    const context = {
+        incomeCategories: incomeCategories,
+        expenseCategories: expenseCategories,
+        budgetSetCategories: budgetSetCategories,
+        accountGroups: accountGroups,
+        accounts: accounts
+    }
+
+    const currentUser = await User.findById(req.user.id)
+
+    return {
+        context, currentUser
+    }
+}
+
+router.get('/profile', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
         
-        res.render('app/settings', { user: req.user, context: context })
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/configuration', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/configuration/income-categories', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/configuration/expense-categories', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/configuration/budget', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/accounts/groups', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/accounts/accounts-configuration', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
     } catch(error) {
         res.redirect('/404')
     }
@@ -55,9 +128,9 @@ router.post('/add/income-category', async (req, res) => {
         
         await newIncomeCategory.save()
         
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     }
 })
 
@@ -72,9 +145,9 @@ router.post('/add/expense-category', async (req, res) => {
         
         await newExpenseCategory.save()
         
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     }
 })
 
@@ -92,9 +165,9 @@ router.post('/add/budget', async (req, res) => {
             budget: budgetAmount
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/budget')
     } catch (error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/budget')
     }
 })
 
@@ -109,9 +182,9 @@ router.post('/add/account-group', async (req, res) => {
         })
 
         await newAccountGroup.save()
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/groups')
     } catch (error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/groups')
     }
 })
 
@@ -126,9 +199,9 @@ router.post('/add/account', async (req, res) => {
         })
 
         await newAccount.save()
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     }
 })
 
@@ -150,9 +223,9 @@ router.post('/edit/expense-category', async (req, res) => {
             name: categoryNewName
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     }
 })
 
@@ -170,9 +243,9 @@ router.post('/edit/income-category', async (req, res) => {
             name: categoryNewName
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     }
 })
 
@@ -190,9 +263,9 @@ router.post('/edit/budget', async (req, res) => {
             budget: newAmount
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/budget')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/budget')
     }
 })
 
@@ -232,9 +305,9 @@ router.post('/edit/profile', async (req, res) => {
             }
         }
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/profile')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/profile')
     }
 })
 
@@ -252,9 +325,9 @@ router.post('/edit/password', async (req, res) => {
             // Old password doesn't match
         }
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/security')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/security')
     }
 })
 
@@ -272,9 +345,9 @@ router.post('/edit/account-group', async (req, res) => {
             groupName: groupNewName
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/groups')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/accounts/groups')
     }
 })
 
@@ -294,9 +367,9 @@ router.post('/edit/account', async (req, res) => {
             amount: accountNewBalance
         })
 
-        res.redirect('app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     } catch(error) {
-        res.redirect('app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     }
 })
 
@@ -315,9 +388,9 @@ router.post('/delete/income-category', async (req, res) => {
             userID: req.user.id
         })
 
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/income-categories')
     }
 })
 
@@ -332,9 +405,9 @@ router.post('/delete/expense-category', async (req, res) => {
             userID: req.user.id
         })
         
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     } catch(error) {
-        res.redirect('/app/settings')
+        res.redirect('/app/settings/configuration/expense-categories')
     }
 })
 
@@ -351,9 +424,9 @@ router.post('/delete/budget', async (req, res) => {
             budget: null
         })
 
-        res.redirect('app/settings')
+        res.redirect('/app/settings/configuration/budget')
     } catch(error) {
-        res.redirect('app/settings')
+        res.redirect('/app/settings/configuration/budget')
     }
 })
 
@@ -367,9 +440,25 @@ router.post('/delete/account', async (req, res) => {
             userID: req.user.id
         })
 
-        res.redirect('app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
     } catch(error) {
-        res.redirect('app/settings')
+        res.redirect('/app/settings/accounts/accounts-configuration')
+    }
+})
+
+router.post('/delete/account-group', async (req, res) => {
+    const body = req.body
+
+    try {
+        const accountGroupID = body.accountGroupID
+        await accountGroup.findOneAndDelete({
+            _id: accountGroupID,
+            userID: req.user.id
+        })
+
+        res.redirect('/app/settings/accounts/groups')
+    } catch(error) {
+        res.redirect('/app/settings/accounts/groups')
     }
 })
 
