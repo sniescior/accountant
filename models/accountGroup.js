@@ -10,14 +10,10 @@ const accountGroupSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    accounts: [
-        {
-            accountID: {
-                type: mongoose.Schema.Types.ObjectId, 
-                ref: 'Account'
-            }
-        }
-    ]
+    accounts: [{ 
+        _id: false,
+        accountID: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' } 
+    }]
 })
 
 const accountGroup = dbConnection.model('accountGroup', accountGroupSchema)

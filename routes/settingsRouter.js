@@ -191,14 +191,33 @@ router.post('/add/account-group', async (req, res) => {
 router.post('/add/account', async (req, res) => {
     const body = req.body
 
+    console.log('Adding account')
+    console.log(body)
+
     try {
+        console.log('Adding account try succeeded')
         const newAccount = new Account({
             userID: req.user.id,
             name: body.newAccountName,
             amount: body.newAccountBalance
         })
 
+        const selectedAccountGroup = await accountGroup.findOne({
+            userID: req.user.id,
+            groupName: body.accountGroupName
+        })
+
         await newAccount.save()
+
+        selectedAccountGroup.accounts.push({
+            accountID: newAccount._id
+        })
+        
+        console.log('New Account created: ', newAccount)
+        console.log('New Group created', selectedAccountGroup)
+
+        await selectedAccountGroup.save()
+
         res.redirect('/app/settings/accounts/accounts-configuration')
     } catch(error) {
         res.redirect('/app/settings/accounts/accounts-configuration')
@@ -435,6 +454,15 @@ router.post('/delete/account', async (req, res) => {
 
     try {
         const accountID = body.accountID
+
+        try {
+            const accountGroupToUpdate = await accountGroup.findOne({
+                accounts: { accountID: mongoose.Types.ObjectId(accountID)}
+            })
+            accountGroupToUpdate.accounts.pull({ accountID: accountID })
+            await accountGroupToUpdate.save()
+        } catch(error) {}
+        
         await Account.findOneAndDelete({
             _id: accountID,
             userID: req.user.id
