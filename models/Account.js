@@ -10,5 +10,9 @@ const accountSchema = new mongoose.Schema({
     amount: Number
 })
 
+accountSchema.post('remove', (doc) => {
+    console.log('Removed: ', doc);
+})
+
 const Account = dbConnection.model('Account', accountSchema)
 module.exports = Account

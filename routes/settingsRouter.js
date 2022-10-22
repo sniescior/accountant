@@ -93,6 +93,16 @@ router.get('/configuration/budget', async (req, res) => {
     }
 })
 
+router.get('/accounts', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
 router.get('/accounts/groups', async (req, res) => {
     try {
         const { context, currentUser } = await getContext(req, res)
@@ -104,6 +114,26 @@ router.get('/accounts/groups', async (req, res) => {
 })
 
 router.get('/accounts/accounts-configuration', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/general', async (req, res) => {
+    try {
+        const { context, currentUser } = await getContext(req, res)
+        
+        res.render('app/settings', { user: currentUser, context: context })
+    } catch(error) {
+        res.redirect('/404')
+    }
+})
+
+router.get('/security', async (req, res) => {
     try {
         const { context, currentUser } = await getContext(req, res)
         
@@ -198,7 +228,19 @@ router.post('/add/account', async (req, res) => {
             amount: body.newAccountBalance
         })
 
+        const selectedAccountGroup = await accountGroup.findOne({
+            userID: req.user.id,
+            groupName: body.accountGroupName
+        })
+
         await newAccount.save()
+
+        selectedAccountGroup.accounts.push({
+            accountID: newAccount._id
+        })
+
+        await selectedAccountGroup.save()
+
         res.redirect('/app/settings/accounts/accounts-configuration')
     } catch(error) {
         res.redirect('/app/settings/accounts/accounts-configuration')
@@ -435,6 +477,15 @@ router.post('/delete/account', async (req, res) => {
 
     try {
         const accountID = body.accountID
+
+        try {
+            const accountGroupToUpdate = await accountGroup.findOne({
+                accounts: { accountID: mongoose.Types.ObjectId(accountID)}
+            })
+            accountGroupToUpdate.accounts.pull({ accountID: accountID })
+            await accountGroupToUpdate.save()
+        } catch(error) {}
+        
         await Account.findOneAndDelete({
             _id: accountID,
             userID: req.user.id

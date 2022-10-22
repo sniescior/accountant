@@ -5,16 +5,16 @@
 const containers = document.getElementsByClassName('container')
 
 settingsClientRoutes = [
-    { path: '/app/settings/profile', view: 'profile' },
-    { path: '/app/settings/configuration', view: 'configuration' },
-    { path: '/app/settings/configuration/income-categories', view: 'configuration-income-categories' },
-    { path: '/app/settings/configuration/expense-categories', view: 'configuration-expense-categories' },
-    { path: '/app/settings/configuration/budget', view: 'configuration-budget' },
-    { path: '/app/settings/accounts', view: 'accounts' },
-    { path: '/app/settings/accounts/groups', view: 'accounts-groups' },
-    { path: '/app/settings/accounts/accounts-configuration', view: 'accounts-configuration' },
-    { path: '/app/settings/general', view: 'general' },
-    { path: '/app/settings/security', view: 'security' }
+    { path: '/app/settings/profile', view: 'profile', linkItem: 'profile-link' },
+    { path: '/app/settings/configuration', view: 'configuration', linkItem: 'configuration-link' },
+    { path: '/app/settings/configuration/income-categories', view: 'configuration-income-categories', linkItem: 'configuration-link' },
+    { path: '/app/settings/configuration/expense-categories', view: 'configuration-expense-categories', linkItem: 'configuration-link' },
+    { path: '/app/settings/configuration/budget', view: 'configuration-budget', linkItem: 'configuration-link' },
+    { path: '/app/settings/accounts', view: 'accounts', linkItem: 'accounts-link' },
+    { path: '/app/settings/accounts/groups', view: 'accounts-groups', linkItem: 'accounts-link' },
+    { path: '/app/settings/accounts/accounts-configuration', view: 'accounts-configuration', linkItem: 'accounts-link' },
+    { path: '/app/settings/general', view: 'general', linkItem: 'general-link' },
+    { path: '/app/settings/security', view: 'security', linkItem: 'security-link' }
 ]
 
 const navigateTo = url => {
@@ -53,7 +53,7 @@ settingsClientRouter = async () => {
     })
 
     let match = potentialMatches.find(potentialMatch => potentialMatch.isMatch)
-    route(match.route.view, match.route.view + '-link')
+    route(match.route.view, match.route.linkItem)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
