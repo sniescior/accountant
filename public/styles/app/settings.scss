@@ -238,6 +238,12 @@ body {
 
                 .configuration-section {
                     margin-top: 30px;
+                    padding: 0 12px;                  
+
+                    .divider {
+                        width: 100%;
+                        margin: 12px 0;
+                    }
 
                     .configuration-form {
                         display: flex;
@@ -302,7 +308,7 @@ body {
                         justify-content: space-between;
                         align-items: center;
                         gap: 40px;
-                        padding: 20px 30px;
+                        padding: 20px 10px;
                         text-decoration: none;
 
                         &.interactive {
@@ -320,6 +326,7 @@ body {
                         i {
                             transition: .2s ease-in-out;
                             color: $white_font_color;
+                            margin-right: 8px;
                         }
 
                         .input-image-wrapper {

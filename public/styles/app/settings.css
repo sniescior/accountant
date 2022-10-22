@@ -187,6 +187,11 @@ body #app-container .divided-section .container .divider {
 }
 body #app-container .divided-section .container .configuration-section {
   margin-top: 30px;
+  padding: 0 12px;
+}
+body #app-container .divided-section .container .configuration-section .divider {
+  width: 100%;
+  margin: 12px 0;
 }
 body #app-container .divided-section .container .configuration-section .configuration-form {
   display: flex;
@@ -241,7 +246,7 @@ body #app-container .divided-section .container .configuration-section .configur
   justify-content: space-between;
   align-items: center;
   gap: 40px;
-  padding: 20px 30px;
+  padding: 20px 10px;
   text-decoration: none;
 }
 body #app-container .divided-section .container .configuration-section .configuration-item.interactive {
@@ -256,6 +261,7 @@ body #app-container .divided-section .container .configuration-section .configur
 body #app-container .divided-section .container .configuration-section .configuration-item i {
   transition: 0.2s ease-in-out;
   color: #eee;
+  margin-right: 8px;
 }
 body #app-container .divided-section .container .configuration-section .configuration-item .input-image-wrapper {
   display: flex;

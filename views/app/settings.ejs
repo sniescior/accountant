@@ -11,7 +11,247 @@
 </head>
 <body class="dark">
     <%- include('../partials/_navbar.ejs') %>
-    <div id="overlay" onclick="closeModals()"></div>
+    <div id="overlay">
+
+        <!-- Configuration Modals -->
+        
+        <div class="modal" id="add-expense-category-modal">
+            <div class="modal-header">
+                <h2>Add expense category</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            
+            <form action="/app/settings/add/expense-category" method="POST" class="modal-body">
+                <div class="form-body">
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Category name" name="categoryName">
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="button-wrapper">
+                        <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                        <button class="button-primary" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <% context.expenseCategories.forEach(expenseCategory => { %>
+            <div class="modal" id="delete-<%= expenseCategory.id %>">
+                <div class="modal-header">
+                    <div class="flex-column">
+                        <h2>Delete category? <%= expenseCategory.name %></h2>
+                        <h3>And every transactions associated with it?</h3>
+                    </div>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+                
+                <form action="/app/settings/delete/expense-category" method="POST" class="modal-body">
+                    <input type="hidden" value="<%= expenseCategory.id %>" name="categoryID">
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary button-danger" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% }) %>
+
+        <div class="modal" id="add-income-category-modal">
+            <div class="modal-header">
+                <h2>Add income category</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            
+            <form action="/app/settings/add/income-category" method="POST" class="modal-body">
+                <div class="form-body">
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Category name" name="categoryName" required>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="button-wrapper">
+                        <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                        <button class="button-primary" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <% context.incomeCategories.forEach(incomeCategory => { %>
+            <div class="modal" id="delete-<%= incomeCategory.id %>">
+                <div class="modal-header">
+                    <div class="flex-column">
+                        <h2>Delete category? <%= incomeCategory.name %></h2>
+                        <h3>And every transactions associated with it?</h3>
+                    </div>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+                
+                <form action="/app/settings/delete/income-category" method="POST" class="modal-body">
+                    <input type="hidden" value="<%= incomeCategory.id %>" name="categoryID">
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary button-danger" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% }) %>
+
+        <div class="modal" id="add-budget-modal">
+            <div class="modal-header">
+                <h2>Add budget</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            
+            <form action="/app/settings/add/budget" method="POST" class="modal-body">
+                <div class="form-body">
+                    <div class="input-wrapper">
+                        <input type="number" placeholder="Amount" name="budgetAmount" required>
+                    </div>
+                    <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                        <input type="text" placeholder="Category" id="budget-category-input" name="categoryName" required>
+                        <i class="bi bi-chevron-down"></i>
+                        <ul class="dropdown-list">
+                            <% context.expenseCategories.forEach(expenseCategory => { %>
+                                <li class="dropdown-item" onclick="setValue(this, 'budget-category-input')" value="<%= expenseCategory.name %>">
+                                    <%= expenseCategory.name %>
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="button-wrapper">
+                        <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                        <button class="button-primary" type="submit">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <% context.budgetSetCategories.forEach(expenseCategory => { %>
+            <div class="modal" id="budget-delete-<%= expenseCategory.id %>">
+                <div class="modal-header flex-column">
+                    <h2>Delete budget for <%= expenseCategory.name %>?</h2>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+                
+                <form action="/app/settings/delete/budget" method="POST" class="modal-body">
+                    <input type="hidden" value="<%= expenseCategory.id %>" name="categoryID">
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary button-danger" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% }) %>
+
+        <!-- Accounts Modals -->
+        <div class="modal" id="add-group-modal">
+            <div class="modal-header">
+                <h2>Add accounts group</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            
+            <form action="/app/settings/add/account-group" method="POST" class="modal-body">
+                <div class="form-body">
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Group name" name="groupName" required>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="button-wrapper">
+                        <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                        <button class="button-primary" type="submit">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal" id="add-account-modal">
+            <div class="modal-header">
+                <h2>Add account</h2>
+                <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+            </div>
+            
+            <form action="/app/settings/add/account" method="POST" class="modal-body">
+                <div class="form-body">
+                    <div class="input-wrapper dropdown" onclick="toggleDropdown(this)">
+                        <input type="text" placeholder="Account group" id="account-group-accountAdd-input" name="accountGroupName" required>
+                        <i class="bi bi-chevron-down"></i>
+                        <ul class="dropdown-list">
+                            <% context.accountGroups.forEach(accountGroup => { %>
+                                <li class="dropdown-item" onclick="setValue(this, 'account-group-accountAdd-input')" value="<%= accountGroup.groupName %>">
+                                    <%= accountGroup.groupName %>
+                                    <i class="bi bi-check-lg check"></i>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Account name" name="newAccountName" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="number" placeholder="Account balance" name="newAccountBalance" required>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="button-wrapper">
+                        <button class="button-secondary" type="button" onclick="closeModals()">Cancel</button>
+                        <button class="button-primary" type="submit">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <% context.accounts.forEach(account => { %>
+            <div class="modal" id="accounts-configuration-delete-<%= account.id %>">
+                <div class="modal-header flex-column">
+                    <h2>Delete this account? <%= account.name %></h2>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+                
+                <form action="/app/settings/delete/account" method="POST" class="modal-body">
+                    <input type="hidden" value="<%= account.id %>" name="accountID">
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary button-danger" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% }) %>
+
+        <% context.accountGroups.forEach(accountGroup => { %>
+            <div class="modal" id="accounts-configuration-delete-group-<%= accountGroup.id %>">
+                <div class="modal-header flex-column">
+                    <h2>Delete this group? <%= accountGroup.groupName %></h2>
+                    <button onclick="closeModals()" class="close-button"><i class="bi bi-x-lg"></i></button>
+                </div>
+                
+                <form action="/app/settings/delete/account-group" method="POST" class="modal-body">
+                    <input type="hidden" value="<%= accountGroup.id %>" name="accountGroupID">
+                    <div class="form-footer">
+                        <div class="button-wrapper">
+                            <button class="button-secondary grey" type="button" onclick="closeModals()">Cancel</button>
+                            <button class="button-primary button-danger" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% }) %>
+
+        <!-- Modals end -->
+
+    </div>
     <div id="app-container">
         <div class="section-header">
             <h2>Settings</h2>

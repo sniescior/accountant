@@ -446,4 +446,20 @@ router.post('/delete/account', async (req, res) => {
     }
 })
 
+router.post('/delete/account-group', async (req, res) => {
+    const body = req.body
+
+    try {
+        const accountGroupID = body.accountGroupID
+        await accountGroup.findOneAndDelete({
+            _id: accountGroupID,
+            userID: req.user.id
+        })
+
+        res.redirect('/app/settings/accounts/groups')
+    } catch(error) {
+        res.redirect('/app/settings/accounts/groups')
+    }
+})
+
 module.exports = router
