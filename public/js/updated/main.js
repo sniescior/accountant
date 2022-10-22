@@ -144,3 +144,8 @@ dataUpdateInputs.forEach(dataUpdateInput => {
         inputElementFinal.value = inputElement.value
     })
 })
+
+const mobileMenu = document.getElementById('mobile-menu')
+const toggleMobileMenu = () => {
+    mobileMenu.classList.toggle('open')
+}

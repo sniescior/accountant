@@ -23,7 +23,11 @@
             </div>
         </div>
     </div>
-    <button type="button" class="button hamburger">
+    <button type="button" class="button hamburger" onclick="toggleMobileMenu()">
         <i class="bi bi-list"></i>
     </button>
+    <menu id="mobile-menu">
+        <li><a href="/app/dashboard"><i class="bi bi-house-door"></i>Dashboard</a></li>
+        <li><a href="/auth/logout"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+    </menu>
 </nav>
