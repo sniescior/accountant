@@ -4,7 +4,7 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #111;
+  background-color: #191919;
   width: 100vw;
   overflow-x: hidden;
 }
@@ -59,6 +59,9 @@ body .nav-tabs-container {
   padding: 0 20px;
   box-sizing: border-box;
 }
+body .nav-tabs-container .show-mobile {
+  display: none;
+}
 body .nav-tabs-container .nav-tabs {
   display: flex;
   justify-content: center;
@@ -101,6 +104,31 @@ body .nav-tabs-container .nav-tabs .nav-link.active {
 }
 body .nav-tabs-container .nav-tabs .nav-link.active::after {
   background-color: rgb(13, 110, 253);
+}
+@media screen and (max-width: 900px) {
+  body .nav-tabs-container {
+    flex-direction: column;
+  }
+  body .nav-tabs-container .nav-tabs {
+    margin: 0;
+    margin-top: 14px;
+    padding: 0;
+    box-sizing: border-box;
+    margin-right: 30px;
+    margin-left: 30px;
+    font-size: 1em;
+  }
+  body .nav-tabs-container .nav-tabs.main .nav-link {
+    margin: 2px 8px;
+    padding: 0;
+  }
+  body .nav-tabs-container .hide-mobile {
+    display: none;
+  }
+  body .nav-tabs-container .show-mobile {
+    margin-top: 12px;
+    display: flex;
+  }
 }
 body #navbar {
   width: 100vw;
@@ -642,6 +670,10 @@ body .button-wrapper.end {
 body .button-wrapper.start {
   justify-content: flex-start;
 }
+body .button-wrapper.between {
+  width: 100%;
+  justify-content: space-between;
+}
 body .button-wrapper.column {
   flex-direction: column;
   gap: 10px;
@@ -693,7 +725,7 @@ body #overlay {
   overflow-y: hidden;
 }
 body #overlay.visible {
-  z-index: 100000;
+  z-index: 10000000;
   opacity: 1;
 }
 body #overlay .modal {
@@ -766,6 +798,7 @@ body #app-container {
   width: 100%;
   display: flex;
   overflow-x: hidden;
+  padding-bottom: 90px;
 }
 body #app-container .banner-text {
   height: 100vh;
@@ -792,6 +825,7 @@ body #app-container .user-menu-background {
   background-image: url("/public/images/background.jpg");
   background-position: center;
   background-size: cover;
+  position: fixed;
 }
 body #app-container .user-menu-background .user-menu {
   background-color: rgba(17, 17, 17, 0.7);
@@ -868,6 +902,10 @@ body #app-container .bottom-tab-bar .bottom-tab-bar-navigation-list {
   width: 100%;
   padding: 0;
 }
+body #app-container .bottom-tab-bar .bottom-tab-bar-navigation-list a {
+  display: flex;
+  align-items: center;
+}
 body #app-container .bottom-tab-bar .bottom-tab-bar-navigation-list a li {
   position: relative;
 }
@@ -928,7 +966,7 @@ body #app-container .bottom-tab-bar .bottom-tab-bar-navigation-list .user-image-
   gap: 18px;
   flex-direction: column;
   background-color: #151515;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 54px 55px, rgba(0, 0, 0, 0.9) 0px -12px 30px, rgba(0, 0, 0, 0.9) 0px 4px 6px, rgba(0, 0, 0, 0.9) 0px 12px 13px, rgba(0, 0, 0, 0.9) 0px -3px 5px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 54px 55px, rgba(0, 0, 0, 0.6) 0px -12px 30px, rgba(0, 0, 0, 0.6) 0px 4px 6px, rgba(0, 0, 0, 0.6) 0px 12px 13px, rgba(0, 0, 0, 0.6) 0px -3px 5px;
   z-index: -100;
   opacity: 0;
   pointer-events: none;
@@ -963,22 +1001,13 @@ body #app-container .bottom-tab-bar .bottom-tab-bar-navigation-list .user-image-
   height: 2px;
   margin: 0;
 }
-@media screen and (max-width: 1190px) {
-  body #app-container .user-menu-background {
-    display: none;
-  }
-  body #app-container .bottom-tab-bar {
-    display: initial;
-  }
-}
 body #app-container .content-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   position: relative;
-  overflow-y: scroll;
-  height: 100vh;
+  margin-left: 300px;
   padding-bottom: 40px;
   box-sizing: border-box;
 }
@@ -1056,6 +1085,16 @@ body #app-container .content-container .summary-table-container .summary-table-f
 body #app-container .content-container .summary-table-container .summary-table-footer h2 {
   margin: 0 10px;
 }
+@media screen and (max-width: 650px) {
+  body #app-container .content-container .summary-table-container .summary-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  body #app-container .content-container .summary-table-container .summary-table-header .button-wrapper {
+    width: 100%;
+  }
+}
 body #app-container .content-container .content {
   width: 100%;
   padding: 10px 20px;
@@ -1071,4 +1110,33 @@ body #app-container .content-container .content .subcontent-title {
 body #app-container .content-container .content .quick-stats {
   display: flex;
   gap: 30px;
+}
+body #app-container .content-container .content .quick-stats .card {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+@media screen and (max-width: 600px) {
+  body #app-container .content-container .content .quick-stats {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  body #app-container .content-container .content .quick-stats .card {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 1190px) {
+  body #app-container .user-menu-background {
+    display: none;
+  }
+  body #app-container .bottom-tab-bar {
+    display: initial;
+  }
+  body #app-container .content-container {
+    margin-left: 0;
+  }
 }/*# sourceMappingURL=main.css.map */

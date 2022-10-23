@@ -244,14 +244,14 @@
 
         <div class="content-container">
             <div class="nav-tabs-container">
-                <button class="button-primary" onclick="openModal('add-transaction-modal')">Add transaction</button>
+                <button class="button-primary hide-mobile" onclick="openModal('add-transaction-modal')">Add transaction</button>
                 <ul class="nav-tabs main" id="dashboard-main-tabs" role="tablist">
                     <li class="nav-link active" role="presentation" onclick="setTab(this, 'daily')">Daily</li>
                     <li class="nav-link" role="presentation" onclick="setTab(this, 'weekly')">Weekly</li>
                     <li class="nav-link" role="presentation" onclick="setTab(this, 'monthly')">Monthly</li>
                     <li class="nav-link" role="presentation" onclick="setTab(this, 'summary')">Summary</li>
                 </ul>
-                <div class="button-wrapper">
+                <div class="button-wrapper hide-mobile">
                     <button class="button-icon secondary">
                         <i class="bi bi-chevron-left"></i>
                     </button>
@@ -261,6 +261,21 @@
                     <button class="button-icon secondary">
                         <i class="bi bi-chevron-right"></i>
                     </button>
+                </div>
+
+                <div class="button-wrapper show-mobile">
+                    <div class="button-wrapper between">
+                        <button class="button-primary" onclick="openModal('add-transaction-modal')">Add transaction</button>
+                        <button class="button-icon secondary">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="button-secondary text-default" id="mobile-main-date-select" onclick="openModal('calendar-modal')">
+                            ND
+                        </button>
+                        <button class="button-icon secondary">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 

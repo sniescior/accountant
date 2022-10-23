@@ -27,7 +27,7 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #111;
+    background-color: #191919;
     width: 100vw;
     overflow-x: hidden;
 
@@ -91,6 +91,10 @@ body {
         padding: 0 20px;
         box-sizing: border-box;
 
+        .show-mobile {
+            display: none;
+        }
+
         .nav-tabs {
             display: flex;
             justify-content: center;
@@ -139,6 +143,38 @@ body {
                         background-color: $main_theme_color;
                     }
                 }
+            }
+        }
+    }
+
+    @media screen and (max-width: 900px) {
+        .nav-tabs-container {
+            flex-direction: column;
+
+            .nav-tabs {
+                margin: 0;
+                margin-top: 14px;
+                padding: 0;
+                box-sizing: border-box;
+                margin-right: 30px;
+                margin-left: 30px;
+                font-size: 1em;
+
+                &.main {
+                    .nav-link {
+                        margin: 2px 8px;
+                        padding: 0;
+                    }
+                }
+            }
+
+            .hide-mobile {
+                display: none;
+            }
+
+            .show-mobile {
+                margin-top: 12px;
+                display: flex;
             }
         }
     }
@@ -784,6 +820,11 @@ body {
             justify-content: flex-start;
         }
 
+        &.between {
+            width: 100%;
+            justify-content: space-between;
+        }
+
         &.column {
             flex-direction: column;
             gap: 10px;
@@ -844,7 +885,7 @@ body {
         overflow-y: hidden;
         
         &.visible {
-            z-index: 100000;
+            z-index: 10000000;
             opacity: 1;
         }
 
@@ -937,6 +978,7 @@ body {
         width: 100%;
         display: flex;
         overflow-x: hidden;
+        padding-bottom: 90px;
         
         .banner-text {
             height: 100vh;
@@ -966,6 +1008,7 @@ body {
             background-image: url('/public/images/background.jpg');
             background-position: center;
             background-size: cover;
+            position: fixed;
 
             .user-menu {
                 background-color: rgba(17, 17, 17, 0.7);
@@ -1049,6 +1092,9 @@ body {
                 padding: 0;
 
                 a {
+                    display: flex;
+                    align-items: center;
+
                     li {
                         position: relative;
                         i {
@@ -1116,7 +1162,7 @@ body {
                         gap: 18px;
                         flex-direction: column;
                         background-color: #151515;
-                        box-shadow: rgba(0, 0, 0, 0.05) 0px 54px 55px, rgba(0, 0, 0, 0.9) 0px -12px 30px, rgba(0, 0, 0, 0.9) 0px 4px 6px, rgba(0, 0, 0, 0.9) 0px 12px 13px, rgba(0, 0, 0, 0.9) 0px -3px 5px;
+                        box-shadow: rgba(0, 0, 0, 0.05) 0px 54px 55px, rgba(0, 0, 0, 0.6) 0px -12px 30px, rgba(0, 0, 0, 0.6) 0px 4px 6px, rgba(0, 0, 0, 0.6) 0px 12px 13px, rgba(0, 0, 0, 0.6) 0px -3px 5px;
                         z-index: -100;
                         opacity: 0;
                         pointer-events: none;
@@ -1160,24 +1206,13 @@ body {
             }
         }
 
-        @media screen and (max-width: 1190px) {
-            .user-menu-background {
-                display: none;
-            }
-
-            .bottom-tab-bar {
-                display: initial;
-            }
-        }
-
         .content-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
             position: relative;
-            overflow-y: scroll;
-            height: 100vh;
+            margin-left: 300px;
             padding-bottom: 40px;
             box-sizing: border-box;
 
@@ -1285,6 +1320,20 @@ body {
                 }
             }
 
+            @media screen and (max-width: 650px) {
+                .summary-table-container {
+                    .summary-table-header {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        margin-bottom: 20px;
+
+                        .button-wrapper {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
             .content {
                 width: 100%;
                 padding: 10px 20px;
@@ -1301,7 +1350,42 @@ body {
                 .quick-stats {
                     display: flex;
                     gap: 30px;
+
+                    .card {
+                        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                    }
                 }
+
+                @media screen and (max-width: 600px) {
+                    .quick-stats {
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: flex-start;
+
+                        .card {
+                            display: flex;
+                            flex-direction: row-reverse;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 0 12px;
+                            box-sizing: border-box;
+                        }
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 1190px) {
+            .user-menu-background {
+                display: none;
+            }
+
+            .bottom-tab-bar {
+                display: initial;
+            }
+
+            .content-container {
+                margin-left: 0;
             }
         }
     }
