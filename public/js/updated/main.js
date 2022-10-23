@@ -149,3 +149,8 @@ const mobileMenu = document.getElementById('mobile-menu')
 const toggleMobileMenu = () => {
     mobileMenu.classList.toggle('open')
 }
+
+const openDetailsMenu = (detailMenuID) => {
+    const detailMenu = document.getElementById(detailMenuID)
+    detailMenu.classList.toggle('extended')
+}
