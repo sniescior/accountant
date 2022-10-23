@@ -10,6 +10,15 @@ const mongoose = require('mongoose')
 const settingsRouter = require('./settingsRouter')
 const router = express.Router()
 
+const getCurrentTime = () => {
+    var currentDate = new Date()
+    const timeStamp = new Date(Date.UTC(currentDate.getFullYear(), 
+    currentDate.getMonth(),currentDate.getDate(),currentDate.getHours(), 
+    currentDate.getMinutes(),currentDate.getSeconds(), currentDate.getMilliseconds()))
+
+    return timeStamp
+}
+
 const getContext = async (req, res) => {
     const userID = mongoose.Types.ObjectId(req.user.id)
     const incomeCategories = await incomeCategory.find({ userID: userID })
@@ -40,12 +49,94 @@ const getContext = async (req, res) => {
     }
 }
 
+router.post('/getTransactions', async (req, res) => {
+    let payload = req.body.payload
+    let year = payload.year
+    let month = payload.month
+    let date = payload.date
+
+    const startDate = new Date(Date.UTC(year, month, date, 0, 0, 0, 0))
+    const endDate = new Date(Date.UTC(year, month, date, 23, 59, 59, 999))
+
+    const incomeTransactions = await incomeTransaction.find({
+        userID: req.user.id,
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        }
+    }, { _id: 0, userID: 0 })
+
+    const expenseTransactions = await expenseTransaction.find({
+        userID: req.user.id,
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        }
+    }, { _id: 0, userID: 0 })
+
+    let transactions = []
+    let promises = []
+
+    incomeTransactions.forEach(transaction => {
+        promises.push(
+            new Promise((resolve, reject) => {
+                let account = Account.findById(transaction.accountID).exec()
+                account.then((accountDoc) => {
+                    let category = incomeCategory.findById(transaction.incomeCategoryID).exec()
+                    category.then((categoryDoc) => {
+                        transactions.push({
+                            type: 'inc',
+                            accountName: accountDoc.name,
+                            title: transaction.title,
+                            note: transaction.note,
+                            amount: transaction.amount,
+                            category: categoryDoc.name
+                        })
+
+                        resolve()
+                    })
+                })
+            })
+        )
+    })
+
+    expenseTransactions.forEach(transaction => {
+        promises.push(
+            new Promise((resolve, reject) => {
+                let account = Account.findById(transaction.accountID).exec()
+                account.then((accountDoc) => {
+                    let category = expenseCategory.findById(transaction.expenseCategoryID).exec()
+                    category.then((categoryDoc) => {
+                        transactions.push({
+                            type: 'exp',
+                            accountName: accountDoc.name,
+                            title: transaction.title,
+                            note: transaction.note,
+                            amount: transaction.amount,
+                            category: categoryDoc.name
+                        })
+
+                        resolve()
+                    })
+                })
+            })
+        )
+    })
+
+    Promise.all(promises).then(() => {
+        console.log(transactions)
+        console.log('All done')
+        res.send({ transactions: transactions })
+    })
+})
+
 router.get('/', async (req, res) => {
     try {
         const { context, currentUser } = await getContext(req, res)
-
+        
         res.render('app/dashboard', { user: currentUser, context: context })
-    } catch {
+    } catch(error) {
+        console.log(error)
         res.redirect('/404')
     }
 })
@@ -58,9 +149,10 @@ router.post('/add/income-transaction', async (req, res) => {
     const body = req.body
 
     try {
-
         const accountRef = await Account.findOne({ userID: req.user.id, name: body.accountName })
         const incomeCategoryRef = await incomeCategory.findOne({ userID: req.user.id, name: body.incomeCategoryName })
+
+        const timeStamp = getCurrentTime()
 
         const newIncomeTransaction = new incomeTransaction({
             userID: req.user.id,
@@ -69,7 +161,7 @@ router.post('/add/income-transaction', async (req, res) => {
             title: body.title,
             amount: body.amount,
             note: body.note,
-            date: Date.now()
+            date: timeStamp
         })
 
         console.log(newIncomeTransaction)
@@ -78,6 +170,7 @@ router.post('/add/income-transaction', async (req, res) => {
 
         res.redirect('/app/dashboard')
     } catch(error) {
+        console.log(error)
         res.redirect('/app/dashboard')
     }
 })
@@ -89,8 +182,7 @@ router.post('/add/expense-transaction', async (req, res) => {
         const accountRef = await Account.findOne({ name: body.accountName })
         const expenseCategoryRef = await expenseCategory.findOne({ name: body.expenseCategoryName })
 
-        console.log(accountRef);
-        console.log(expenseCategoryRef);
+        const timeStamp = getCurrentTime()
 
         const newExpenseTransaction = new expenseTransaction({
             userID: req.user.id,
@@ -99,7 +191,7 @@ router.post('/add/expense-transaction', async (req, res) => {
             title: body.title,
             amount: body.amount,
             note: body.note,
-            date: Date.now()
+            date: timeStamp
         })
 
         await newExpenseTransaction.save()

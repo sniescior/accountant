@@ -22,16 +22,6 @@ const setDate = () => {
 
     restElement.innerHTML = (currentMonth + 1) + '.' + currentYear
 
-    const mainDateSelect = document.getElementById('main-date-select')
-    const mobileMainDateSelect = document.getElementById('mobile-main-date-select')
-    const dateSelectElements = []
-    dateSelectElements.push(mainDateSelect)
-    dateSelectElements.push(mobileMainDateSelect)
-
-    dateSelectElements.forEach(element => {
-        element.innerHTML = currentYear + ' ' + months[currentMonth]
-    })
-
     const calendarYearSelect = document.getElementById('modal-calendar-year-select')
     calendarYearSelect.innerHTML = currentYear
 

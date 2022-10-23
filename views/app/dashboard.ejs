@@ -251,32 +251,7 @@
                     <li class="nav-link" role="presentation" onclick="setTab(this, 'monthly')">Monthly</li>
                     <li class="nav-link" role="presentation" onclick="setTab(this, 'summary')">Summary</li>
                 </ul>
-                <div class="button-wrapper hide-mobile">
-                    <button class="button-icon secondary">
-                        <i class="bi bi-chevron-left"></i>
-                    </button>
-                    <button class="button-secondary text-default" id="main-date-select" onclick="openModal('calendar-modal')">
-                        ND
-                    </button>
-                    <button class="button-icon secondary">
-                        <i class="bi bi-chevron-right"></i>
-                    </button>
-                </div>
-
-                <div class="button-wrapper show-mobile">
-                    <div class="button-wrapper between">
-                        <button class="button-primary" onclick="openModal('add-transaction-modal')">Add transaction</button>
-                        <button class="button-icon secondary">
-                            <i class="bi bi-chevron-left"></i>
-                        </button>
-                        <button class="button-secondary text-default" id="mobile-main-date-select" onclick="openModal('calendar-modal')">
-                            ND
-                        </button>
-                        <button class="button-icon secondary">
-                            <i class="bi bi-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
+                <button class="button-primary hidden">Add transaction</button>
             </div>
 
             <div class="tab active" id="daily" role="tabpanel">
@@ -302,11 +277,11 @@
                     </div>
                     <div class="summary-table-container">
                         <div class="summary-table-header">
-                            <div class="date">
+                            <button class="date" onclick="openModal('calendar-modal')">
                                 <h2 class="day" id="current-date-day">ND</h2>
                                 <h2 class="weekday" id="current-date-weekday">ND</h2>
                                 <h2 class="rest" id="current-date-rest">ND</h2>
-                            </div>
+                            </button>
                             <div class="button-wrapper">
                                 <div class="input-wrapper">
                                     <i class="bi bi-search"></i>
@@ -318,7 +293,7 @@
                             </div>
                         </div>
                         <table class="summary-table">
-                            <tbody>
+                            <tbody id="transactions-table-body">
                                 <tr>
                                     <td class="category">
                                         <h2>
@@ -338,28 +313,6 @@
                                     <td class="amount income">
                                         <h2>
                                             £10
-                                        </h2>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="category">
-                                        <h2>
-                                            Income
-                                        </h2>
-                                    </td>
-                                    <td>
-                                        <div class="note">    
-                                            <h2>
-                                                Salary
-                                            </h2>
-                                            <h3>
-                                                Card #1
-                                            </h3>
-                                        </div>
-                                    </td>
-                                    <td class="amount income">
-                                        <h2>
-                                            £1000
                                         </h2>
                                     </td>
                                 </tr>
@@ -401,28 +354,6 @@
                                     <td class="amount expense">
                                         <h2>
                                             £6
-                                        </h2>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="category">
-                                        <h2>
-                                            Food
-                                        </h2>
-                                    </td>
-                                    <td>
-                                        <div class="note">
-                                            <h2>
-                                                Groceries
-                                            </h2>
-                                            <h3>
-                                                Card #1
-                                            </h3>
-                                        </div>
-                                    </td>
-                                    <td class="amount expense">
-                                        <h2>
-                                            £30
                                         </h2>
                                     </td>
                                 </tr>
@@ -489,9 +420,9 @@
                 Summary - coming soon
             </div>
         </div>
-
     </div>
-    <script type="text/javascript" src="/public/js/updated/main.js"></script>
+    <script type="text/javascript" src="/public/js/main.js"></script>
     <script type="text/javascript" src="/public/js/dates.js"></script>
+    <script type="text/javascript" src="/public/js/query.js"></script>
 </body>
 </html>
