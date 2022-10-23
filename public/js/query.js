@@ -19,10 +19,42 @@ const createTextElement = (text, textType) => {
     const h2 = document.createElement(textType)
     const textElement = document.createTextNode(text)
     h2.appendChild(textElement)
-
     console.log('Created text node: ', h2)
-
     return h2
+}
+
+const createDiv = (className = '') => {
+    const div = document.createElement('div')
+    div.classList.add(className)
+    return div
+}
+
+const transactionsTableBody = document.getElementById('transactions-table-body')
+const renderTransactions = (transactions) => {
+    transactions.forEach(transaction => {
+        const tr = document.createElement('tr')
+        
+        const tdCategory = document.createElement('td')
+        tdCategory.classList.add('category')
+        tdCategory.appendChild(createTextElement(transaction.category, 'h2'))
+        
+        const tdNote = document.createElement('td')
+        const divNote = createDiv('note')
+        divNote.appendChild(createTextElement(transaction.title, 'h2'))
+        divNote.appendChild(createTextElement(transaction.accountName, 'h3'))
+        tdNote.appendChild(divNote)
+
+        const tdAmount = document.createElement('td')
+        tdAmount.classList.add('amount')
+        tdAmount.classList.add(transaction.type)
+        tdAmount.appendChild(createTextElement('£' + transaction.amount, 'h2'))
+
+        tr.appendChild(tdCategory)
+        tr.appendChild(tdNote)
+        tr.appendChild(tdAmount)
+
+        transactionsTableBody.appendChild(tr)
+    });
 }
 
 window.addEventListener('load', () => {
@@ -31,9 +63,7 @@ window.addEventListener('load', () => {
         const timeStamp = getCurrentTime()
         const year = timeStamp.getFullYear()
         const month = timeStamp.getMonth()
-        const date = timeStamp.getDate()
-
-        let finalTransactions = []
+        const date = timeStamp.getDate() - 1
 
         fetch('dashboard/getTransactions', {
             method: 'POST',
@@ -48,7 +78,9 @@ window.addEventListener('load', () => {
                 }
             })
         }).then((res) => res.json().then(async (data) => {
-            console.log(data.transactions)
+            renderTransactions(data.transactions)
+            const loader = document.getElementById('transaction-spinner')
+            loader.classList.add('loaded')
         }))
     }
 

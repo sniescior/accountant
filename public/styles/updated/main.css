@@ -11,6 +11,59 @@ body {
 body ::-webkit-scrollbar {
   display: none;
 }
+body .lds-ring {
+  display: inline-block;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  left: 50%;
+  bottom: -100px;
+  transform: translateX(-50%);
+}
+body .lds-ring.loaded {
+  display: none;
+}
+body .lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  -webkit-animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+body .lds-ring:nth-child(1) {
+  -webkit-animation-delay: -0.45s;
+          animation-delay: -0.45s;
+}
+body .lds-ring:nth-child(2) {
+  -webkit-animation-delay: -0.3s;
+          animation-delay: -0.3s;
+}
+body .lds-ring:nth-child(3) {
+  -webkit-animation-delay: -0.15s;
+          animation-delay: -0.15s;
+}
+@-webkit-keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 body .details-menu {
   display: flex;
   cursor: pointer;
@@ -1081,10 +1134,10 @@ body #app-container .content-container .summary-table-container .summary-table t
   margin: 4px 10px;
   color: rgba(238, 238, 238, 0.5);
 }
-body #app-container .content-container .summary-table-container .summary-table tr td.amount.expense h2 {
+body #app-container .content-container .summary-table-container .summary-table tr td.amount.exp h2 {
   color: #dc3545;
 }
-body #app-container .content-container .summary-table-container .summary-table tr td.amount.income h2 {
+body #app-container .content-container .summary-table-container .summary-table tr td.amount.inc h2 {
   color: rgb(25, 135, 84);
 }
 body #app-container .content-container .summary-table-container .summary-table tr td.amount h2 {

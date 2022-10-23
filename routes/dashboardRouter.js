@@ -85,7 +85,7 @@ router.post('/getTransactions', async (req, res) => {
                     let category = incomeCategory.findById(transaction.incomeCategoryID).exec()
                     category.then((categoryDoc) => {
                         transactions.push({
-                            type: 'inc',
+                            type: 'inc',    // inc -> income transaction
                             accountName: accountDoc.name,
                             title: transaction.title,
                             note: transaction.note,
@@ -108,7 +108,7 @@ router.post('/getTransactions', async (req, res) => {
                     let category = expenseCategory.findById(transaction.expenseCategoryID).exec()
                     category.then((categoryDoc) => {
                         transactions.push({
-                            type: 'exp',
+                            type: 'exp',    // exp -> expense transaction
                             accountName: accountDoc.name,
                             title: transaction.title,
                             note: transaction.note,
