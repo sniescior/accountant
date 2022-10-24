@@ -49,14 +49,40 @@ const getContext = async (req, res) => {
     }
 }
 
+const getQuickStats = async (req, res) => {
+    const incomeTransactions = await incomeTransaction.find({ userID: req.user.id }, { _id: 0, amount: 1})
+    const expenseTransactions = await expenseTransaction.find({ userID: req.user.id }, { _id: 0, amount: 1})
+
+    let incomes = 0
+    let expenses = 0
+    let total = 0
+
+    incomeTransactions.forEach(transaction => incomes += transaction.amount)
+    expenseTransactions.forEach(transaction => expenses += transaction.amount)
+
+    total = incomes - expenses
+
+    let query = { incomes: incomes, expenses: expenses, total: total }
+
+    res.send(query)
+}
+
+const getDaysInMonth = (year, month) => {
+    let daysCount = 0
+
+    daysCount = new Date(year, month, 0).getDate()
+
+    return daysCount
+}
+
 router.post('/getTransactions', async (req, res) => {
     let payload = req.body.payload
     let year = payload.year
     let month = payload.month
     let date = payload.date
 
-    const startDate = new Date(Date.UTC(year, month, date, 0, 0, 0, 0))
-    const endDate = new Date(Date.UTC(year, month, date, 23, 59, 59, 999))
+    const startDate = new Date(Date.UTC(year, month, 0, 0, 0, 0, 0))
+    const endDate = new Date(Date.UTC(year, month, getDaysInMonth(year, month), 23, 59, 59, 999))
 
     const incomeTransactions = await incomeTransaction.find({
         userID: req.user.id,
@@ -77,6 +103,11 @@ router.post('/getTransactions', async (req, res) => {
     let transactions = []
     let promises = []
 
+    // For quick stats
+    let incomes = 0
+    let expenses = 0
+    let total = 0
+
     incomeTransactions.forEach(transaction => {
         promises.push(
             new Promise((resolve, reject) => {
@@ -90,7 +121,8 @@ router.post('/getTransactions', async (req, res) => {
                             title: transaction.title,
                             note: transaction.note,
                             amount: transaction.amount,
-                            category: categoryDoc.name
+                            category: categoryDoc.name,
+                            date: transaction.date
                         })
 
                         resolve()
@@ -98,6 +130,8 @@ router.post('/getTransactions', async (req, res) => {
                 })
             })
         )
+
+        incomes += transaction.amount
     })
 
     expenseTransactions.forEach(transaction => {
@@ -113,7 +147,8 @@ router.post('/getTransactions', async (req, res) => {
                             title: transaction.title,
                             note: transaction.note,
                             amount: transaction.amount,
-                            category: categoryDoc.name
+                            category: categoryDoc.name,
+                            date: transaction.date
                         })
 
                         resolve()
@@ -121,12 +156,17 @@ router.post('/getTransactions', async (req, res) => {
                 })
             })
         )
-    })
 
+        expenses += transaction.amount
+    })
+    
     Promise.all(promises).then(() => {
-        console.log(transactions)
-        console.log('All done')
-        res.send({ transactions: transactions })
+        total = incomes - expenses
+
+        // Sort by date
+        const sortedTransactions = transactions.sort((docA, docB) => Number(docB.date) - Number(docA.date))
+
+        res.send({ transactions: sortedTransactions, total: total, incomes: incomes, expenses: expenses })
     })
 })
 

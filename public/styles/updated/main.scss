@@ -35,51 +35,71 @@ body {
         display: none;
     }
 
-    .lds-ring {
-        display: inline-block;
-        position: absolute;
-        width: 80px;
-        height: 80px;
-        left: 50%;
-        bottom: -100px;
-        transform: translateX(-50%);
-
+    .spinner {
         &.loaded {
             display: none;
         }
 
-        div {
-            box-sizing: border-box;
-            display: block;
-            position: absolute;
-            width: 64px;
-            height: 64px;
-            margin: 8px;
-            border: 8px solid #fff;
-            border-radius: 50%;
-            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-            border-color: #fff transparent transparent transparent;
-        }
-
-        &:nth-child(1) {
-            animation-delay: -0.45s;
-        }
-
-        &:nth-child(2) {
-            animation-delay: -0.3s;
-        }
-
-        &:nth-child(3) {
-            animation-delay: -0.15s;
+        .lds-ring {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            
+            div {
+                box-sizing: border-box;
+                display: block;
+                position: absolute;
+                width: 34px;
+                height: 34px;
+                margin: 7px;
+                border: 5px solid #fff;
+                border-radius: 50%;
+                animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                border-color: #fff transparent transparent transparent;
+            }
+            
+            &.absolute {
+                width: 80px;
+                height: 80px;
+                position: absolute;
+                bottom: -100px;
+                left: 50%;
+                transform: translateX(-50%);
+                
+                div {
+                    box-sizing: border-box;
+                    display: block;
+                    position: absolute;
+                    width: 64px;
+                    height: 64px;
+                    margin: 8px;
+                    border: 8px solid #fff;
+                    border-radius: 50%;
+                    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                    border-color: #fff transparent transparent transparent;
+                }
+            }
+            
+            &:nth-child(1) {
+                animation-delay: -0.45s;
+            }
+            
+            &:nth-child(2) {
+                animation-delay: -0.3s;
+            }
+            
+            &:nth-child(3) {
+                animation-delay: -0.15s;
+            }
         }
     }
     
     @keyframes lds-ring {
         0% {
-        transform: rotate(0deg);
+            transform: rotate(0deg);
         }
         100% {
-        transform: rotate(360deg);
+            transform: rotate(360deg);
         }
     }
     
@@ -666,10 +686,27 @@ body {
         background-color: rgba(25, 25, 25, 0.3);
         text-align: center;
 
+        h2 {
+            margin: 0;
+            line-height: 50px;
+            padding: 12px 0;
+        }
+
         h3 {
             color: $dimmed_white_font_color;
             text-transform: uppercase;
             font-size: .9em;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            padding: 12px 0;
+
+            &.loaded {
+                display: none;
+            }
         }
     }
 
@@ -1210,10 +1247,11 @@ body {
                         gap: 18px;
                         flex-direction: column;
                         background-color: #151515;
-                        box-shadow: rgba(0, 0, 0, 0.05) 0px 54px 55px, rgba(0, 0, 0, 0.6) 0px -12px 30px, rgba(0, 0, 0, 0.6) 0px 4px 6px, rgba(0, 0, 0, 0.6) 0px 12px 13px, rgba(0, 0, 0, 0.6) 0px -3px 5px;
+                        box-shadow: rgba(0, 0, 0, 0.05) 0px 54px 55px, rgba(0, 0, 0, 0.15) 0px -12px 30px, rgba(0, 0, 0, 0.15) 0px 4px 6px, rgba(0, 0, 0, 0.15) 0px 12px 13px, rgba(0, 0, 0, 0.15) 0px -3px 5px;
                         z-index: -100;
                         opacity: 0;
                         pointer-events: none;
+                        padding: 24px 18px;
 
                         &.extended {
                             opacity: 1;
@@ -1292,7 +1330,7 @@ body {
                             border: 2px solid rgb(43, 43, 43, 0.6);
                         }
         
-                        .weekday {
+                        .month {
                             background-color: $main_theme_color;
                             padding: 4px 9px;
                             border-radius: 8px;
@@ -1310,14 +1348,53 @@ body {
                     border-collapse: collapse;
         
                     tr {
-                        border-bottom: 2px solid $white_table_border;
                         transition: .1s ease-in-out;
                         cursor: pointer;
+                        border-bottom: 2px solid transparent;
+                        opacity: 0;
+                        transition: .3s ease-in-out; 
+                        
+                        &.loaded {
+                            border-bottom: 2px solid rgba(85, 85, 85, 0.2);
+                            opacity: 1;
+                        }
                         
                         &:hover {
-                            background-color: $white_table_row_hover;
+                            background-color: rgba(71, 71, 71, 0.2);
+                            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                            border-bottom: 2px solid transparent;
                         }
-        
+
+                        &.date-row {
+                            border-bottom: none;
+                            cursor: default;
+
+                            th {
+                                display: flex;
+                                justify-content: flex-start;
+                                margin-left: 10px;
+                                padding: 0;
+
+                                h2 {
+                                    color: $dimmed_white_font_color_hover;
+                                    font-size: 1.4em;
+                                    padding-top: 20px;
+                                    padding-bottom: 12px;
+                                    margin: 0;
+                                }
+
+                                &:hover {
+                                    background-color: transparent;
+                                }
+                            }
+
+                            &:hover {
+                                box-shadow: none;
+                                border-bottom: none;
+                                background-color: transparent;
+                            }
+                        }
+                        
                         td {
                             .note {
                                 display: flex;
@@ -1325,15 +1402,24 @@ body {
                                 align-items: flex-start;
                                 justify-content: center;
                                 padding: 8px 0;
-        
+                                
                                 i {
                                     font-size: 1.2em;
                                 }
+                            }
+
+                            &:first-of-type {
+                                border-radius: 12px 0 0 12px;
+                            }
+                            
+                            &:last-of-type {
+                                border-radius: 0 12px 12px 0;
                             }
         
                             &.category {
                                 h2 {
                                     min-height: 70px;
+                                    font-weight: 600;
                                 }
                             }
                             
@@ -1342,11 +1428,16 @@ body {
                                 align-items: center;
                                 color: $white_font_color;
                                 margin: 0 10px;
+                                font-weight: 500;
+                                font-size: 1em;
                             }
                             
                             h3 {
                                 margin: 4px 10px;
+                                margin-bottom: 0;
                                 color: $dimmed_white_font_color;
+                                font-size: 0.9em;
+                                font-weight: 400;
                             }
                             
                             &.amount {
@@ -1379,6 +1470,7 @@ body {
         
                     h2 {
                         margin: 0 10px;
+                        font-size: 1.2em;
                     }
                 }
             }
@@ -1387,8 +1479,12 @@ body {
                 .summary-table-container {
                     .summary-table-header {
                         flex-direction: column;
-                        align-items: flex-start;
+                        align-items: center;
                         margin-bottom: 20px;
+
+                        .date {
+                            margin-bottom: 12px;
+                        }
 
                         .button-wrapper {
                             width: 100%;
@@ -1407,7 +1503,21 @@ body {
 
                 .subcontent-title {
                     color: $white_font_color;
-                    font-size: 1.3em;
+                    font-size: 1.2em;
+
+                    h2 {
+                        margin-bottom: 0;
+                    }
+
+                    h3 {
+                        font-size: 1em;
+                        color: $dimmed_white_font_color_hover;
+                        margin-top: 8px;
+
+                        .month-label {
+                            color: $main_theme_color;
+                        }
+                    }
                 }
 
                 .quick-stats {
@@ -1432,6 +1542,10 @@ body {
                             justify-content: space-between;
                             padding: 0 12px;
                             box-sizing: border-box;
+
+                            h2 {
+                                font-size: 1.2em;
+                            }
                         }
                     }
                 }

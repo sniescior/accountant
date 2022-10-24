@@ -1,4 +1,3 @@
-const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
 const getDate = () => {
@@ -13,14 +12,14 @@ const getDate = () => {
 const setDate = () => {
     const { currentYear, currentMonth, currentDay, currentDayOfWeek } = getDate()
 
-    const dayElement = document.getElementById('current-date-day')
-    const weekdayElement = document.getElementById('current-date-weekday')
-    const restElement = document.getElementById('current-date-rest')
+    document.getElementById('selected-month-label').innerHTML += months[currentMonth]
 
-    dayElement.innerHTML = currentDay
-    weekdayElement.innerHTML = weekdays[currentDayOfWeek]
+    const monthElement = document.getElementById('current-date-month')
+    const dateElement = document.getElementById('current-date-year')
 
-    restElement.innerHTML = (currentMonth + 1) + '.' + currentYear
+    monthElement.innerHTML = months[currentMonth]
+
+    dateElement.innerHTML = currentYear
 
     const calendarYearSelect = document.getElementById('modal-calendar-year-select')
     calendarYearSelect.innerHTML = currentYear
