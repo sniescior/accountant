@@ -2,7 +2,7 @@
 
 ## What is Accountant?
 
-Accountant provides you with many options for keeping track on your finances.
+Web app that provides you with many options for keeping track of your finances.
 
 ## Requirements
  - Node
@@ -28,8 +28,10 @@ DB_STARTER_DATA_OBJECT_ID=""
 PORT=""
 ```
 
-DB_STARTER_DATA_OBJECT_ID - id of a document in the database defined with [databaseSchema](models/starterData.js).  
+DB_STARTER_DATA_OBJECT_ID - id of a document in the database defined with [starterDataSchema](models/starterData.js).  
 Keep in mind that initially this object should be stored in separate collection.
+
+DB_CONNECTION_STRING - MongoDB connection string
 
 PORT field is optional (default is 3000).
 
