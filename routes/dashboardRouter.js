@@ -23,6 +23,8 @@ const getContext = async (req, res) => {
     const userID = mongoose.Types.ObjectId(req.user.id)
     const incomeCategories = await incomeCategory.find({ userID: userID })
     const expenseCategories = await expenseCategory.find({ userID: userID })
+    const incomeTransactions = await incomeTransaction.find({ userID: userID })
+    const expenseTransactions = await expenseTransaction.find({ userID: userID })
     const accountGroups = await accountGroup.find({ userID: userID })
     const accounts = await Account.find({ userID: req.user.id })
     
@@ -35,6 +37,8 @@ const getContext = async (req, res) => {
     })
     
     const context = {
+        incomeTransactions: incomeTransactions,
+        expenseTransactions: expenseTransactions,
         incomeCategories: incomeCategories,
         expenseCategories: expenseCategories,
         budgetSetCategories: budgetSetCategories,
@@ -49,24 +53,6 @@ const getContext = async (req, res) => {
     }
 }
 
-const getQuickStats = async (req, res) => {
-    const incomeTransactions = await incomeTransaction.find({ userID: req.user.id }, { _id: 0, amount: 1})
-    const expenseTransactions = await expenseTransaction.find({ userID: req.user.id }, { _id: 0, amount: 1})
-
-    let incomes = 0
-    let expenses = 0
-    let total = 0
-
-    incomeTransactions.forEach(transaction => incomes += transaction.amount)
-    expenseTransactions.forEach(transaction => expenses += transaction.amount)
-
-    total = incomes - expenses
-
-    let query = { incomes: incomes, expenses: expenses, total: total }
-
-    res.send(query)
-}
-
 const getDaysInMonth = (year, month) => {
     let daysCount = 0
 
@@ -75,7 +61,7 @@ const getDaysInMonth = (year, month) => {
     return daysCount
 }
 
-router.post('/getTransactions', async (req, res) => {
+router.post('/get-transactions', async (req, res) => {
     let payload = req.body.payload
     let year = payload.year
     let month = payload.month
@@ -90,7 +76,7 @@ router.post('/getTransactions', async (req, res) => {
             $gte: startDate,
             $lte: endDate
         }
-    }, { _id: 0, userID: 0 })
+    }, { userID: 0 })
 
     const expenseTransactions = await expenseTransaction.find({
         userID: req.user.id,
@@ -98,7 +84,19 @@ router.post('/getTransactions', async (req, res) => {
             $gte: startDate,
             $lte: endDate
         }
-    }, { _id: 0, userID: 0 })
+    }, { userID: 0 })
+
+    const incomeCategories = await incomeCategory.find({
+        userID: req.user.id
+    })
+
+    const expenseCategories = await expenseCategory.find({
+        userID: req.user.id
+    })
+
+    const accountsCategories = await expenseCategory.find({
+        userID: req.user.id
+    })
 
     let transactions = []
     let promises = []
@@ -116,6 +114,7 @@ router.post('/getTransactions', async (req, res) => {
                     let category = incomeCategory.findById(transaction.incomeCategoryID).exec()
                     category.then((categoryDoc) => {
                         transactions.push({
+                            id: transaction._id,
                             type: 'inc',    // inc -> income transaction
                             accountName: accountDoc.name,
                             title: transaction.title,
@@ -142,6 +141,7 @@ router.post('/getTransactions', async (req, res) => {
                     let category = expenseCategory.findById(transaction.expenseCategoryID).exec()
                     category.then((categoryDoc) => {
                         transactions.push({
+                            id: transaction._id,
                             type: 'exp',    // exp -> expense transaction
                             accountName: accountDoc.name,
                             title: transaction.title,
@@ -166,7 +166,7 @@ router.post('/getTransactions', async (req, res) => {
         // Sort by date
         const sortedTransactions = transactions.sort((docA, docB) => Number(docB.date) - Number(docA.date))
 
-        res.send({ transactions: sortedTransactions, total: total, incomes: incomes, expenses: expenses })
+        res.send({ transactions: sortedTransactions, total: total, incomes: incomes, expenses: expenses, incomeCategories: incomeCategories, expenseCategories: expenseCategories })
     })
 })
 
