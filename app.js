@@ -66,6 +66,6 @@ app.use(appRouter)
  * ------------- SERVER -------------
  */
 
-var listener = app.listen(3000, (e) => {
+var listener = app.listen(process.env.PORT || 3000, (e) => {
     console.log(`App is listening on http://localhost:${listener.address().port}`);
 })
